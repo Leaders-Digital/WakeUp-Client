@@ -7,7 +7,7 @@ export const ProfileAside = () => {
     <>
       <div className='profile-aside'>
         <div className='profile-aside__subscribe'>
-          <h3>Stay in touch</h3>
+          <h3>Stay in touch s</h3>
           <div className='box-field'>
             <input
               type='email'

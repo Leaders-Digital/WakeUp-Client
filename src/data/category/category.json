@@ -1,32 +1,37 @@
 [
   {
-    "categoryId": "spa",
-    "name": "SPA",
+    "categoryId": "FACE",
+    "name": "FACE",
     "image": "/assets/img/top-categories-img1.jpg"
   },
   {
-    "categoryId": "nails",
-    "name": "Nails",
+    "categoryId": "Brush",
+    "name": "Brush",
     "image": "/assets/img/top-categories-img2.jpg"
   },
   {
-    "categoryId": "perfume",
-    "name": "Perfume",
+    "categoryId": "EYES",
+    "name": "EYES",
     "image": "/assets/img/top-categories-img3.jpg"
   },
   {
-    "categoryId": "makeup",
-    "name": "Make Up",
+    "categoryId": "FACE AND BODY",
+    "name": "FACE AND BODY",
     "image": "/assets/img/top-categories-img4.jpg"
   },
   {
-    "categoryId": "skin",
-    "name": "Skin",
+    "categoryId": "BODY",
+    "name": "BODY",
     "image": "/assets/img/top-categories-img5.jpg"
   },
   {
-    "categoryId": "hair",
-    "name": "Hair",
+    "categoryId": "HAIR",
+    "name": "HAIR",
+    "image": "/assets/img/top-categories-img6.jpg"
+  },
+  {
+    "categoryId": "LIPS",
+    "name": "LIPS",
     "image": "/assets/img/top-categories-img6.jpg"
   }
 ]
