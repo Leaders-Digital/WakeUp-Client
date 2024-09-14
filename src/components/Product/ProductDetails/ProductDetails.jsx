@@ -44,7 +44,7 @@ export const ProductDetails = () => {
   return (
     <>
       {/* <!-- BEGIN PRODUCT --> */}
-      <div className='product'>
+      <div className='product' >
         <div className='wrapper'>
           <div className='product-content'>
             {/* <!-- Product Main Slider --> */}
@@ -74,7 +74,7 @@ export const ProductDetails = () => {
               </div>
 
               {/* <!-- Product Slide Nav --> */}
-              <div className='product-slider__nav'>
+              <div className='product-slider__nav' >
                 <Slider
                   arrows={false}
                   asNavFor={nav1}
@@ -91,7 +91,7 @@ export const ProductDetails = () => {
                 </Slider>
               </div>
             </div>
-            <div className='product-info'>
+            <div className='product-info' style={{background:"#eee"}}>
               <h3>{product.name}</h3>
               {product.isStocked ? (
                 <span className='product-stock'>in stock</span>

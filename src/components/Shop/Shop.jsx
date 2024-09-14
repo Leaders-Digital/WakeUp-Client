@@ -1,28 +1,54 @@
-import { Products } from 'components/Product/Products/Products';
-import { PagingList } from 'components/shared/PagingList/PagingList';
-import { usePagination } from 'components/utils/Pagination/Pagination';
-import productData from 'data/product/product';
-import Slider from 'rc-slider';
-import { useEffect, useState } from 'react';
-import Dropdown from 'react-dropdown';
-import { AsideItem } from '../shared/AsideItem/AsideItem';
+import { Products } from "components/Product/Products/Products";
+import { PagingList } from "components/shared/PagingList/PagingList";
+import { usePagination } from "components/utils/Pagination/Pagination";
+// import productData from "data/product/product";
+import Slider from "rc-slider";
+import { useEffect, useState } from "react";
+import Dropdown from "react-dropdown";
+import { AsideItem } from "../shared/AsideItem/AsideItem";
+import axios from "axios";
 
 // React Range
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
 const options = [
-  { value: 'highToMin', label: 'From expensive to cheap' },
-  { value: 'minToHigh', label: 'From cheap to expensive' },
+  { value: "highToMin", label: "From expensive to cheap" },
+  { value: "minToHigh", label: "From cheap to expensive" },
 ];
 export const Shop = () => {
+  const [productData, setProductData] = useState([]);
   const allProducts = [...productData];
 
   const [productOrder, setProductOrder] = useState(
     allProducts.sort((a, b) => (a.price < b.price ? 1 : -1))
   );
-
+  const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([...productOrder]);
   const [filter, setFilter] = useState({ isNew: false, isSale: true });
+
+  const getCategories = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:7000/api/product/get-category"
+      );
+      console.log(res.data.categoryCounts);
+      setCategories(res.data.categoryCounts);
+    } catch (error) {}
+  };
+
+  const getProducts = async () => {
+    try {
+      const res = await axios.get("http://localhost:7000/api/product/all");
+      console.log(res.data.products);
+      setProductData(res.data.products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getProducts();
+    getCategories();
+  }, []);
 
   useEffect(() => {
     setProducts(productOrder);
@@ -49,11 +75,11 @@ export const Shop = () => {
   const paginate = usePagination(products, 9);
 
   const handleSort = (value) => {
-    if (value === 'highToMin') {
+    if (value === "highToMin") {
       const newOrder = allProducts.sort((a, b) => (a.price < b.price ? 1 : -1));
       setProductOrder(newOrder);
     }
-    if (value === 'minToHigh') {
+    if (value === "minToHigh") {
       const newOrder = allProducts.sort((a, b) => (a.price > b.price ? 1 : -1));
       setProductOrder(newOrder);
     }
@@ -62,57 +88,37 @@ export const Shop = () => {
   return (
     <div>
       {/* <!-- BEGIN SHOP --> */}
-      <div className='shop'>
-        <div className='wrapper'>
-          <div className='shop-content'>
+      <div className="shop">
+        <div className="wrapper">
+          <div className="shop-content">
             {/* <!-- Shop Aside --> */}
-            <div className='shop-aside'>
-              <div className='box-field box-field__search'>
+            <div className="shop-aside">
+              <div className="box-field box-field__search">
                 <input
-                  type='search'
-                  className='form-control'
-                  placeholder='Search'
+                  type="search"
+                  className="form-control"
+                  placeholder="Search"
                 />
-                <i className='icon-search'></i>
+                <i className="icon-search"></i>
               </div>
-              <div className='shop-aside__item'>
-                <span className='shop-aside__item-title'>Categories</span>
+              <div className="shop-aside__item">
+                <span className="shop-aside__item-title">Categories</span>
+
                 <ul>
-                  <li>
-                    <a href='#'>
-                      Make up <span>(37)</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      SPA <span>(162)</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      Perfume <span>(153)</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      Nails <span>(86)</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      Skin care <span>(48)</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      Hair care <span>(54)</span>
-                    </a>
-                  </li>
+                  {categories.map((category) => {
+                    return (
+                      <li>
+                        <a href="#">
+                          {category._id} <span>({category.count})</span>
+                        </a>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
-              <div className='shop-aside__item'>
-                <span className='shop-aside__item-title'>Price</span>
-                <div className='range-slider'>
+              <div className="shop-aside__item">
+                <span className="shop-aside__item-title">Price</span>
+                <div className="range-slider">
                   <Range
                     min={0}
                     max={20}
@@ -120,63 +126,63 @@ export const Shop = () => {
                     tipFormatter={(value) => `${value}$`}
                     allowCross={false}
                     tipProps={{
-                      placement: 'bottom',
-                      prefixCls: 'rc-slider-tooltip',
+                      placement: "bottom",
+                      prefixCls: "rc-slider-tooltip",
                     }}
                   />
                 </div>
               </div>
-              <div className='shop-aside__item'>
-                <span className='shop-aside__item-title'>You have viewed</span>
+              <div className="shop-aside__item">
+                <span className="shop-aside__item-title">You have viewed</span>
                 {recentlyViewed.map((data) => (
                   <AsideItem key={data.id} aside={data} />
                 ))}
               </div>
-              <div className='shop-aside__item'>
-                <span className='shop-aside__item-title'>Top 3 for today</span>
+              <div className="shop-aside__item">
+                <span className="shop-aside__item-title">Top 3 for today</span>
                 {todaysTop.map((data) => (
                   <AsideItem key={data.id} aside={data} />
                 ))}
               </div>
             </div>
             {/* <!-- Shop Main --> */}
-            <div className='shop-main'>
-              <div className='shop-main__filter'>
-                <div className='shop-main__checkboxes'>
-                  <label className='checkbox-box'>
+            <div className="shop-main">
+              <div className="shop-main__filter">
+                <div className="shop-main__checkboxes">
+                  <label className="checkbox-box">
                     <input
                       checked={filter.isSale}
                       onChange={() =>
                         setFilter({ ...filter, isSale: !filter.isSale })
                       }
-                      type='checkbox'
+                      type="checkbox"
                     />
-                    <span className='checkmark'></span>
+                    <span className="checkmark"></span>
                     SALE
                   </label>
-                  <label className='checkbox-box'>
+                  <label className="checkbox-box">
                     <input
                       checked={filter.isNew}
                       onChange={() =>
                         setFilter({ ...filter, isNew: !filter.isNew })
                       }
-                      type='checkbox'
+                      type="checkbox"
                     />
-                    <span className='checkmark'></span>
+                    <span className="checkmark"></span>
                     NEW
                   </label>
                 </div>
-                <div className='shop-main__select'>
+                <div className="shop-main__select">
                   <Dropdown
                     options={options}
-                    className='react-dropdown'
+                    className="react-dropdown"
                     onChange={(option) => handleSort(option.value)}
                     value={options[0]}
                   />
                 </div>
               </div>
-              <div className='shop-main__items'>
-                <Products products={paginate?.currentData()} />
+              <div className="shop-main__items">
+                <Products products={productData} />
               </div>
 
               {/* <!-- PAGINATE LIST --> */}
@@ -185,14 +191,14 @@ export const Shop = () => {
           </div>
         </div>
         <img
-          className='promo-video__decor js-img'
-          src='/assets/img/promo-video__decor.jpg'
-          alt=''
+          className="promo-video__decor js-img"
+          src="/assets/img/promo-video__decor.jpg"
+          alt=""
         />
         <img
-          className='shop-decor js-img'
-          src='/assets/img/shop-decor.jpg'
-          alt=''
+          className="shop-decor js-img"
+          src="/assets/img/shop-decor.jpg"
+          alt=""
         />
       </div>
       {/* <!-- SHOP EOF   --> */}

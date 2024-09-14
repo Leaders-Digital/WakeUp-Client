@@ -4,6 +4,7 @@ import { SingleProduct } from './SingleProduct/SingleProduct';
 
 export const Products = ({ products }) => {
   const { cart, setCart } = useContext(CartContext);
+console.log("from Products",products) ;
 
   const handleAddToCart = (id) => {
     const newProduct = products?.find((pd) => pd.id === id);

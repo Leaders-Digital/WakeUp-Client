@@ -6,17 +6,19 @@ export const SingleProduct = ({
   onAddToCart,
   addedInCart,
 }) => {
-  const { name, oldPrice, price, image, isSale, isNew, id } = product;
+  const { nom, oldPrice, prix, mainPicture, solde, isNew, id } = product;
+  console.log(mainPicture);
+  
   return (
     <>
       {/* <!-- BEING SINGLE PRODUCT ITEM --> */}
       <div className='products-item'>
         <div className='products-item__type'>
-          {isSale && <span className='products-item__sale'>sale</span>}
+          {solde && <span className='products-item__sale'>sale</span>}
           {isNew && <span className='products-item__new'>new</span>}
         </div>
         <div className='products-item__img'>
-          <img src={image} className='js-img' alt='' />
+          <img src={"http://localhost:7000/"+mainPicture} className='js-img' alt='' />
           <div className='products-item__hover'>
             <Link href={`/product/${id}`}>
               <a>
@@ -40,11 +42,11 @@ export const SingleProduct = ({
         <div className='products-item__info'>
           <Link href={`/product/${id}`}>
             <a>
-              <span className='products-item__name'>{name}</span>
+              <span className='products-item__name'>{nom}</span>
             </a>
           </Link>
           <span className='products-item__cost'>
-            <span>{oldPrice && `$${oldPrice}`}</span> ${price}
+            <span>{oldPrice && `$${oldPrice}`}</span> ${prix}
           </span>
         </div>
       </div>
