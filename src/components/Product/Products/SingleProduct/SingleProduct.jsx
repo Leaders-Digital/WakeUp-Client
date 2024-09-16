@@ -6,8 +6,9 @@ export const SingleProduct = ({
   onAddToCart,
   addedInCart,
 }) => {
-  const { nom, oldPrice, prix, mainPicture, solde, isNew, id } = product;
+  const { nom, oldPrice, prix, mainPicture, solde, isNew, _id } = product;
   console.log(mainPicture);
+  console.log(_id);
   
   return (
     <>
@@ -20,7 +21,7 @@ export const SingleProduct = ({
         <div className='products-item__img'>
           <img src={"http://localhost:7000/"+mainPicture} className='js-img' alt='' />
           <div className='products-item__hover'>
-            <Link href={`/product/${id}`}>
+            <Link href={`/product/${_id}`}>
               <a>
                 <i className='icon-search'></i>
               </a>
@@ -40,7 +41,7 @@ export const SingleProduct = ({
           </div>
         </div>
         <div className='products-item__info'>
-          <Link href={`/product/${id}`}>
+          <Link href={`/product/${product._id}`}>
             <a>
               <span className='products-item__name'>{nom}</span>
             </a>

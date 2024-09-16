@@ -15,7 +15,7 @@ console.log("from Products",products) ;
       {products.map((product) => (
         <SingleProduct
           addedInCart={Boolean(cart?.find((pd) => pd.id === product.id))}
-          key={product.id}
+          key={product._id}
           product={product}
           onAddToWish={(id) => console.log(id)}
           onAddToCart={handleAddToCart}

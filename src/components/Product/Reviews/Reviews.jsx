@@ -1,6 +1,8 @@
 import { Card } from './Card/Card';
 
 export const Reviews = ({ reviews }) => {
+  console.log(reviews);
+  
   return (
     <>
       {/* <!-- BEING REVIEWS    --> */}

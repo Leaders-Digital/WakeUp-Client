@@ -1,8 +1,8 @@
-export const PagingList = ({ paginate }) => {
+export const PagingList = ({ previewsPage , nextPage ,totalPages,setPage,page }) => {
   return (
     <ul className='paging-list'>
       <li
-        onClick={() => paginate.prev()}
+        onClick={() => previewsPage()}
         className='paging-list__item paging-prev'
       >
         <button className='paging-list__link'>
@@ -10,12 +10,12 @@ export const PagingList = ({ paginate }) => {
         </button>
       </li>
 
-      {[...Array(paginate.maxPage)].map((x, i) => (
+      {[...Array(totalPages)].map((x, i) => (
         <li
           key={i}
-          onClick={() => paginate.jump(i + 1)}
+          onClick={() => setPage(i + 1)}
           className={`paging-list__item ${
-            paginate.currentPage === i + 1 && 'active'
+            page === i + 1 && 'active'
           }`}
         >
           <button className='paging-list__link'>{i + 1}</button>
@@ -23,7 +23,7 @@ export const PagingList = ({ paginate }) => {
       ))}
 
       <li
-        onClick={() => paginate.next()}
+        onClick={() => nextPage()}
         className='paging-list__item paging-next'
       >
         <button className='paging-list__link'>

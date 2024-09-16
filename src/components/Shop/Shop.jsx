@@ -18,11 +18,13 @@ const options = [
 export const Shop = () => {
   const [productData, setProductData] = useState([]);
   const allProducts = [...productData];
-
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [productOrder, setProductOrder] = useState(
     allProducts.sort((a, b) => (a.price < b.price ? 1 : -1))
   );
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [products, setProducts] = useState([...productOrder]);
   const [filter, setFilter] = useState({ isNew: false, isSale: true });
 
@@ -31,59 +33,54 @@ export const Shop = () => {
       const res = await axios.get(
         "http://localhost:7000/api/product/get-category"
       );
-      console.log(res.data.categoryCounts);
       setCategories(res.data.categoryCounts);
     } catch (error) {}
   };
 
   const getProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:7000/api/product/all");
+      const res = await axios.get("http://localhost:7000/api/product/all", {
+        params: {
+          page: page, // Send current page as a query parameter
+          limit: 6, // Send limit as a query parameter
+          categorie: selectedCategory,
+        },
+      });
       console.log(res.data.products);
+      
       setProductData(res.data.products);
+      setTotalPages(res.data.totalPages); // Update totalPages from the response
+     // Update the page state
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
+
+  const previewsPage = async () => {
+    if (page > 1) {
+       setPage(page - 1);
+    }
+  };
+
+  const nextPage = async () => {
+    if (page < totalPages) {
+       setPage(page + 1);
+    }
+  };
+
+
   useEffect(() => {
     getProducts();
+  },[page,selectedCategory]);
+
+  useEffect(() => {
     getCategories();
-  }, []);
+  },[])
 
   useEffect(() => {
     setProducts(productOrder);
   }, [productOrder]);
 
-  useEffect(() => {
-    if (filter.isNew && filter.isSale) {
-      const newPro = productOrder.filter(
-        (pd) => pd.isNew === true && pd.isSale === true
-      );
-      setProducts(newPro);
-    } else if (filter.isNew && !filter.isSale) {
-      const newPro = productOrder.filter((pd) => pd.isNew === true);
-      setProducts(newPro);
-    } else if (filter.isSale && !filter.isNew) {
-      const newPro = productOrder.filter((pd) => pd.isSale === true);
-      setProducts(newPro);
-    } else {
-      setProducts([...productOrder]);
-    }
-  }, [filter, productOrder]);
-  const recentlyViewed = [...productData].slice(0, 3);
-  const todaysTop = [...productData].slice(3, 6);
-  const paginate = usePagination(products, 9);
-
-  const handleSort = (value) => {
-    if (value === "highToMin") {
-      const newOrder = allProducts.sort((a, b) => (a.price < b.price ? 1 : -1));
-      setProductOrder(newOrder);
-    }
-    if (value === "minToHigh") {
-      const newOrder = allProducts.sort((a, b) => (a.price > b.price ? 1 : -1));
-      setProductOrder(newOrder);
-    }
-  };
 
   return (
     <div>
@@ -107,8 +104,8 @@ export const Shop = () => {
                 <ul>
                   {categories.map((category) => {
                     return (
-                      <li>
-                        <a href="#">
+                      <li onClick={()=>{setSelectedCategory(category._id)}}>
+                        <a >
                           {category._id} <span>({category.count})</span>
                         </a>
                       </li>
@@ -132,18 +129,7 @@ export const Shop = () => {
                   />
                 </div>
               </div>
-              <div className="shop-aside__item">
-                <span className="shop-aside__item-title">You have viewed</span>
-                {recentlyViewed.map((data) => (
-                  <AsideItem key={data.id} aside={data} />
-                ))}
-              </div>
-              <div className="shop-aside__item">
-                <span className="shop-aside__item-title">Top 3 for today</span>
-                {todaysTop.map((data) => (
-                  <AsideItem key={data.id} aside={data} />
-                ))}
-              </div>
+              
             </div>
             {/* <!-- Shop Main --> */}
             <div className="shop-main">
@@ -186,7 +172,13 @@ export const Shop = () => {
               </div>
 
               {/* <!-- PAGINATE LIST --> */}
-              <PagingList paginate={paginate} />
+              <PagingList
+                previewsPage={previewsPage}
+                nextPage={nextPage}
+                totalPages={totalPages}
+                page={page}
+                setPage={setPage}
+              />
             </div>
           </div>
         </div>
