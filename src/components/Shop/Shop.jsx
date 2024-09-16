@@ -104,7 +104,7 @@ export const Shop = () => {
                 <ul>
                   {categories.map((category) => {
                     return (
-                      <li onClick={()=>{setSelectedCategory(category._id)}}>
+                      <li onClick={()=>{setSelectedCategory(category._id)}} style={{cursor:"pointer"}}>
                         <a >
                           {category._id} <span>({category.count})</span>
                         </a>

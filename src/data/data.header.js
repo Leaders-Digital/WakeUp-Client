@@ -1,5 +1,5 @@
 export const header = {
-  logo: '/assets/img/header-logo.svg',
+  logo: '/assets/img/logo-wakeup.png',
 };
 
 export const navItem = [
@@ -64,7 +64,11 @@ export const navItem = [
   {
     name: 'Categories',
     path: '/categories',
-  },
+    subNav: [
+      {
+        name: 'Fashion',
+        path : "/fashion"
+    }] },
   {
     name: 'blog',
     path: '/blog',
