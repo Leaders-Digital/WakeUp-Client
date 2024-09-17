@@ -2,28 +2,29 @@ import Link from 'next/link';
 
 export const Card = ({ cart, onChangeQuantity }) => {
   const {
-    name,
-    image,
-    id,
+    nom,
+    mainPicture,
+    _id,
     isStocked,
     productNumber,
-    oldPrice,
-    price,
+    prix,
+
     quantity,
   } = cart;
+console.log("from card",cart);
 
   return (
     <>
       <div className='cart-table__row'>
         <div className='cart-table__col'>
-          <Link href={`/product/${id}`}>
+          <Link href={`/product/${_id}`}>
             <a className='cart-table__img'>
-              <img src={image} className='js-img' alt='' />
+              <img src={"http://localhost:7000/"+mainPicture} className='js-img' alt='' />
             </a>
           </Link>
           <div className='cart-table__info'>
-            <Link href={`/product/${id}`}>
-              <a className='title5'>{name}</a>
+            <Link href={`/product/${_id}`}>
+              <a className='title5'>{nom}</a>
             </Link>
             {isStocked && (
               <span className='cart-table__info-stock'>in stock</span>
@@ -32,12 +33,12 @@ export const Card = ({ cart, onChangeQuantity }) => {
           </div>
         </div>
         <div className='cart-table__col'>
-          {oldPrice ? (
+          {prix ? (
             <span className='cart-table__price'>
-              <span>${oldPrice}</span>${price}
+              <span>${prix}</span>${prix}
             </span>
           ) : (
-            <span className='cart-table__price'>${price}</span>
+            <span className='cart-table__price'>${prix}</span>
           )}
         </div>
         <div className='cart-table__col'>
@@ -66,7 +67,7 @@ export const Card = ({ cart, onChangeQuantity }) => {
         </div>
         <div className='cart-table__col'>
           <span className='cart-table__total'>
-            ${(price * quantity).toFixed(2)}
+            ${(prix * quantity).toFixed(2)}
           </span>
         </div>
       </div>

@@ -74,7 +74,7 @@ console.log("proiddddddddddd", product._id);
                         <span className="products-item__new">new</span>
                       )}
                     </div>
-                    <img
+                    <img style={{background:"#AABBCC"}}
                       src={
                         selectedVariant && selectedVariant.picture
                           ? "http://localhost:7000/" + selectedVariant.picture

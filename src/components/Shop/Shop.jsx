@@ -5,7 +5,6 @@ import { usePagination } from "components/utils/Pagination/Pagination";
 import Slider from "rc-slider";
 import { useEffect, useState } from "react";
 import Dropdown from "react-dropdown";
-import { AsideItem } from "../shared/AsideItem/AsideItem";
 import axios from "axios";
 
 // React Range
@@ -20,13 +19,10 @@ export const Shop = () => {
   const allProducts = [...productData];
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [productOrder, setProductOrder] = useState(
-    allProducts.sort((a, b) => (a.price < b.price ? 1 : -1))
-  );
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [products, setProducts] = useState([...productOrder]);
   const [filter, setFilter] = useState({ isNew: false, isSale: true });
+  const [loading, setLoading] = useState(true);
 
   const getCategories = async () => {
     try {
@@ -39,6 +35,7 @@ export const Shop = () => {
 
   const getProducts = async () => {
     try {
+      setLoading(true);
       const res = await axios.get("http://localhost:7000/api/product/all", {
         params: {
           page: page, // Send current page as a query parameter
@@ -47,10 +44,11 @@ export const Shop = () => {
         },
       });
       console.log(res.data.products);
-      
+
       setProductData(res.data.products);
       setTotalPages(res.data.totalPages); // Update totalPages from the response
-     // Update the page state
+      setLoading(false);
+      // Update the page state
     } catch (error) {
       console.error(error);
     }
@@ -58,29 +56,23 @@ export const Shop = () => {
 
   const previewsPage = async () => {
     if (page > 1) {
-       setPage(page - 1);
+      setPage(page - 1);
     }
   };
 
   const nextPage = async () => {
     if (page < totalPages) {
-       setPage(page + 1);
+      setPage(page + 1);
     }
   };
 
-
   useEffect(() => {
     getProducts();
-  },[page,selectedCategory]);
+  }, [page, selectedCategory]);
 
   useEffect(() => {
     getCategories();
-  },[])
-
-  useEffect(() => {
-    setProducts(productOrder);
-  }, [productOrder]);
-
+  }, []);
 
   return (
     <div>
@@ -104,8 +96,13 @@ export const Shop = () => {
                 <ul>
                   {categories.map((category) => {
                     return (
-                      <li onClick={()=>{setSelectedCategory(category._id)}} style={{cursor:"pointer"}}>
-                        <a >
+                      <li
+                        onClick={() => {
+                          setSelectedCategory(category._id);
+                        }}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <a>
                           {category._id} <span>({category.count})</span>
                         </a>
                       </li>
@@ -129,7 +126,6 @@ export const Shop = () => {
                   />
                 </div>
               </div>
-              
             </div>
             {/* <!-- Shop Main --> */}
             <div className="shop-main">
@@ -167,18 +163,27 @@ export const Shop = () => {
                   />
                 </div>
               </div>
-              <div className="shop-main__items">
-                <Products products={productData} />
-              </div>
+              {loading ? (
+                <div style={{display:"flex",justifyContent:"center"}}>
 
-              {/* <!-- PAGINATE LIST --> */}
-              <PagingList
-                previewsPage={previewsPage}
-                nextPage={nextPage}
-                totalPages={totalPages}
-                page={page}
-                setPage={setPage}
-              />
+               
+                <div className="spinner"></div> 
+                </div>
+              ) : (
+                <>
+                  <div className="shop-main__items">
+                    <Products products={productData} />
+                  </div>
+
+                  <PagingList
+                    previewsPage={previewsPage}
+                    nextPage={nextPage}
+                    totalPages={totalPages}
+                    page={page}
+                    setPage={setPage}
+                  />
+                </>
+              )}
             </div>
           </div>
         </div>
