@@ -27,7 +27,7 @@ export const ContactInfo = () => {
               <ul>
                 {footerSocial.map((social, index) => (
                   <li key={index}>
-                    <a href={social.path}>
+                    <a href={social.path} target='_blank'>
                       <i className={social.icon}></i>
                     </a>
                   </li>

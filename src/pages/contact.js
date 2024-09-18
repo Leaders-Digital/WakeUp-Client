@@ -2,7 +2,7 @@ import { ContactDetailBlock } from 'components/Contact/ContactDetailBlock/Contac
 import { ContactFrom } from 'components/Contact/ContactForm/ContactForm';
 import { ContactInfo } from 'components/Contact/ContactInfo/ContactInfo';
 import { Map } from 'components/Contact/Map/Map';
-import { BrandLogo } from 'components/shared/BrandLogo/BrandLogo';
+import  BrandLogo  from 'components/shared/BrandLogo/BrandLogo';
 import { PublicLayout } from 'layout/PublicLayout';
 
 const breadcrumbsData = [

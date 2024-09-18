@@ -58,25 +58,24 @@ export const Footer = () => {
               <span className='footer-nav__col-title'>Contact</span>
               <ul>
                 <li>
-                  <i className='icon-map-pin'></i> 27 Division St, New York, NY
-                  10002, USA
+                  <i className='icon-map-pin'></i>Les berges du lac 2 - Cité les Pins, En face clinique Hannibal
                 </li>
                 <li>
                   <i className='icon-smartphone'></i>
                   <div className='footer-nav__col-phones'>
-                    <a href='tel:+13459971345'>+1 345 99 71 345</a>
-                    <a href='tel:+13457464975'>+1 345 74 64 975</a>
+                    <a href='tel:+13459971345'>+216 26 644 400</a>
+                    <a href='tel:+13457464975'>+216 27 360 067</a>
                   </div>
                 </li>
-                <li>
+                <li style={{width:"120%"}}> 
                   <i className='icon-mail'></i>
-                  <a href='mailto:info@beshop.com'>info@beshop.com</a>
+                  <a href='mailto:contact@leaders-makeup.com'>contact@leaders-makeup.com</a>
                 </li>
               </ul>
             </div>
           </div>
           <div className='footer-copy'>
-            <span>&copy; All rights reserved. BeShop 2020</span>
+            <span>&copy; All rights reserved. Wakeup 2020</span>
           </div>
         </div>
       </footer>
