@@ -6,15 +6,14 @@ export const Products = ({ products }) => {
   const { cart, setCart } = useContext(CartContext);
 console.log("from Products",products) ;
 
-  const handleAddToCart = (id) => {
-    const newProduct = products?.find((pd) => pd.id === id);
-    setCart([...cart, { ...newProduct, quantity: 1 }]);
+  const handleAddToCart = (product) => {
+    setCart([...cart, { ...product, quantity: 1 }]);
   };
   return (
     <>
       {products.map((product) => (
         <SingleProduct
-          addedInCart={Boolean(cart?.find((pd) => pd.id === product.id))}
+          addedInCart={Boolean(cart?.find((pd) => pd._id === product._id))}
           key={product._id}
           product={product}
           onAddToWish={(id) => console.log(id)}
