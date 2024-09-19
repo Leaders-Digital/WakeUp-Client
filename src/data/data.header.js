@@ -4,7 +4,7 @@ export const header = {
 
 export const navItem = [
   {
-    name: "Home",
+    name: "Accueil",
     path: "/",
   },
   // {
@@ -58,7 +58,7 @@ export const navItem = [
   //   ],
   // },
   {
-    name: "shop",
+    name: "Nos Produits",
     path: "/shop",
   },
   {
@@ -72,11 +72,12 @@ export const navItem = [
     ],
   },
   {
-    name: "blog",
+    name: "Blogue",
     path: "/blog",
   },
   {
-    name: "contact",
+    name: "Contact",
     path: "/contact",
   },
 ];
+  

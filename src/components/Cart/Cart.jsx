@@ -38,9 +38,10 @@ export const Cart = () => {
           style={{ minHeight: "50vh", textAlign: "center", marginTop: "60px" }}
         >
           <h3>Aucun produit dans votre panier</h3>
-          <button className="btn" style={{ marginTop: "20px" }}>
-            Commencer votre shopping
-          </button>
+
+          <Link href="/shop">
+            <a className="btn" style={{marginTop:"30px"}}>Commencer votre shopping</a>
+          </Link>
         </div>
       ) : (
         <div className="cart">

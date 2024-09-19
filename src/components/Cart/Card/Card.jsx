@@ -6,11 +6,14 @@ export const Card = ({ cart, onChangeQuantity }) => {
     mainPicture,
     _id,
     isStocked,
-    productNumber,
+    codeAbarre,
     prix,
     quantity,
-    variantId
+    variantId,
+    reference
   } = cart;
+  console.log("from card",cart);
+  
 console.log("from card",cart);
 
   return (
@@ -29,7 +32,7 @@ console.log("from card",cart);
             {isStocked && (
               <span className='cart-table__info-stock'>in stock</span>
             )}
-            <span className='cart-table__info-num'>SKU: {productNumber}</span>
+            <span className='cart-table__info-num'>SKU: {reference}</span>
           </div>
         </div>
         <div className='cart-table__col'>

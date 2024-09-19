@@ -1,111 +1,150 @@
-import Dropdown from 'react-dropdown';
+import { useState } from "react";
+import Dropdown from "react-dropdown";
+
 
 const countries = [
-  { label: 'Country 1', value: '1' },
-  { label: 'Country 2', value: '2' },
+  "Ariana",
+  "Béja",
+  "Ben Arous",
+  "Bizerte",
+  "Gabès",
+  "Gafsa",
+  "Jendouba",
+  "Kairouan",
+  "Kasserine",
+  "Kébili",
+  "Kef",
+  "Mahdia",
+  "Manouba",
+  "Médenine",
+  "Monastir",
+  "Nabeul",
+  "Sfax",
+  "Sidi Bouzid",
+  "Siliana",
+  "Sousse",
+  "Tataouine",
+  "Tozeur",
+  "Tunis",
+  "Zaghouan"
 ];
-export const CheckoutStep1 = ({ onNext }) => {
+
+export const CheckoutStep1 = ({ onNext , data , setData ,handleChange  }) => {
+
+
   return (
     <>
       {/* <!-- BEING CHECKOUT STEP ONE -->  */}
-      <div className='checkout-form'>
+      <div className="checkout-form">
         <form onClick={(e) => e.preventDefault()}>
-          <div className='checkout-form__item'>
+          <div className="checkout-form__item">
             <h4>Info about you</h4>
-            <div className='box-field'>
+            <div className="box-field">
               <input
-                type='text'
-                className='form-control'
-                placeholder='Enter your name'
+                type="text"
+                className="form-control"
+                placeholder="Enter your name"
+                value={data.nom}
+                name="nom"
+                onChange={handleChange}
               />
             </div>
-            <div className='box-field'>
+            <div className="box-field">
               <input
-                type='text'
-                className='form-control'
-                placeholder='Enter your last name'
+                type="text"
+                className="form-control"
+                placeholder="Enter your last name"
+                value={data.prenom}
+                name="prenom"
+                onChange={handleChange}
               />
             </div>
-            <div className='box-field__row'>
-              <div className='box-field'>
+            <div className="box-field__row">
+              <div className="box-field">
                 <input
-                  type='tel'
-                  className='form-control'
-                  placeholder='Enter your phone'
+                  type="tel"
+                  className="form-control"
+                  placeholder="Enter your phone"
+                  value={data.numTelephone}
+                  name="numTelephone"
+                  onChange={handleChange}
                 />
               </div>
-              <div className='box-field'>
+              <div className="box-field">
                 <input
-                  type='email'
-                  className='form-control'
-                  placeholder='Enter your mail'
+                  type="email"
+                  className="form-control"
+                  placeholder="Enter your mail"
+                  value={data.email}
+                  name="email"
+                  onChange={handleChange}
                 />
               </div>
             </div>
           </div>
-          <div className='checkout-form__item'>
+          <div className="checkout-form__item">
             <h4>Delivery Info</h4>
 
             <Dropdown
               options={countries}
-              className='react-dropdown'
-              onChange={(option) => console.log(option.value)}
-              placeholder='Select a country'
+              className="react-dropdown"
+              value={data.gouvernorat}
+              onChange={(e) => setData({ ...data, gouvernorat: e.value })}
+              placeholder="Select a country"
+              name="gouvernorat"
             />
-            <div className='box-field__row'>
-              <div className='box-field'>
+            <div className="box-field__row">
+              <div className="box-field">
                 <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Enter the city'
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter the city"
+                  value={data.ville}
+                  name="ville"
+                  onChange={handleChange}
                 />
               </div>
-              <div className='box-field'>
+              <div className="box-field">
                 <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Enter the address'
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter the postal code"
+                  value={data.codePostal}
+                  name="codePostal"
+                  onChange={handleChange}
                 />
               </div>
             </div>
-            <div className='box-field__row'>
-              <div className='box-field'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Delivery day'
-                />
-              </div>
-              <div className='box-field'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Delivery time'
-                />
-              </div>
+            <div className="box-field">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter the address"
+                value={data.adresse}
+                name="adresse"
+                onChange={handleChange}
+              />
             </div>
           </div>
-          <div className='checkout-form__item'>
+          <div className="checkout-form__item">
             <h4>Note</h4>
-            <div className='box-field box-field__textarea'>
+            <div className="box-field box-field__textarea">
               <textarea
-                className='form-control'
-                placeholder='Order note'
+                className="form-control"
+                placeholder="Order note"
+                value={data.note}
+                name="note"
+                onChange={handleChange}
               ></textarea>
             </div>
-            <label className='checkbox-box checkbox-box__sm'>
-              <input type='checkbox' />
-              <span className='checkmark'></span>
-              Create an account
-            </label>
           </div>
-          <div className='checkout-buttons'>
+          <div className="checkout-buttons">
             {/* <button className='btn btn-grey btn-icon'>
               {' '}
               <i className='icon-arrow'></i> back
             </button> */}
-            <button onClick={onNext} className='btn btn-icon btn-next'>
-              next <i className='icon-arrow'></i>
+            <button onClick={onNext} className="btn btn-icon btn-next">
+              next <i className="icon-arrow"></i>
             </button>
           </div>
         </form>

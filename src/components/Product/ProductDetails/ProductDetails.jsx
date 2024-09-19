@@ -6,6 +6,7 @@ import { CartContext } from "pages/_app";
 import axios from "axios";
 import { ReviewFrom } from "../ReviewForm/ReviewFrom";
 import { Reviews } from "../Reviews/Reviews";
+import toast, { Toaster } from "react-hot-toast";
 
 export const ProductDetails = () => {
   const router = useRouter();
@@ -51,7 +52,7 @@ export const ProductDetails = () => {
     const variantExistsInCart = handleditection(theId._id);
     console.log(variantExistsInCart, "while adding to cart");
 
-    if (variantExistsInCart) return; // If the variant is already in the cart, return
+    if (variantExistsInCart) return toast.error("produit deja exist dans votre panier ") ; // If the variant is already in the cart, return
     const newProduct = {
       nom: product.nom,
       prix: product.prix,
@@ -64,6 +65,7 @@ export const ProductDetails = () => {
     };
 
     setCart([...cart, newProduct]); // Add the new product to the cart
+    return toast.success("produit ajouter avec success");
   };
 
   if (!product)
@@ -78,6 +80,8 @@ export const ProductDetails = () => {
     );
   return (
     <>
+      <Toaster position="bottom-center" />
+
       <div className="product">
         <div className="wrapper">
           <div className="product-content">
