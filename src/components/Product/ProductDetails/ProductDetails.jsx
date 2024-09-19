@@ -14,21 +14,18 @@ export const ProductDetails = () => {
   const socialLinks = [...socialData];
 
   const [product, setProduct] = useState({ variants: [] });
-  const [addedInCart, setAddedInCart] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [tab, setTab] = useState(2);
   const [activeColor, setActiveColor] = useState(2);
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
+  const [addedInCart, setAddedInCart] = useState(false);
 
   const getProduct = async (id) => {
-    console.log("fireeeed");
-    
     try {
       const res = await axios.get(`http://localhost:7000/api/product/${id}`);
       setProduct(res.data.product);
-      console.log("fris tttt", res.data.product.variants[0]);
       setSelectedVariant({ ...res.data.product.variants[0] });
     } catch (error) {
       console.log(error);
@@ -41,16 +38,44 @@ export const ProductDetails = () => {
     }
   }, [router.query.id]);
 
-  const handleAddToCart = () => {
-    const newProduct = { ...product, quantity: quantity };
-    setCart([...cart, newProduct]);
+  const handleditection = (id) => {
+    if (selectedVariant) {
+      const variantExistsInCart = cart.some((item) => item.variantId === id);
+      return variantExistsInCart;
+    }
   };
-  console.log(selectedVariant);
 
-  console.log("pro", product.retings);
-console.log("proiddddddddddd", product._id);
+  const handleAddToCart = () => {
+    // Check if the selected variant is already in the cart
+    const theId = { ...selectedVariant };
+    const variantExistsInCart = handleditection(theId._id);
+    console.log(variantExistsInCart, "while adding to cart");
 
-  if (!product) return <></>;
+    if (variantExistsInCart) return; // If the variant is already in the cart, return
+    const newProduct = {
+      nom: product.nom,
+      prix: product.prix,
+      mainPicture: selectedVariant.picture,
+      codeAbarre: selectedVariant.codeAbarre,
+      reference: selectedVariant.reference,
+      _id: product._id,
+      quantity: quantity,
+      variantId: selectedVariant._id,
+    };
+
+    setCart([...cart, newProduct]); // Add the new product to the cart
+  };
+
+  if (!product)
+    return (
+  <div style={{minHeight:"60vh",marginTop:"10rem"}}>
+
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="spinner"></div>
+      </div>
+          
+  </div>
+    );
   return (
     <>
       <div className="product">
@@ -74,7 +99,8 @@ console.log("proiddddddddddd", product._id);
                         <span className="products-item__new">new</span>
                       )}
                     </div>
-                    <img style={{background:"#AABBCC"}}
+                    <img
+                      style={{ background: "#AABBCC" }}
                       src={
                         selectedVariant && selectedVariant.picture
                           ? "http://localhost:7000/" + selectedVariant.picture
@@ -105,6 +131,7 @@ console.log("proiddddddddddd", product._id);
                         <img
                           src={"http://localhost:7000/" + oneVarient.picture}
                           alt="product"
+                          style={{ objectFit: "cover" }}
                         />
                       </div>
                     ))}
@@ -118,10 +145,13 @@ console.log("proiddddddddddd", product._id);
               ) : (
                 ""
               )}
-              <span className="product-num">SKU: {product.productNumber}</span>
+              <span className="product-num">
+                SKU: {selectedVariant?.reference}
+              </span>
               {product.solde ? (
                 <span className="product-price">
-                  <span>{product.prix}TND</span>{product.prix}TND
+                  <span>{product.prix}TND</span>
+                  {product.prix}TND
                 </span>
               ) : (
                 <span className="product-price">{product.prix}TND</span>
@@ -148,6 +178,7 @@ console.log("proiddddddddddd", product._id);
                       product?.variants.map((variant, index) => (
                         <li
                           onClick={() => {
+                            handleditection(variant._id);
                             setActiveColor(index);
                             setSelectedVariant(variant);
                           }}
@@ -229,7 +260,11 @@ console.log("proiddddddddddd", product._id);
                   <div className="tab-cont product-reviews">
                     {product.retings && <Reviews reviews={product.retings} />}
 
-                    <ReviewFrom productId={product._id} getProduct={getProduct} productimage={product.mainPicture} />
+                    <ReviewFrom
+                      productId={product._id}
+                      getProduct={getProduct}
+                      productimage={product.mainPicture}
+                    />
                   </div>
                 )}
               </div>

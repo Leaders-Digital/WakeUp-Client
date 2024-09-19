@@ -6,7 +6,7 @@ import { Card } from './Card/Card';
 export const CheckoutOrders = () => {
   const { cart } = useContext(CartContext);
   const total = cart.reduce(
-    (total, item) => total + Number(item.price) * Number(item.quantity),
+    (total, item) => total + Number(item.prix) * Number(item.quantity),
     0
   );
 
@@ -32,11 +32,11 @@ export const CheckoutOrders = () => {
           <span className='cart-bottom__total-delivery-date'>
             (Aug 28,2020 at 11:30)
           </span>
-          <span>$30</span>
+          <span>$8  </span>
         </div>
         <div className='cart-bottom__total-num'>
           total:
-          <span>${(total + 30).toFixed(2)}</span>
+          <span>${(total + 8).toFixed(2)}</span>
         </div>
       </div>
     </>

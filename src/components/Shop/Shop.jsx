@@ -21,7 +21,7 @@ export const Shop = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [filter, setFilter] = useState({ isNew: false, isSale: true });
+  const [filter, setFilter] = useState({ isNew: false, isSale: false });
   const [loading, setLoading] = useState(true);
 
   const getCategories = async () => {
@@ -32,6 +32,7 @@ export const Shop = () => {
       setCategories(res.data.categoryCounts);
     } catch (error) {}
   };
+console.log("from shop",productData);
 
   const getProducts = async () => {
     try {
@@ -41,6 +42,7 @@ export const Shop = () => {
           page: page, // Send current page as a query parameter
           limit: 6, // Send limit as a query parameter
           categorie: selectedCategory,
+          solde: filter.isSale,
         },
       });
       console.log(res.data.products);
@@ -68,7 +70,7 @@ export const Shop = () => {
 
   useEffect(() => {
     getProducts();
-  }, [page, selectedCategory]);
+  }, [page, selectedCategory, filter]);
 
   useEffect(() => {
     getCategories();
@@ -164,12 +166,10 @@ export const Shop = () => {
                 </div>
               </div>
               {loading ? (
-                <div style={{display:"flex",justifyContent:"center"}}>
-
-               
-                <div className="spinner"></div> 
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div className="spinner"></div>
                 </div>
-              ) : (
+              ) : productData.length ? (
                 <>
                   <div className="shop-main__items">
                     <Products products={productData} />
@@ -183,6 +183,10 @@ export const Shop = () => {
                     setPage={setPage}
                   />
                 </>
+              ) : (
+                <div style={{textAlign:"center"}}>
+                  <h1>No products found</h1>
+                </div>
               )}
             </div>
           </div>

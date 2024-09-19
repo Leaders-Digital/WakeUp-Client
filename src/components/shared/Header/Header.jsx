@@ -67,14 +67,14 @@ export const Header = () => {
             <Nav navItem={navItem} />
             {/* header options */}
             <ul className='header-options'>
-              <li>
+              {/* <li>
                 <Link href='/faq'>
                   <a>
                     <i className='icon-search'></i>
                   </a>
                 </Link>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <Link href='/profile'>
                   <a>
                     <i className='icon-user'></i>
@@ -87,7 +87,7 @@ export const Header = () => {
                     <i className='icon-heart'></i>
                   </a>
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href='/cart'>
                   <a>

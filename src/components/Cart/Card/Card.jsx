@@ -8,8 +8,8 @@ export const Card = ({ cart, onChangeQuantity }) => {
     isStocked,
     productNumber,
     prix,
-
     quantity,
+    variantId
   } = cart;
 console.log("from card",cart);
 
@@ -45,7 +45,7 @@ console.log("from card",cart);
           <div className='cart-table__quantity'>
             <div className='counter-box'>
               <span
-                onClick={() => onChangeQuantity('decrement', quantity)}
+                onClick={() => onChangeQuantity('decrement', quantity,variantId)}
                 className='counter-link counter-link__prev'
               >
                 <i className='icon-arrow'></i>
@@ -57,7 +57,7 @@ console.log("from card",cart);
                 value={quantity}
               />
               <span
-                onClick={() => onChangeQuantity('increment', quantity)}
+                onClick={() => onChangeQuantity('increment', quantity,variantId)}
                 className='counter-link counter-link__next'
               >
                 <i className='icon-arrow'></i>

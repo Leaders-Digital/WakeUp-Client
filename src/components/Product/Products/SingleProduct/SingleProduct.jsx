@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export const SingleProduct = ({
   product,
@@ -6,47 +6,68 @@ export const SingleProduct = ({
   onAddToCart,
   addedInCart,
 }) => {
-  const { nom, oldPrice, prix, mainPicture, solde, isNew, _id } = product;
-  console.log(mainPicture);
-  console.log(_id);
+  const { nom, oldPrice, prix, mainPicture, solde, createdAt, _id } = product;
+ 
+  const isNew = () => {
+    const currentDate = new Date();
+    const productDate = new Date(createdAt);
+    const diffTime = Math.abs(currentDate - productDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Difference in days
+    return diffDays <= 30; // Consider "new" if within the last 30 days
+  };
   
   return (
     <>
       {/* <!-- BEING SINGLE PRODUCT ITEM --> */}
-      <div className='products-item'>
-        <div className='products-item__type'>
-          {solde && <span className='products-item__sale'>sale</span>}
-          {isNew && <span className='products-item__new'>new</span>}
+      <div className="products-item">
+        <div className="products-item__type">
+          {solde && <span className="products-item__sale">sale</span>}
+          {isNew() && <span className="products-item__new">new</span>}
         </div>
-        <div className='products-item__img'>
-          <img src={"http://localhost:7000/"+mainPicture} className='js-img' alt='' />
-          <div className='products-item__hover'>
+        <div className="products-item__img">
+          <img
+            src={"http://localhost:7000/" + mainPicture}
+            className="js-img"
+            alt=""
+          />
+          <div className="products-item__hover">
             <Link href={`/product/${_id}`}>
               <a>
-                <i className='icon-search'></i>
+                <i className="icon-search"></i>
               </a>
             </Link>
-            <div className='products-item__hover-options'>
-              <button className='addList' onClick={() => onAddToWish(id)}>
-                <i className='icon-heart'></i>
+            <div className="products-item__hover-options">
+              <button className="addList" onClick={() => onAddToWish(id)}>
+                <i className="icon-heart"></i>
               </button>
               <button
                 disabled={addedInCart}
-                className={`addList ${addedInCart ? 'added' : ''}`}
-                onClick={() => onAddToCart(id)}
+                className={`addList ${addedInCart ? "added" : ""}`}
+                onClick={() =>
+                  onAddToCart({
+                    nom: product.nom,
+                    prix,
+                    mainPicture: product.variants[0].picture,
+                    quantity: 1,
+                    codeAbarre: product.variants[0].codeAbarre,
+                    reference: product.variants[0].reference,
+                    variantId: product.variants[0]._id,
+                    _id,
+                  })
+                }
               >
-                <i className='icon-cart'></i>
+                <i className="icon-cart"></i>
               </button>
             </div>
           </div>
         </div>
-        <div className='products-item__info'>
+        <div className="products-item__info">
           <Link href={`/product/${product._id}`}>
             <a>
-              <span className='products-item__name'>{nom}</span>
+              <span className="products-item__name">{nom}</span>
             </a>
           </Link>
-          <span className='products-item__cost'>
+          <span className="products-item__cost">
             <span>{oldPrice && `$${oldPrice}`}</span> ${prix}
           </span>
         </div>
