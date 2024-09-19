@@ -65,7 +65,7 @@ export const ProductDetails = () => {
     };
 
     setCart([...cart, newProduct]); // Add the new product to the cart
-    return toast.success("produit ajouter avec success");
+    return toast.success("Produit ajouté avec succès");
   };
 
   if (!product)
