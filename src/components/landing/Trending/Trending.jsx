@@ -2,45 +2,65 @@ import { ProductsCarousel } from 'components/Product/Products/ProductsCarousel';
 import { SectionTitle } from 'components/shared/SectionTitle/SectionTitle';
 import { useEffect, useState } from 'react';
 import productData from 'data/product/product';
+import axios from 'axios';
 
 export const Trending = () => {
-  const trendingProducts = [...productData];
-  const [products, setProducts] = useState(trendingProducts);
-  const [filterItem, setFilterItem] = useState('makeup');
+
+
+  const [productData, setProductData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('FACE');
+
+
+
+  const getProducts = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get("http://localhost:7000/api/product/all/home", {
+        params: {
+          categorie: selectedCategory,
+        },
+      });
+      console.log(res.data.products);
+      
+      setProductData(res.data.products);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    const newItems = trendingProducts.filter((pd) =>
-      pd.filterItems.includes(filterItem)
-    );
-    setProducts(newItems);
-  }, [filterItem]);
+    getProducts()
+  }, [selectedCategory]);
 
-  const filterList = [
-    {
-      name: 'Make Up',
-      value: 'makeup',
-    },
-    {
-      name: 'SPA',
-      value: 'spa',
-    },
-    {
-      name: 'Perfume',
-      value: 'perfume',
-    },
-    {
-      name: 'Nails',
-      value: 'nail',
-    },
-    {
-      name: 'Skin care',
-      value: 'skin',
-    },
-    {
-      name: 'Hair care',
-      value: 'hair',
-    },
-  ];
+  useEffect(() => {
+    getProducts()
+  }, []);
+
+const filterList = [
+  {
+    name: 'Visage',
+    value: 'FACE',
+  },
+  {
+    name: 'Brosse',
+    value: 'Brush',
+  },
+  {
+    name: 'Yeux',
+    value: 'EYES',
+  },
+  {
+    name: 'Produits de soin',
+    value: 'Produits de soin',
+  },
+  {
+    name: 'Lèvres',
+    value: 'LIPS',
+  },
+];
+
   return (
     <>
       {/* <!-- BEGIN TRENDING --> */}
@@ -56,15 +76,15 @@ export const Trending = () => {
               {filterList.map((item) => (
                 <li
                   key={item.value}
-                  onClick={() => setFilterItem(item.value)}
-                  className={item.value === filterItem ? 'active' : ''}
+                  onClick={() => setSelectedCategory(item.value)}
+                  className={item.value === selectedCategory ? 'active' : ''}
                 >
                   {item.name}
                 </li>
               ))}
             </ul>
             <div className='products-items'>
-              <ProductsCarousel products={products} />
+              <ProductsCarousel products={productData} />
             </div>
           </div>
         </div>
