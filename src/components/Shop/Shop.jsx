@@ -160,7 +160,7 @@ console.log("from shop",productData);
                   <Dropdown
                     options={options}
                     className="react-dropdown"
-                    onChange={(option) => handleSort(option.value)}
+                    // onChange={(option) => handleSort(option.value)}
                     value={options[0]}
                   />
                 </div>

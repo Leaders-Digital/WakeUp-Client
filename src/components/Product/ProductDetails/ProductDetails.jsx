@@ -80,7 +80,7 @@ export const ProductDetails = () => {
     );
   return (
     <>
-      <Toaster position="bottom-center" />
+      <Toaster position="top-right" />
 
       <div className="product">
         <div className="wrapper">

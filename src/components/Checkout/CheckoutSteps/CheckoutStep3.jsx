@@ -1,40 +1,38 @@
 export const CheckoutStep3 = () => {
   return (
     <>
-      {/* <!-- BEING CHECKOUT STEP Three -->  */}
+      {/* <!-- CHECKOUT ÉTAPE TROIS -->  */}
       <div className='checkout-purchase checkout-form'>
         <h4>
-          BeShop thanks
+          Wakeup vous remercie
           <br />
-          you for your purchase!
+          pour votre achat !
         </h4>
         <p>
-          Consequat minim ipsum aliquip quis ullamco aliquip consequat aliquip
-          sit eu enim duis qui. Velit minim tempor non aliquip officia cillum.
-          Irure Lorem do enim sint in commodo. Ea ea nostrud labore mollit nisi.
-          Cupidatat esse minim mollit qui velit esse voluptate. Excepteur ad
-          officia dolore amet magna ipsum dolor incididunt excepteur ad non. Ea
-          ea qui irure excepteur est consectetur amet est exercitation in.
+        <p>
+          Votre commande a été créée avec succès. Nous vous enverrons un email de confirmation contenant les détails de votre commande. 
+          Si vous avez des questions ou des préoccupations, n'hésitez pas à nous contacter. Merci pour votre confiance et à bientôt sur Wakeup !
+        </p>
         </p>
         <ul className='checkout-purchase__list'>
           <li>
-            <span>Order number</span>B-125724_75
+            <span>Numéro de commande</span>B-125724_75
           </li>
           <li>
-            <span>Order status</span>Awaiting payment
+            <span>Statut de la commande</span>En attente de paiement
           </li>
           <li>
-            <span>Reserved for</span>22.09.2020
+            <span>Réservé jusqu'au</span>22.09.2020
           </li>
           <li>
-            <span>Expected loading date</span>20.09.2020
+            <span>Date prévue de chargement</span>20.09.2020
           </li>
         </ul>
         <a href='#' className='checkout-purchase__link'>
-          print a document -
+          imprimer un document -
         </a>
       </div>
-      {/* <!-- CHECKOUT STEP TWO EOF -->  */}
+      {/* <!-- CHECKOUT ÉTAPE TROIS FIN -->  */}
     </>
   );
 };

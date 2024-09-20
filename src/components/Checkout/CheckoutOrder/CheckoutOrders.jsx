@@ -3,12 +3,9 @@ import { CartContext } from 'pages/_app';
 import { useContext } from 'react';
 import { Card } from './Card/Card';
 
-export const CheckoutOrders = () => {
+export const CheckoutOrders = ({total}) => {
   const { cart } = useContext(CartContext);
-  const total = cart.reduce(
-    (total, item) => total + Number(item.prix) * Number(item.quantity),
-    0
-  );
+ 
 
   return (
     <>

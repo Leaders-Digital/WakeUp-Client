@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CheckoutOrders } from "./CheckoutOrder/CheckoutOrders";
 import { CheckoutStep1 } from "./CheckoutSteps/CheckoutStep1";
 import { CheckoutStep2 } from "./CheckoutSteps/CheckoutStep2";
 import { CheckoutStep3 } from "./CheckoutSteps/CheckoutStep3";
 import toast, { Toaster } from "react-hot-toast";
+import { CartContext } from "pages/_app";
+import axios from "axios";
 
 const detailBlocks = [
   {
@@ -25,6 +27,7 @@ const detailBlocks = [
 
 export const Checkout = () => {
   const [activeStep, setActiveStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     nom: "",
     prenom: "",
@@ -37,10 +40,26 @@ export const Checkout = () => {
     note: "",
   });
 
+  const { cart } = useContext(CartContext);
+
+  const total = cart.reduce(
+    (total, item) => total + Number(item.prix) * Number(item.quantity),
+    0
+  );
+
+  const listeDesProduits = cart.map((item) => ({
+    variant: item.variantId,
+    quantite: item.quantity,
+  }));
+
+  console.log(listeDesProduits);
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-
+  const handleNextPage = () => {
+    setActiveStep(activeStep + 1);
+  };
   const handleNext = () => {
     const {
       nom,
@@ -65,17 +84,40 @@ export const Checkout = () => {
       !codePostal ||
       !note
     ) {
-      console.log( data);
-      
+      console.log(data);
+
       // Trigger a toast notification if any field is empty
       toast.error("Veuillez remplir tous les champs."); // This will show the error message
       return; // Exit the function if validation fails
     }
     setActiveStep(activeStep + 1);
   };
+
   const handlePrev = () => {
     setActiveStep(activeStep - 1);
   };
+
+  const handleCreateOrder = async () => {
+    setLoading(true);
+    try {
+      await axios.post("http://localhost:7000/api/order/create", {
+        ...data,
+        listeDesProduits,
+        prixTotal: total,
+      });
+      setTimeout(() => {
+        setLoading(false);
+        handleNextPage();
+        console.log("order created");
+      }, 1500);
+    } catch (error) {
+      setTimeout(() => {
+        setLoading(false);
+        console.log("order failed");
+      }, 1500);
+    }
+  };
+
   return (
     <>
       <Toaster position="bottom-center" />
@@ -129,7 +171,12 @@ export const Checkout = () => {
                   );
                 case 2:
                   return (
-                    <CheckoutStep2 onNext={handleNext} onPrev={handlePrev} />
+                    <CheckoutStep2
+                      onNext={handleNext}
+                      onPrev={handlePrev}
+                      handleCreateOrder={handleCreateOrder}
+                      loading={loading}
+                    />
                   );
                 case 3:
                   return <CheckoutStep3 />;
@@ -139,7 +186,7 @@ export const Checkout = () => {
               }
             })()}
             <div className="checkout-info">
-              <CheckoutOrders />
+              <CheckoutOrders total={total} />
             </div>
           </div>
         </div>
