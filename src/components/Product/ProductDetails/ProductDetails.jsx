@@ -26,8 +26,8 @@ export const ProductDetails = () => {
   const getProduct = async (id) => {
     try {
       const res = await axios.get(`http://localhost:7000/api/product/${id}`);
-      setProduct(res.data.product);
-      setSelectedVariant({ ...res.data.product.variants[0] });
+      setProduct(res.data);
+      setSelectedVariant({ ...res.data.variants[0] });
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +52,8 @@ export const ProductDetails = () => {
     const variantExistsInCart = handleditection(theId._id);
     console.log(variantExistsInCart, "while adding to cart");
 
-    if (variantExistsInCart) return toast.error("produit deja exist dans votre panier ") ; // If the variant is already in the cart, return
+    if (variantExistsInCart)
+      return toast.error("produit deja exist dans votre panier "); // If the variant is already in the cart, return
     const newProduct = {
       nom: product.nom,
       prix: product.prix,
@@ -62,6 +63,8 @@ export const ProductDetails = () => {
       _id: product._id,
       quantity: quantity,
       variantId: selectedVariant._id,
+      solde: product.solde,
+      soldePourcentage: product.soldePourcentage,
     };
 
     setCart([...cart, newProduct]); // Add the new product to the cart
@@ -70,17 +73,15 @@ export const ProductDetails = () => {
 
   if (!product)
     return (
-  <div style={{minHeight:"60vh",marginTop:"10rem"}}>
-
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <div className="spinner"></div>
+      <div style={{ minHeight: "60vh", marginTop: "10rem" }}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div className="spinner"></div>
+        </div>
       </div>
-          
-  </div>
     );
   return (
     <>
-      <Toaster position="top-right" />
+      <Toaster position="top-center" />
 
       <div className="product">
         <div className="wrapper">
@@ -104,7 +105,7 @@ export const ProductDetails = () => {
                       )}
                     </div>
                     <img
-                      style={{ background: "#AABBCC" }}
+                      style={{objectFit: "contain"}}
                       src={
                         selectedVariant && selectedVariant.picture
                           ? "http://localhost:7000/" + selectedVariant.picture
@@ -135,7 +136,7 @@ export const ProductDetails = () => {
                         <img
                           src={"http://localhost:7000/" + oneVarient.picture}
                           alt="product"
-                          style={{ objectFit: "cover" }}
+                          style={{objectFit: "contain"}}
                         />
                       </div>
                     ))}

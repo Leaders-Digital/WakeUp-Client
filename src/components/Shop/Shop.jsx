@@ -11,8 +11,8 @@ import axios from "axios";
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
 const options = [
-  { value: "highToMin", label: "From expensive to cheap" },
-  { value: "minToHigh", label: "From cheap to expensive" },
+  { value: "highToMin", label: "Du plus cher au moins cher" },
+  { value: "minToHigh", label: "Du moins cher au plus cher" },
 ];
 export const Shop = () => {
   const [productData, setProductData] = useState([]);
@@ -23,7 +23,12 @@ export const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [filter, setFilter] = useState({ isNew: false, isSale: false });
   const [loading, setLoading] = useState(true);
-
+  const [search, setSearch] = useState("");
+  const [lowPrice, setLowprice] = useState(0);
+  const [highPrice, setHighPrice] = useState(0);
+  const [fixMin, setFixMin] = useState(0);
+  const [fixMax, setFixMax] = useState(0);
+  
   const getCategories = async () => {
     try {
       const res = await axios.get(
@@ -32,7 +37,13 @@ export const Shop = () => {
       setCategories(res.data.categoryCounts);
     } catch (error) {}
   };
-console.log("from shop",productData);
+  console.log("from shop", productData);
+  console.log("lowPrice", lowPrice);
+  console.log("highPrice", highPrice);
+
+
+  console.log("fixMin", fixMin);
+  console.log("fixMax", fixMax);
 
   const getProducts = async () => {
     try {
@@ -43,14 +54,18 @@ console.log("from shop",productData);
           limit: 6, // Send limit as a query parameter
           categorie: selectedCategory,
           solde: filter.isSale,
+          search: search,
         },
       });
       console.log(res.data.products);
-
+      console.log(res.data);
       setProductData(res.data.products);
+      setFixMin(res.data.lowestPrice);
+      setFixMax(res.data.highestPrice);
+      console.log("fixMin", fixMin);
+      console.log("fixMax", fixMax);
       setTotalPages(res.data.totalPages); // Update totalPages from the response
       setLoading(false);
-      // Update the page state
     } catch (error) {
       console.error(error);
     }
@@ -73,27 +88,37 @@ console.log("from shop",productData);
   }, [page, selectedCategory, filter]);
 
   useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      if (search) {
+        getProducts();
+      }
+    }, 1000); // 3000 milliseconds = 3 seconds
+    return () => clearTimeout(debounceTimer); // Cleanup on unmount or when search changes
+  }, [search]);
+  useEffect(() => {
     getCategories();
   }, []);
 
   return (
     <div>
-      {/* <!-- BEGIN SHOP --> */}
+      {/* <!-- DÉBUT BOUTIQUE --> */}
       <div className="shop">
         <div className="wrapper">
           <div className="shop-content">
-            {/* <!-- Shop Aside --> */}
+            {/* <!-- Boutique Aside --> */}
             <div className="shop-aside">
               <div className="box-field box-field__search">
                 <input
                   type="search"
                   className="form-control"
-                  placeholder="Search"
+                  placeholder="Rechercher"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
                 <i className="icon-search"></i>
               </div>
               <div className="shop-aside__item">
-                <span className="shop-aside__item-title">Categories</span>
+                <span className="shop-aside__item-title">Catégories</span>
 
                 <ul>
                   {categories.map((category) => {
@@ -113,23 +138,29 @@ console.log("from shop",productData);
                 </ul>
               </div>
               <div className="shop-aside__item">
-                <span className="shop-aside__item-title">Price</span>
+                <span className="shop-aside__item-title">Prix</span>
                 <div className="range-slider">
                   <Range
-                    min={0}
-                    max={20}
-                    defaultValue={[0, 20]}
-                    tipFormatter={(value) => `${value}$`}
-                    allowCross={false}
+                    min={fixMin}
+                    max={fixMax} // Assuming highPrice is defined and comes from your state or props
+                    defaultValue={[fixMin, fixMax]} // Initial values for the slider
+                    tipFormatter={(value) => `${value}€`}
+                    // allowCross={false}
+                    // value={[lowPrice, highPrice]}
                     tipProps={{
                       placement: "bottom",
                       prefixCls: "rc-slider-tooltip",
+                    }}
+                    onChange={(value) => {
+                      console.log("Slider values:", value); // Check the values
+                      setLowprice(value[0]);
+                      setHighPrice(value[1]);
                     }}
                   />
                 </div>
               </div>
             </div>
-            {/* <!-- Shop Main --> */}
+            {/* <!-- Boutique Principale --> */}
             <div className="shop-main">
               <div className="shop-main__filter">
                 <div className="shop-main__checkboxes">
@@ -142,7 +173,7 @@ console.log("from shop",productData);
                       type="checkbox"
                     />
                     <span className="checkmark"></span>
-                    SALE
+                    PROMO
                   </label>
                   <label className="checkbox-box">
                     <input
@@ -153,14 +184,13 @@ console.log("from shop",productData);
                       type="checkbox"
                     />
                     <span className="checkmark"></span>
-                    NEW
+                    NOUVEAU
                   </label>
                 </div>
                 <div className="shop-main__select">
                   <Dropdown
                     options={options}
                     className="react-dropdown"
-                    // onChange={(option) => handleSort(option.value)}
                     value={options[0]}
                   />
                 </div>
@@ -184,8 +214,8 @@ console.log("from shop",productData);
                   />
                 </>
               ) : (
-                <div style={{textAlign:"center"}}>
-                  <h1>No products found</h1>
+                <div style={{ textAlign: "center" }}>
+                  <h1>Aucun produit trouvé</h1>
                 </div>
               )}
             </div>
@@ -202,7 +232,7 @@ console.log("from shop",productData);
           alt=""
         />
       </div>
-      {/* <!-- SHOP EOF   --> */}
+      {/* <!-- BOUTIQUE FIN --> */}
     </div>
   );
 };

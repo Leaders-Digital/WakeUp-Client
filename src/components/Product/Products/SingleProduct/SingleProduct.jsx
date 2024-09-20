@@ -6,8 +6,9 @@ export const SingleProduct = ({
   onAddToCart,
   addedInCart,
 }) => {
-  const { nom, oldPrice, prix, mainPicture, solde, createdAt, _id } = product;
- 
+  const { nom, soldePourcentage, prix, mainPicture, solde, createdAt, _id } =
+    product;
+
   const isNew = () => {
     const currentDate = new Date();
     const productDate = new Date(createdAt);
@@ -15,7 +16,7 @@ export const SingleProduct = ({
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Difference in days
     return diffDays <= 30; // Consider "new" if within the last 30 days
   };
-  
+
   return (
     <>
       {/* <!-- BEING SINGLE PRODUCT ITEM --> */}
@@ -28,6 +29,7 @@ export const SingleProduct = ({
           <img
             src={"http://localhost:7000/" + mainPicture}
             className="js-img"
+            style={{objectFit: "contain"}}
             alt=""
           />
           <div className="products-item__hover">
@@ -47,6 +49,8 @@ export const SingleProduct = ({
                   onAddToCart({
                     nom: product.nom,
                     prix,
+                    solde,
+                    soldePourcentage,
                     mainPicture: product.variants[0].picture,
                     quantity: 1,
                     codeAbarre: product.variants[0].codeAbarre,
@@ -68,7 +72,8 @@ export const SingleProduct = ({
             </a>
           </Link>
           <span className="products-item__cost">
-            <span>{oldPrice && `$${oldPrice}`}</span> ${prix}
+            <span>{solde && `$${prix}`}</span> TND{" "}
+            {prix - prix * (soldePourcentage / 100)}
           </span>
         </div>
       </div>

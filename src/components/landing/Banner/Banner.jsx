@@ -7,15 +7,15 @@ export const Banner = () => {
       <div className='main-block load-bg'>
         <div className='wrapper'>
           <div className='main-block__content'>
-            <span className='saint-text'>Professional</span>
-            <h1 className='main-text'>Beauty &amp; Care</h1>
+            <span className='saint-text'>Professionnel</span>
+            <h1 className='main-text'>Beauté &amp; Soin</h1>
             <p>
-              Nourish your skin with toxin-free cosmetic products. With the
-              offers that you can’t refuse.
+              Nourrissez votre peau avec des produits cosmétiques sans toxines. 
+              Avec des offres que vous ne pouvez pas refuser.
             </p>
 
             <Link href='/shop'>
-              <a className='btn'>Shop now</a>
+              <a className='btn'>Achetez maintenant</a>
             </Link>
           </div>
         </div>

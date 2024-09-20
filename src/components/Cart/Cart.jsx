@@ -9,11 +9,15 @@ export const Cart = () => {
   const [count, setCount] = useState(0);
   const socialLinks = [...socialData];
 
-  const total = cart.reduce(
-    (total, item) => total + Number(item.prix) * Number(item.quantity),
-    0
-  );
-  console.log("carddddddddd", cart);
+  const total = cart.reduce((total, item) => {
+    const prixFinal = item.solde
+      ? item.prix - item.prix * (item.soldePourcentage / 100)
+      : item.prix;
+
+    return total + Number(prixFinal) * Number(item.quantity);
+  }, 0);
+
+  console.log("cart", cart);
 
   const handleProductQuantity = (change, quantity, id) => {
     console.log(change, quantity, id);
@@ -40,7 +44,9 @@ export const Cart = () => {
           <h3>Aucun produit dans votre panier</h3>
 
           <Link href="/shop">
-            <a className="btn" style={{marginTop:"30px"}}>Commencer votre shopping</a>
+            <a className="btn" style={{ marginTop: "30px" }}>
+              Commencez vos achats
+            </a>
           </Link>
         </div>
       ) : (
@@ -49,9 +55,9 @@ export const Cart = () => {
             <div className="cart-table">
               <div className="cart-table__box">
                 <div className="cart-table__row cart-table__row-head">
-                  <div className="cart-table__col">Product</div>
-                  <div className="cart-table__col">Price</div>
-                  <div className="cart-table__col">Quantity</div>
+                  <div className="cart-table__col">Produit</div>
+                  <div className="cart-table__col">Prix</div>
+                  <div className="cart-table__col">Quantité</div>
                   <div className="cart-table__col">Total</div>
                 </div>
 
@@ -74,23 +80,22 @@ export const Cart = () => {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Enter promo code"
+                        placeholder="Entrez le code promo"
                       />
                     </div>
                     <button type="submit" className="btn btn-grey">
-                      apply code
+                      appliquer
                     </button>
                   </div>
                 </form>
-                <h6>How to get a promo code?</h6>
+                <h6>Comment obtenir un code promo ?</h6>
                 <p>
-                  Follow our news on the website, as well as subscribe to our
-                  social networks. So you will not only be able to receive
-                  up-to-date codes, but also learn about new products and
-                  promotional items.
+                  Suivez nos actualités sur le site, ainsi que abonnez-vous à nos
+                  réseaux sociaux. Vous pourrez ainsi recevoir des codes à jour et
+                  être informé des nouveaux produits et articles promotionnels.
                 </p>
                 <div className="contacts-info__social">
-                  <span>Find us here:</span>
+                  <span>Trouvez-nous ici :</span>
                   <ul>
                     {socialLinks.map((social, index) => (
                       <li key={index}>
@@ -104,19 +109,19 @@ export const Cart = () => {
               </div>
               <div className="cart-bottom__total">
                 <div className="cart-bottom__total-goods">
-                  Goods on
-                  <span>${total.toFixed(2)}</span>
+                  Produits pour
+                  <span>{total.toFixed(2)} TND</span>
                 </div>
                 <div className="cart-bottom__total-promo">
-                  Discount on promo code
-                  <span>No</span>
+                  Remise sur le code promo
+                  <span>Non</span>
                 </div>
                 <div className="cart-bottom__total-num">
-                  total:
-                  <span>${total.toFixed(2)}</span>
+                  total :
+                  <span>{total.toFixed(2)} TND</span>
                 </div>
                 <Link href="/checkout">
-                  <a className="btn">Checkout</a>
+                  <a className="btn">Passer à la caisse</a>
                 </Link>
               </div>
             </div>
