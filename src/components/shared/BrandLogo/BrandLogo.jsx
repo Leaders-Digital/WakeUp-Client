@@ -24,10 +24,8 @@ useEffect(()=>{
       {/* <!-- BEGIN LOGOS --> */}
       <div className="main-logos">
         {partenaire.map((logo, index) => (
-          console.log(logo.logo,"herreee"),
-          
           <a key={index}   >
-            <img src={"http://localhost:7000/"+logo.logo} className="js-img" width={150 } height={150 } alt="" />
+            <img src={"http://localhost:7000/"+logo.logo} className="js-img" width={200} height={200} alt="" style={{objectFit:"contain"}} />
           </a>
         ))}
       </div>

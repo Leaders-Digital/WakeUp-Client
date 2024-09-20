@@ -26,6 +26,7 @@ export const Card = ({ cart, onChangeQuantity }) => {
                 src={"http://localhost:7000/" + mainPicture}
                 className="js-img"
                 alt=""
+                style={{ objectFit: "contain",width:"100px",height:"100px" }}
               />
             </a>
           </Link>

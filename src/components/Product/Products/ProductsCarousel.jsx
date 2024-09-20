@@ -10,9 +10,13 @@ import { SingleProduct } from './SingleProduct/SingleProduct';
 export const ProductsCarousel = ({ products }) => {
   const { cart, setCart } = useContext(CartContext);
 
-  const handleAddToCart = (id) => {
-    const newProduct = products?.find((pd) => pd.id === id);
-    setCart([...cart, { ...newProduct, quantity: 1 }]);
+  // const handleAddToCart = (id) => {
+  //   const newProduct = products?.find((pd) => pd.id === id);
+  //   setCart([...cart, { ...newProduct, quantity: 1 }]);
+  // };
+
+  const handleAddToCart = (product) => {
+    setCart([...cart, { ...product, quantity: 1 }]);
   };
 
   const settings = {
@@ -20,8 +24,7 @@ export const ProductsCarousel = ({ products }) => {
     infinite: true,
     arrows: true,
     speed: 300,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: products.length > 4 ? 4 : products.length,
     prevArrow: <SlickArrowPrev />,
     nextArrow: <SlickArrowNext />,
     lazyLoad: 'progressive',
@@ -53,16 +56,17 @@ export const ProductsCarousel = ({ products }) => {
   return (
     <>
       <Slider {...settings}>
-        {products.map((product) => (
-          <SingleProduct
-            addedInCart={Boolean(cart?.find((pd) => pd.id === product.id))}
-            key={product.id}
-            product={product}
-            onAddToWish={(id) => console.log(id)}
-            onAddToCart={handleAddToCart}
-          />
-        ))}
+      {products.map((product) => (
+        <SingleProduct
+          addedInCart={Boolean(cart?.find((pd) => pd._id === product._id))}
+          key={product._id}
+          product={product}
+          onAddToWish={(id) => console.log(id)}
+          onAddToCart={handleAddToCart}
+        />
+      ))}
       </Slider>
     </>
   );
 };
+  
