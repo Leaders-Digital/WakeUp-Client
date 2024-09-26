@@ -17,11 +17,11 @@ export const Cart = () => {
     return total + Number(prixFinal) * Number(item.quantity);
   }, 0);
 
-  console.log("cart", cart);
+ 
 
-  const handleProductQuantity = (change, quantity, id) => {
-    console.log(change, quantity, id);
-    if (change === "increment") {
+  const handleProductQuantity = (change, quantity, id ,stock) => {
+
+    if (change === "increment" && quantity < stock) {
       cart.find((item) => item.variantId === id).quantity = quantity + 1;
       setCount(count + 1);
     }
@@ -29,6 +29,11 @@ export const Cart = () => {
       cart.find((item) => item.variantId === id).quantity = quantity - 1;
       setCount(count + 1);
     }
+  };
+  const handleDelete = (id) => {
+    const updatedCart = cart.filter(item => item.variantId !== id);
+    setCart(updatedCart); // Update cart in context
+    setCount(count + 1); // Trigger re-render
   };
 
   useEffect(() => {
@@ -64,9 +69,10 @@ export const Cart = () => {
                 {cart.map((cart) => (
                   <Card
                     onChangeQuantity={(change, quantity) =>
-                      handleProductQuantity(change, quantity, cart.variantId)
+                      handleProductQuantity(change, quantity, cart.variantId,cart.stock)
                     }
                     key={cart.id}
+                    handleDelete={handleDelete}
                     cart={cart}
                   />
                 ))}

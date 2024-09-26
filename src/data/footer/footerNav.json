@@ -28,35 +28,7 @@
       }
     ]
   },
-  {
-    "title": "Categories",
-    "navLinks": [
-      {
-        "name": "Make up",
-        "path": "/categories"
-      },
-      {
-        "name": "SPA",
-        "path": "/categories"
-      },
-      {
-        "name": "Perfume",
-        "path": "/categories"
-      },
-      {
-        "name": "Nails",
-        "path": "/categories"
-      },
-      {
-        "name": "Skin care",
-        "path": "/categories"
-      },
-      {
-        "name": "Hair care",
-        "path": "/categories"
-      }
-    ]
-  },
+
   {
     "title": "Useful links",
     "navLinks": [

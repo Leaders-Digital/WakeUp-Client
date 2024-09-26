@@ -1,6 +1,24 @@
 import { Categories } from 'components/Category/Categories/Categories';
 import { SectionTitle } from 'components/shared/SectionTitle/SectionTitle';
-import categoriesData from 'data/category/category';
+
+const categoriesData = [
+  
+  {
+    "categoryId": "makeup",
+    "name": "Maquillage",
+    "image": "/assets/img/top-categories-img1.jpg"
+  },
+  {
+    "categoryId": "skincare",
+    "name": "Produits de soin",
+    "image": "/assets/img/top-categories-img2.jpg"
+  },
+  {
+    "categoryId": "Accessoires",
+    "name": "Accessoires",
+    "image": "/assets/img/top-categories-img3.jpg"
+  },
+]
 
 export const TopCategories = () => {
   const categories = [...categoriesData].slice(0, 3);

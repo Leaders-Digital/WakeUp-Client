@@ -5,10 +5,9 @@ const BrandLogo = () => {
 
   const getPartenaire = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:7000/api/partenaire/getPartenaires"
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}api/partenaire/getPartenaires`
       );
-      console.log(response.data.data);
+    
       setPartenaire(response.data.data);
     } catch (error) {
       throw error;
@@ -24,10 +23,8 @@ useEffect(()=>{
       {/* <!-- BEGIN LOGOS --> */}
       <div className="main-logos">
         {partenaire.map((logo, index) => (
-          console.log(logo.logo,"herreee"),
-          
           <a key={index}   >
-            <img src={"http://localhost:7000/"+logo.logo} className="js-img" width={150 } height={150 } alt="" />
+            <img src={`${process.env.NEXT_PUBLIC_API_KEY}`+logo.logo} className="js-img" width={200} height={200} alt="" style={{objectFit:"contain"}} />
           </a>
         ))}
       </div>

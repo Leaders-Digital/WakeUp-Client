@@ -39,9 +39,12 @@ export const Checkout = () => {
     codePostal: "",
     note: "",
   });
+  const [orderCode, setOrderCode] = useState("");
+  const { cart ,setCart} = useContext(CartContext);
 
-  const { cart } = useContext(CartContext);
-
+  const makeTheCartEmpty = () => {
+    setCart([]); // Correct way to empty the cart
+  };
   const total = cart.reduce(
     (total, item) => total + Number(item.prix) * Number(item.quantity),
     0
@@ -52,7 +55,7 @@ export const Checkout = () => {
     quantite: item.quantity,
   }));
 
-  console.log(listeDesProduits);
+
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -84,7 +87,7 @@ export const Checkout = () => {
       !codePostal ||
       !note
     ) {
-      console.log(data);
+
 
       // Trigger a toast notification if any field is empty
       toast.error("Veuillez remplir tous les champs."); // This will show the error message
@@ -100,20 +103,24 @@ export const Checkout = () => {
   const handleCreateOrder = async () => {
     setLoading(true);
     try {
-      await axios.post("http://localhost:7000/api/order/create", {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}api/order/create`, {
         ...data,
         listeDesProduits,
         prixTotal: total,
       });
+      setOrderCode(res.data.orderCode);
+
       setTimeout(() => {
         setLoading(false);
         handleNextPage();
-        console.log("order created");
+        makeTheCartEmpty();
+     
       }, 1500);
     } catch (error) {
       setTimeout(() => {
         setLoading(false);
-        console.log("order failed");
+        makeTheCartEmpty();
+      
       }, 1500);
     }
   };
@@ -179,7 +186,7 @@ export const Checkout = () => {
                     />
                   );
                 case 3:
-                  return <CheckoutStep3 />;
+                  return <CheckoutStep3 orderCode={orderCode} />;
 
                 default:
                   return null;

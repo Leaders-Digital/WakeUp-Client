@@ -1,36 +1,55 @@
-export const CheckoutStep3 = () => {
+import Link from "next/link";
+import React from "react";
+
+// Helper function to calculate today's date and add 2 days
+const getLoadingDate = () => {
+  const today = new Date();
+  const futureDate = new Date(today);
+  futureDate.setDate(today.getDate() + 2); // Add 2 days
+  return futureDate.toLocaleDateString(); // Format as dd/mm/yyyy or mm/dd/yyyy depending on locale
+};
+
+export const CheckoutStep3 = ({ orderCode }) => {
+  const loadingDate = getLoadingDate(); // Get the dynamic loading date
+
   return (
     <>
       {/* <!-- CHECKOUT ÉTAPE TROIS -->  */}
-      <div className='checkout-purchase checkout-form'>
+      <div className="checkout-purchase checkout-form">
         <h4>
           Wakeup vous remercie
           <br />
           pour votre achat !
         </h4>
         <p>
-        <p>
-          Votre commande a été créée avec succès. Nous vous enverrons un email de confirmation contenant les détails de votre commande. 
-          Si vous avez des questions ou des préoccupations, n'hésitez pas à nous contacter. Merci pour votre confiance et à bientôt sur Wakeup !
+          Votre commande a été créée avec succès. Nous vous enverrons un email
+          de confirmation contenant les détails de votre commande. Si vous avez
+          des questions ou des préoccupations, n'hésitez pas à nous contacter.
+          Merci pour votre confiance et à bientôt sur Wakeup !
         </p>
-        </p>
-        <ul className='checkout-purchase__list'>
+        <ul className="checkout-purchase__list">
           <li>
-            <span>Numéro de commande</span>B-125724_75
+            <span>Numéro de commande</span> {orderCode}
           </li>
           <li>
-            <span>Statut de la commande</span>En attente de paiement
+            <span>Statut de la commande</span> En cours
           </li>
           <li>
-            <span>Réservé jusqu'au</span>22.09.2020
+            <span>Livrer dans 24h</span>24h - 48h
           </li>
           <li>
-            <span>Date prévue de chargement</span>20.09.2020
+            <span>Date prévue de chargement</span> {loadingDate}
           </li>
         </ul>
-        <a href='#' className='checkout-purchase__link'>
-          imprimer un document -
-        </a>
+        <div
+          style={{ minHeight: "50vh", textAlign: "center", marginTop: "60px" }}
+        >
+          <Link href="/shop">
+            <a className="btn" style={{ marginTop: "30px" }}>
+              Continuer vos achats
+            </a>
+          </Link>
+        </div>
       </div>
       {/* <!-- CHECKOUT ÉTAPE TROIS FIN -->  */}
     </>

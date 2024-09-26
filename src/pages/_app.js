@@ -3,6 +3,8 @@ import '../styles/styles.scss';
 
 export const CartContext = createContext();
 const MyApp = ({ Component, pageProps }) => {
+  console.log("API Key:", process.env.NEXT_PUBLIC_API_KEY);
+
   
   const [cart, setCart] = useState([]);
   return (

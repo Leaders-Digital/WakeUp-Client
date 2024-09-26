@@ -616,13 +616,14 @@ h6,
 // advantages
 
 .advantages {
-  padding-top: 190px;
+  padding-top: 100px;
 
   &-items {
     display: flex;
     justify-content: center;
     margin-left: -12px;
     margin-right: -12px;
+    flex-wrap: wrap;
   }
 
   &-item {
@@ -5782,7 +5783,7 @@ input[type='search']::-webkit-search-results-decoration {
   }
 
   .advantages-item__icon {
-    margin-bottom: 25px;
+    margin-bottom: 10px;
   }
 
   h4 {

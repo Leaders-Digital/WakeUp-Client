@@ -27,7 +27,7 @@ export const SingleProduct = ({
         </div>
         <div className="products-item__img">
           <img
-            src={"http://localhost:7000/" + mainPicture}
+            src={`${process.env.NEXT_PUBLIC_API_KEY}`+ mainPicture}
             className="js-img"
             style={{objectFit: "contain"}}
             alt=""
@@ -39,9 +39,9 @@ export const SingleProduct = ({
               </a>
             </Link>
             <div className="products-item__hover-options">
-              <button className="addList" onClick={() => onAddToWish(id)}>
+              {/* <button className="addList" onClick={() => onAddToWish(id)}>
                 <i className="icon-heart"></i>
-              </button>
+              </button> */}
               <button
                 disabled={addedInCart}
                 className={`addList ${addedInCart ? "added" : ""}`}
@@ -50,6 +50,7 @@ export const SingleProduct = ({
                     nom: product.nom,
                     prix,
                     solde,
+                    stock: product.variants[0].quantity,
                     soldePourcentage,
                     mainPicture: product.variants[0].picture,
                     quantity: 1,
@@ -72,8 +73,8 @@ export const SingleProduct = ({
             </a>
           </Link>
           <span className="products-item__cost">
-            <span>{solde && `$${prix}`}</span> TND{" "}
-            {prix - prix * (soldePourcentage / 100)}
+            <span>{solde && `$${prix}`}</span> 
+            {prix - prix * (soldePourcentage / 100)}{" "}TND
           </span>
         </div>
       </div>

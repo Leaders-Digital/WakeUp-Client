@@ -1,28 +1,27 @@
-import { ProductsCarousel } from 'components/Product/Products/ProductsCarousel';
-import { SectionTitle } from 'components/shared/SectionTitle/SectionTitle';
-import { useEffect, useState } from 'react';
-import productData from 'data/product/product';
-import axios from 'axios';
+import { ProductsCarousel } from "components/Product/Products/ProductsCarousel";
+import { SectionTitle } from "components/shared/SectionTitle/SectionTitle";
+import { useEffect, useState } from "react";
+import productData from "data/product/product";
+import axios from "axios";
 
 export const Trending = () => {
-
-
   const [productData, setProductData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('FACE');
-
-
+  const [selectedCategory, setSelectedCategory] = useState("FACE");
 
   const getProducts = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:7000/api/product/all/home", {
-        params: {
-          categorie: selectedCategory,
-        },
-      });
-      console.log(res.data.products);
-      
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_KEY}api/product/all/home`,
+        {
+          params: {
+            categorie: selectedCategory,
+          },
+        }
+      );
+
+
       setProductData(res.data.products);
       setLoading(false);
     } catch (error) {
@@ -31,59 +30,59 @@ export const Trending = () => {
   };
 
   useEffect(() => {
-    getProducts()
+    getProducts();
   }, [selectedCategory]);
 
   useEffect(() => {
-    getProducts()
+    getProducts();
   }, []);
 
-const filterList = [
-  {
-    name: 'Visage',
-    value: 'FACE',
-  },
-  {
-    name: 'Brosse',
-    value: 'Brush',
-  },
-  {
-    name: 'Yeux',
-    value: 'EYES',
-  },
-  {
-    name: 'Produits de soin',
-    value: 'Produits de soin',
-  },
-  {
-    name: 'Lèvres',
-    value: 'LIPS',
-  },
-];
+  const filterList = [
+    {
+      name: "Visage",
+      value: "FACE",
+    },
+    {
+      name: "Brosse",
+      value: "Brush",
+    },
+    {
+      name: "Yeux",
+      value: "EYES",
+    },
+    {
+      name: "Produits de soin",
+      value: "Produits de soin",
+    },
+    {
+      name: "Lèvres",
+      value: "LIPS",
+    },
+  ];
 
   return (
     <>
       {/* <!-- BEGIN TRENDING --> */}
-      <section className='trending'>
-        <div className='trending-content'>
+      <section className="trending">
+        <div className="trending-content">
           <SectionTitle
-            subTitle='Cosmetics'
-            title='Trending products'
-            body='Nourish your skin with toxin-free cosmetic products. With the offers that you can’t refuse.'
+            subTitle="Cosmétiques"
+            title="Nouveautés"
+            body="Sublimez votre visage avec des produits de maquillage sans toxines. Profitez d'offres irrésistibles."
           />
-          <div className='tab-wrap trending-tabs'>
-            <ul className='nav-tab-list tabs'>
+          <div className="tab-wrap trending-tabs">
+            <ul className="nav-tab-list tabs">
               {filterList.map((item) => (
                 <li
                   key={item.value}
                   onClick={() => setSelectedCategory(item.value)}
-                  className={item.value === selectedCategory ? 'active' : ''}
+                  className={item.value === selectedCategory ? "active" : ""}
                 >
                   {item.name}
                 </li>
               ))}
             </ul>
-            <div className='products-items'>
+            <div className="products-items">
               <ProductsCarousel products={productData} />
             </div>
           </div>
