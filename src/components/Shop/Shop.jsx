@@ -6,15 +6,20 @@ import Slider from "rc-slider";
 import { useEffect, useState } from "react";
 import Dropdown from "react-dropdown";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 // React Range
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
 const options = [
-  { value: "highToMin", label: "Du plus cher au moins cher" },
-  { value: "minToHigh", label: "Du moins cher au plus cher" },
+  { value: "asc", label: "Du plus cher au moins cher" },
+  { value: "desc", label: "Du moins cher au plus cher" },
 ];
-export const Shop = () => {
+export const Shop = ({ setTitle }) => {
+  const router = useRouter();
+
+  const { category } = router.query;
+
   const [productData, setProductData] = useState([]);
   const allProducts = [...productData];
   const [page, setPage] = useState(1);
@@ -28,42 +33,73 @@ export const Shop = () => {
   const [highPrice, setHighPrice] = useState(0);
   const [fixMin, setFixMin] = useState(0);
   const [fixMax, setFixMax] = useState(0);
-  
+  const [sortByPrice, setSortByPrice] = useState("asc");
+  const [mainCategory, setMainCategory] = useState(category);
+
+  const produitdesoin = [
+    "Nettoyants",
+    "SOIN DE VISAGE",
+    "SOIN DE CORPS",
+    "SOIN DE CHEVEUX",
+  ];
+  const Accessoires = [
+    "PINCEAUX DE VISAGE",
+    "PINCEAUX DES YEUX",
+    "PINCEAUX DES LÈVRES",
+    "BRUSH CLEANSER",
+  ];
+  const Maquillage = [
+    "FONDATIONS",
+    "BB CREAM",
+    "BLUSH",
+    "HIGHLIGHTER",
+    "BRONZER & POWDER",
+    "PRIMER",
+    "FIXER",
+    "MASCARA",
+    "CONCEALER",
+    "EYESHADOW",
+    "EYELINER",
+    "EYE PENCILS",
+    "EYE BROW",
+    "LIPSTICK",
+    "LIPGLOSS",
+    "LIPLINER",
+    "BAUMES",
+  ];
+  const objecttofind = {
+    "Produits de soin": produitdesoin,
+    Accessoires: Accessoires,
+    Maquillage: Maquillage,
+    nocata: [],
+  };
   const getCategories = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:7000/api/product/get-category"
+        `${process.env.NEXT_PUBLIC_API_KEY}api/product/get-category`
       );
       setCategories(res.data.categoryCounts);
     } catch (error) {}
   };
-  console.log("from shop", productData);
-  console.log("lowPrice", lowPrice);
-  console.log("highPrice", highPrice);
 
-
-  console.log("fixMin", fixMin);
-  console.log("fixMax", fixMax);
 
   const getProducts = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:7000/api/product/all", {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}api/product/all`, {
         params: {
           page: page, // Send current page as a query parameter
           limit: 6, // Send limit as a query parameter
           categorie: selectedCategory,
           solde: filter.isSale,
           search: search,
+          sortByPrice: sortByPrice,
+          searchArray: objecttofind[mainCategory],
         },
       });
-      console.log(res.data.products);
-      console.log(res.data);
       setProductData(res.data.products);
       setFixMin(res.data.lowestPrice);
       setFixMax(res.data.highestPrice);
-      console.log("fixMin", fixMin);
-      console.log("fixMax", fixMax);
       setTotalPages(res.data.totalPages); // Update totalPages from the response
       setLoading(false);
     } catch (error) {
@@ -85,17 +121,18 @@ export const Shop = () => {
 
   useEffect(() => {
     getProducts();
-  }, [page, selectedCategory, filter]);
+  },[]);
 
   useEffect(() => {
-    const debounceTimer = setTimeout(() => {
-      if (search) {
         getProducts();
-      }
-    }, 1000); // 3000 milliseconds = 3 seconds
-    return () => clearTimeout(debounceTimer); // Cleanup on unmount or when search changes
-  }, [search]);
+  
+   // Cleanup on uount or when search changes
+  }, [page, selectedCategory, filter, sortByPrice,search]);
+
   useEffect(() => {
+    if (category) {
+      setTitle(category);
+    }
     getCategories();
   }, []);
 
@@ -125,7 +162,9 @@ export const Shop = () => {
                     return (
                       <li
                         onClick={() => {
+                          setTitle(category._id);
                           setSelectedCategory(category._id);
+                          setPage(1);
                         }}
                         style={{ cursor: "pointer" }}
                       >
@@ -152,7 +191,6 @@ export const Shop = () => {
                       prefixCls: "rc-slider-tooltip",
                     }}
                     onChange={(value) => {
-                      console.log("Slider values:", value); // Check the values
                       setLowprice(value[0]);
                       setHighPrice(value[1]);
                     }}
@@ -192,6 +230,9 @@ export const Shop = () => {
                     options={options}
                     className="react-dropdown"
                     value={options[0]}
+                    onChange={(e) => {
+                      setSortByPrice(e.value);
+                    }}
                   />
                 </div>
               </div>
@@ -215,7 +256,7 @@ export const Shop = () => {
                 </>
               ) : (
                 <div style={{ textAlign: "center" }}>
-                  <h1>Aucun produit trouvé</h1>
+                  <h5 style={{ marginTop: "50px" }}>Aucun produit trouvé</h5>
                 </div>
               )}
             </div>

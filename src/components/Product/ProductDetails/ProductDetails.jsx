@@ -23,9 +23,10 @@ export const ProductDetails = () => {
   const [nav2, setNav2] = useState();
   const [addedInCart, setAddedInCart] = useState(false);
 
+
   const getProduct = async (id) => {
     try {
-      const res = await axios.get(`http://localhost:7000/api/product/${id}`);
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}api/product/${id}`);
       setProduct(res.data);
       setSelectedVariant({ ...res.data.variants[0] });
     } catch (error) {
@@ -64,6 +65,7 @@ export const ProductDetails = () => {
       quantity: quantity,
       variantId: selectedVariant._id,
       solde: product.solde,
+      stock: selectedVariant.quantity,
       soldePourcentage: product.soldePourcentage,
     };
 
@@ -108,8 +110,8 @@ export const ProductDetails = () => {
                       style={{objectFit: "contain"}}
                       src={
                         selectedVariant && selectedVariant.picture
-                          ? "http://localhost:7000/" + selectedVariant.picture
-                          : "http://localhost:7000/" + product.mainPicture
+                          ? `${process.env.NEXT_PUBLIC_API_KEY}` + selectedVariant.picture
+                          : `${process.env.NEXT_PUBLIC_API_KEY}` + product.mainPicture
                       }
                       alt="product"
                     />
@@ -126,7 +128,7 @@ export const ProductDetails = () => {
                   swipeToSlide={true}
                   focusOnSelect={true}
                 >
-                  {product.variants &&
+                  {product.variants.length > 1 &&
                     product.variants.map((oneVarient, index) => (
                       <div
                         key={index}
@@ -134,7 +136,7 @@ export const ProductDetails = () => {
                         onClick={() => setSelectedVariant(oneVarient)}
                       >
                         <img
-                          src={"http://localhost:7000/" + oneVarient.picture}
+                          src={`${process.env.NEXT_PUBLIC_API_KEY}` + oneVarient.picture}
                           alt="product"
                           style={{objectFit: "contain"}}
                         />

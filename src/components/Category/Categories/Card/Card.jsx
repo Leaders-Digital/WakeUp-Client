@@ -3,12 +3,12 @@ import Link from 'next/link';
 export const Card = ({ category }) => {
   const { name, image } = category;
   return (
-    <Link href={`/categories`}>
+    <Link href={`/shop?category=${encodeURIComponent(name)}`}>
       <a className='top-categories__item'>
         <img src={image} className='js-img' alt='' />
         <div className='top-categories__item-hover'>
           <h5>{name}</h5>
-          <span>browse products -</span>
+          <span>Parcourir les produits -</span>
           <i className='icon-arrow-lg'></i>
         </div>
       </a>

@@ -13,14 +13,14 @@ export const Trending = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        "http://localhost:7000/api/product/all/home",
+        `${process.env.NEXT_PUBLIC_API_KEY}api/product/all/home`,
         {
           params: {
             categorie: selectedCategory,
           },
         }
       );
-      console.log(res.data.products);
+
 
       setProductData(res.data.products);
       setLoading(false);
@@ -67,10 +67,9 @@ export const Trending = () => {
         <div className="trending-content">
           <SectionTitle
             subTitle="Cosmétiques"
-            title="Produits tendance"
-            body="Découvrez les produits les plus vendus de notre boutique."
+            title="Nouveautés"
+            body="Sublimez votre visage avec des produits de maquillage sans toxines. Profitez d'offres irrésistibles."
           />
-
           <div className="tab-wrap trending-tabs">
             <ul className="nav-tab-list tabs">
               {filterList.map((item) => (

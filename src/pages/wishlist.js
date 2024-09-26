@@ -8,15 +8,14 @@ const breadcrumbsData = [
     path: '/',
   },
   {
-    label: 'Wishlist',
+    label: 'suivi de commande',
     path: '/wishlist',
   },
 ];
 const WishlistPage = () => {
   return (
-    <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle='Wishlist'>
+    <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle='Suivi de commande'>
       <Wishlist />
-      <MostViewed />
     </PublicLayout>
   );
 };

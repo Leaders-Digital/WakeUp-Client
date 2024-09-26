@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const Card = ({ cart, onChangeQuantity }) => {
+export const Card = ({ cart, onChangeQuantity,handleDelete }) => {
   const {
     nom,
     mainPicture,
@@ -13,8 +13,9 @@ export const Card = ({ cart, onChangeQuantity }) => {
     quantity,
     variantId,
     reference,
+    stock
   } = cart;
-  console.log("from card", cart);
+
 
   return (
     <>
@@ -23,7 +24,7 @@ export const Card = ({ cart, onChangeQuantity }) => {
           <Link href={`/product/${_id}`}>
             <a className="cart-table__img">
               <img
-                src={"http://localhost:7000/" + mainPicture}
+                src={`${process.env.NEXT_PUBLIC_API_KEY}`+ mainPicture}
                 className="js-img"
                 alt=""
                 style={{ objectFit: "contain",width:"100px",height:"100px" }}
@@ -55,7 +56,7 @@ export const Card = ({ cart, onChangeQuantity }) => {
             <div className="counter-box">
               <span
                 onClick={() =>
-                  onChangeQuantity("decrement", quantity, variantId)
+                  onChangeQuantity("decrement", quantity, variantId ,stock)
                 }
                 className="counter-link counter-link__prev"
               >
@@ -69,7 +70,7 @@ export const Card = ({ cart, onChangeQuantity }) => {
               />
               <span
                 onClick={() =>
-                  onChangeQuantity("increment", quantity, variantId)
+                  onChangeQuantity("increment", quantity, variantId,stock)
                 }
                 className="counter-link counter-link__next"
               >
@@ -85,6 +86,15 @@ export const Card = ({ cart, onChangeQuantity }) => {
               : (prix * quantity).toFixed(2)  + " TND" } 
           </span>
         </div>
+        <div className="cart-table__col">
+        <span
+          onClick={() => handleDelete(variantId)}
+          className="cart-table__delete"
+          style={{ cursor: "pointer", color: "red" }}
+        >
+          Supprimer
+        </span>
+      </div>
       </div>
     </>
   );

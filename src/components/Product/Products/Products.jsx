@@ -4,7 +4,7 @@ import { SingleProduct } from './SingleProduct/SingleProduct';
 
 export const Products = ({ products }) => {
   const { cart, setCart } = useContext(CartContext);
-console.log("from Products",products) ;
+
 
   const handleAddToCart = (product) => {
     setCart([...cart, { ...product, quantity: 1 }]);
@@ -16,7 +16,6 @@ console.log("from Products",products) ;
           addedInCart={Boolean(cart?.find((pd) => pd._id === product._id))}
           key={product._id}
           product={product}
-          onAddToWish={(id) => console.log(id)}
           onAddToCart={handleAddToCart}
         />
       ))}

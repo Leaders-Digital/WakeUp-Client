@@ -73,7 +73,7 @@ export const Nav = ({ navItem }) => {
                   <a href="/boutique/categorie/MAKE%20UP/FACE/FACE%20SERUM">
                     FACE SERUM
                   </a>
-                </li>
+                </li> 
                 <li>
                   <a href="/boutique/categorie/MAKE%20UP/FACE/FIXER">FIXER</a>
                 </li>

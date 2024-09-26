@@ -19,7 +19,7 @@ export const Card = ({ order }) => {
       <div className='checkout-order__item'>
         <Link href={`/product/${_id}`}>
           <a className='checkout-order__item-img'>
-            <img src={"http://localhost:7000/"+mainPicture} className='js-img' alt='' />
+            <img src={`${process.env.NEXT_PUBLIC_API_KEY}`+mainPicture} className='js-img' alt='' />
           </a>
         </Link>
         <div className='checkout-order__item-info'>

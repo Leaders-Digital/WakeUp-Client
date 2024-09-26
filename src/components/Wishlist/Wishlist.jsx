@@ -1,15 +1,59 @@
-import productData from 'data/product/product';
-import { Card } from './Card/Card';
-import Link from 'next/link';
+import productData from "data/product/product";
+import { Card } from "./Card/Card";
+import Link from "next/link";
+import axios from "axios";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export const Wishlist = () => {
-  const wishItems = [...productData].slice(0, 2);
-  wishItems[1].isStocked = false;
+  const [orderCode, setCode] = useState("");
+  const [order, setOrder] = useState({});
+  const [loading, setLoading] = useState(false);
+  const findOrder = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_KEY}api/order/code/${orderCode}`
+      );
 
+      setOrder(response.data.data);
+      toast.success(response.data.message);
+      setLoading(false);
+      // You can set the order data to state or handle it as needed
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.response.data.message);
+    }
+  };
   return (
     <>
+      <Toaster />
       {/* <!-- BEGIN WISHLIST --> */}
-      <div className='wishlist'>
+      <div className="wrapper">
+        <div className="detail-block__content">
+          <div
+            className="box-field"
+            style={{ marginTop: "50px", display: "flex", gap: "30px" }}
+          >
+            <input
+              onChange={(e) => setCode(e.target.value)}
+              type="text"
+              className="form-control"
+              placeholder="Enter Votre code de commande"
+            />
+            <button className="btn" onClick={findOrder}>
+              Suivre Votre commande
+            </button>
+          </div>
+        </div>
+        {!loading && order.orderCode ? (
+          <div style={{ marginTop: "30px" }}>
+            <h3>Commande N° {order.orderCode}</h3>
+            <h4>Statut de la commande: {order.statut}</h4>
+          </div>
+        ) : null}
+      </div>
+      {/* <div className='wishlist'>
         <div className='wrapper'>
           <div className='cart-table'>
             <div className='cart-table__box'>
@@ -39,7 +83,7 @@ export const Wishlist = () => {
           data-src='/assets/img/promo-video__decor.jpg'
           alt=''
         />
-      </div>
+      </div> */}
       {/* <!-- WISHLIST EOF   --> */}
     </>
   );

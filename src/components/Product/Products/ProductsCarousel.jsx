@@ -61,7 +61,6 @@ export const ProductsCarousel = ({ products }) => {
           addedInCart={Boolean(cart?.find((pd) => pd._id === product._id))}
           key={product._id}
           product={product}
-          onAddToWish={(id) => console.log(id)}
           onAddToCart={handleAddToCart}
         />
       ))}

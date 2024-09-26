@@ -14,22 +14,17 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
     setRating(rate);
     // other logic
   };
-console.log("ssdsdsd",productimage);
+
 
   const handleSendReview = async (e) => {
     try {
-      console.log({
-        ...data,
-        rating: rating / 20,
-        productId,
-      });
       setData({
         name: "",
         email: "",
         comment: "",
       });
       setRating(0);
-      await axios.post("http://localhost:7000/api/review/add-review", {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}api/review/add-review`, {
         ...data,
         rating: rating / 20,
         productId,
