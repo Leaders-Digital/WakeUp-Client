@@ -7,11 +7,11 @@ import { useEffect, useState } from 'react';
 
 export const Blog = () => {
   const [blogs,setBlogs] = useState([]);
-  const API_URL = process.env.REACT_APP_API_URL
+
 
   const getBlog = async () => {
     try {
-      const res = await axios.get(`${process.env.CURRENT_HOST}api/blog/main`);
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}api/blog/main`);
       setBlogs(res.data.data);
       console.log(res.data.data);
       
