@@ -559,7 +559,7 @@ h6,
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 130px;
+  padding-bottom: 30px;
 
   img {
     margin: 0 56px;
@@ -615,7 +615,7 @@ h6,
 // advantages
 
 .advantages {
-  padding-top: 190px;
+  padding-top: 100px;
 
   &-items {
     display: flex;
@@ -662,7 +662,7 @@ h6,
 // top-categories
 
 .top-categories {
-  padding-top: 184px;
+  // padding-top: 184px;
   overflow: hidden;
 
   &__text {
@@ -2322,7 +2322,21 @@ h6,
     }
   }
 }
+.spinner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #F8CFA9;
+  -webkit-mask: radial-gradient(circle closest-side at 50% 40%,#0000 94%, #000);
+  transform-origin: 50% 40%;
+  animation: spinner-pl92zb 1s infinite linear;
+}
 
+@keyframes spinner-pl92zb {
+  100% {
+     transform: rotate(1turn);
+  }
+}
 blockquote,
 .blockquote {
   font-size: 20px;

@@ -51,10 +51,10 @@ export default function Home() {
     <Layout>
       <Banner />
       <Trending />
-      <BrandLogo />
       <Discount />
       <Advantage advantages={[...advantages1,...advantages2]} />
       <TopCategories />
+      <BrandLogo />
       {/* <Advantage advantages={advantages2} /> */}
       {/* <Info /> */}
       {/* <NewArrivals /> */}

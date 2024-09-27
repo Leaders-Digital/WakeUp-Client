@@ -19,8 +19,10 @@ useEffect(()=>{
 
   return (
     <>
-    <h1 style={{textAlign:"center",marginBottom:"40px",fontSize:"50px"}}>Nos Partenaires</h1>
+    
+    <h1 style={{textAlign:"center",marginTop:"30px",fontSize:"50px"}}>Nos Partenaires</h1>
       {/* <!-- BEGIN LOGOS --> */}
+      
       <div className="main-logos">
         {partenaire.map((logo, index) => (
           <a key={index}   >

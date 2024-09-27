@@ -21,7 +21,7 @@ const MyApp = ({ Component, pageProps }) => {
           zIndex: "1000",
           bottom: "0",
           right: "0",
-          margin: "20px",
+          margin: "7px",
         }}
       >
         <li>

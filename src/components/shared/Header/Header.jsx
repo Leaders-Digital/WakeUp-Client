@@ -55,10 +55,10 @@ export const Header = () => {
           </div>
         )}
         <div className={`header-content ${fixedNav ? "fixed" : ""}`}>
-          <div className="header-logo">
+          <div className="heder-logo">
             <Link href="/">
               <a>
-                <img src={header.logo} alt="" />
+                <img src={header.logo} alt=""  />
               </a>
             </Link>
           </div>
