@@ -3,7 +3,7 @@ import { PagingList } from "components/shared/PagingList/PagingList";
 import { usePagination } from "components/utils/Pagination/Pagination";
 // import productData from "data/product/product";
 import Slider from "rc-slider";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Dropdown from "react-dropdown";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -82,7 +82,6 @@ export const Shop = ({ setTitle }) => {
     } catch (error) {}
   };
 
-
   const getProducts = async () => {
     try {
       setLoading(true);
@@ -111,12 +110,16 @@ export const Shop = ({ setTitle }) => {
     if (page > 1) {
       setPage(page - 1);
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const nextPage = async () => {
     if (page < totalPages) {
       setPage(page + 1);
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+
   };
 
   useEffect(() => {

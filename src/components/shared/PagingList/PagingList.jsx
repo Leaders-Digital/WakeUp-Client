@@ -13,7 +13,7 @@ export const PagingList = ({ previewsPage , nextPage ,totalPages,setPage,page })
       {[...Array(totalPages)].map((x, i) => (
         <li
           key={i}
-          onClick={() => setPage(i + 1)}
+          onClick={() =>{ setPage(i + 1) ; window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           className={`paging-list__item ${
             page === i + 1 && 'active'
           }`}

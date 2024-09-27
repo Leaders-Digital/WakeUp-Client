@@ -616,6 +616,8 @@ h6,
 
 .advantages {
   padding-top: 100px;
+  padding-bottom: 100px;
+
 
   &-items {
     display: flex;
@@ -2394,6 +2396,7 @@ blockquote,
 .shop {
   padding-top: 180px;
   position: relative;
+
 
   .promo-video__decor {
     top: 2.5%;
@@ -6426,9 +6429,7 @@ input[type='search']::-webkit-search-results-decoration {
   }
 
   .shop-main__items {
-    .products-item {
-      // width: calc(50% - 30px);
-    }
+    min-height: 100vh;
   }
 
   .shop-main__items .products-item__info {
