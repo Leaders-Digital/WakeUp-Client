@@ -8,7 +8,7 @@ export const AboutPromo = () => {
 
   const promoNumber = [...PromoNumberData];
   const url = play
-    ? 'https://www.youtube.com/embed/K1yp7Q1hH1c'
+    ? 'https://www.youtube.com/embed/3N-5eT2oyUI'
     : '';
   return (
     <>
@@ -30,14 +30,6 @@ export const AboutPromo = () => {
             />
           </div>
 
-          <div className='promo-video__nums'>
-            {promoNumber.map((promo, index) => (
-              <div key={index} className='promo-video__num'>
-                <span>{promo.number}</span>
-                <h5>{promo.name}</h5>
-              </div>
-            ))}
-          </div>
         </div>
         <img
           className='promo-video__decor js-img'

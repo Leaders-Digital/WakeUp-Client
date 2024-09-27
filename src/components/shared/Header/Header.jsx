@@ -66,37 +66,7 @@ export const Header = () => {
             {/* Nav */}
             <Nav navItem={navItem} />
             {/* header options */}
-            <ul className="header-options">
-              {/* <li>
-                <Link href='/faq'>
-                  <a>
-                    <i className='icon-search'></i>
-                  </a>
-                </Link>
-              </li> */}
-              {/* <li>
-                <Link href='/profile'>
-                  <a>
-                    <i className='icon-user'></i>
-                  </a>
-                </Link>
-              </li> */}
-              <li>
-                <Link href="/wishlist">
-                  <a>
-                    <i className="fa-solid fa-boxes-packing"></i>{" "}
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/cart">
-                  <a>
-                    <i className="icon-cart"></i>
-                    <span>{cart.length ?? "0"}</span>
-                  </a>
-                </Link>
-              </li>
-            </ul>
+        
           </div>
 
           <div

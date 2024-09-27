@@ -67,7 +67,7 @@ export const Footer = () => {
                     <a href='tel:+13457464975'>+216 27 360 067</a>
                   </div>
                 </li>
-                <li style={{width:"120%"}}> 
+                <li > 
                   <i className='icon-mail'></i>
                   <a href='mailto:contact@leaders-makeup.com'>contact@leaders-makeup.com</a>
                 </li>

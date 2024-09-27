@@ -24,4 +24,8 @@ export const navItem = [
     name: "About",
     path: "/about",
   },
+  {
+    name: "suivi commande",
+    path: "/wishlist",
+  },
 ];
