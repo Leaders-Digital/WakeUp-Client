@@ -9,12 +9,11 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
     email: "",
     comment: "",
   });
+
   // Catch Rating value
   const handleRating = (rate) => {
     setRating(rate);
-    // other logic
   };
-
 
   const handleSendReview = async (e) => {
     try {
@@ -38,6 +37,7 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
   return (
     <>
       {/* <!-- Product Review Form --> */}
@@ -46,8 +46,8 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
           {/* <img src={"http://localhost:7000/" + productimage} /> */}
         </div>
 
-        <h4>leave a review</h4>
-        <p>Your email address will not be published.</p>
+        <h4>Laissez un avis</h4>
+        <p>Votre adresse email ne sera pas publiée.</p>
         <div className="rating" data-id="rating_1">
           <Rating
             onClick={handleRating}
@@ -62,7 +62,7 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
           <input
             type="text"
             className="form-control"
-            placeholder="Enter your name"
+            placeholder="Entrez votre nom"
             name="name"
             value={data.name}
             onChange={handleChange}
@@ -72,7 +72,7 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
           <input
             type="email"
             className="form-control"
-            placeholder="Enter your email"
+            placeholder="Entrez votre adresse email"
             name="email"
             value={data.email}
             onChange={handleChange}
@@ -81,7 +81,7 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
         <div className="box-field box-field__textarea">
           <textarea
             className="form-control"
-            placeholder="Enter your review"
+            placeholder="Entrez votre avis"
             name="comment"
             value={data.comment}
             onChange={handleChange}
@@ -93,7 +93,7 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
             handleSendReview();
           }}
         >
-          send
+          Envoyer
         </button>
       </div>
     </>

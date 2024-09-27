@@ -9,21 +9,23 @@ export const ContactInfo = () => {
         <div className='wrapper'>
           <div className='contacts-info__content'>
             <div className='contacts-info__text'>
-              <h4>We take care of you</h4>
+              <h4>Nous prenons soin de vous</h4>
               <p>
-                Email us if you have any questions, we will be sure to contact
-                you and find a solution. Also, our managers will help you choose
-                the product that suits you best, at the best price. From year to
-                year, the BeShop network develops and improves, taking into
-                account all consumer needs and market trends. But for us, the
-                concern remains that when coming to the BeShop store, customers
-                do not have questions about the convenience and comfort of
-                shopping, product quality and the level of professionalism of
-                sales consultants.
+                Envoyez-nous un e-mail si vous avez des questions, nous nous
+                ferons un plaisir de vous contacter et de trouver une solution.
+                De plus, nos responsables vous aideront à choisir le produit
+                qui vous convient le mieux, au meilleur prix. D'année en année,
+                le réseau BeShop se développe et s'améliore, en tenant compte
+                de tous les besoins des consommateurs et des tendances du
+                marché. Mais pour nous, la préoccupation demeure que lors de
+                leur venue au magasin BeShop, les clients n'aient pas de
+                questions sur la commodité et le confort des achats, la qualité
+                des produits et le niveau de professionnalisme des
+                conseillers de vente.
               </p>
             </div>
             <div className='contacts-info__social'>
-              <span>Find us here:</span>
+              <span>Trouvez-nous ici :</span>
               <ul>
                 {footerSocial.map((social, index) => (
                   <li key={index}>

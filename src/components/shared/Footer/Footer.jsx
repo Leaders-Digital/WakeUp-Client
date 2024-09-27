@@ -17,6 +17,14 @@ export const Footer = () => {
       <footer className='footer'>
         <div className='wrapper'>
           <div className='footer-top'>
+           
+            <div className='footer-top__logo'>
+              <Link href='/'>
+                <a>
+                  <img src={footerLogo} className='js-img' alt='' />
+                </a>
+              </Link>
+            </div>
             <div className='footer-top__social'>
               <span>Find us here:</span>
               <ul>
@@ -29,25 +37,8 @@ export const Footer = () => {
                 ))}
               </ul>
             </div>
-            <div className='footer-top__logo'>
-              <Link href='/'>
-                <a>
-                  <img src={footerLogo} className='js-img' alt='' />
-                </a>
-              </Link>
-            </div>
-
             {/* Payment method */}
-            <div className='footer-top__payments'>
-              <span>Payment methods:</span>
-              <ul>
-                {paymentMethods.map((payment, index) => (
-                  <li key={index}>
-                    <img src={payment.icon} className='js-img' alt='' />
-                  </li>
-                ))}
-              </ul>
-            </div>
+         
           </div>
           <div className='footer-nav'>
             {/* Footer Nav */}
@@ -75,7 +66,7 @@ export const Footer = () => {
             </div>
           </div>
           <div className='footer-copy'>
-            <span>&copy; All rights reserved. Wakeup 2020</span>
+            <span>&copy; Copyright 2024 by LeadersDigital </span>
           </div>
         </div>
       </footer>

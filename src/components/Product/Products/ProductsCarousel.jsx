@@ -23,6 +23,7 @@ export const ProductsCarousel = ({ products }) => {
     dots: false,
     infinite: true,
     arrows: true,
+    BlobEvent: true,
     speed: 300,
     slidesToShow: products.length > 4 ? 4 : products.length,
     prevArrow: <SlickArrowPrev />,

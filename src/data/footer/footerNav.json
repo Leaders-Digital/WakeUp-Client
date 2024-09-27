@@ -1,17 +1,17 @@
 [
   {
-    "title": "About",
+    "title": "À propos",
     "navLinks": [
       {
-        "name": "About us",
+        "name": "À propos de nous",
         "path": "/about"
       },
       {
-        "name": "Categories",
+        "name": "Catégories",
         "path": "/categories"
       },
       {
-        "name": "Shop",
+        "name": "Boutique",
         "path": "/shop"
       },
       {
@@ -28,32 +28,31 @@
       }
     ]
   },
-
   {
-    "title": "Useful links",
+    "title": "Liens utiles",
     "navLinks": [
       {
-        "name": "Careers",
+        "name": "Carrières",
         "path": "/about"
       },
       {
-        "name": "Privacy policy",
+        "name": "Politique de confidentialité",
         "path": "/faq"
       },
       {
-        "name": "Terms of use",
+        "name": "Conditions d'utilisation",
         "path": "/about"
       },
       {
-        "name": "Support",
+        "name": "Assistance",
         "path": "/blog"
       },
       {
-        "name": "Shipping details",
+        "name": "Détails de livraison",
         "path": "/about"
       },
       {
-        "name": "Information",
+        "name": "Informations",
         "path": "/about"
       }
     ]
