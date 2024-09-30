@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
+// import banner from "assets/img/banner.jpg";
 export const Banner = () => {
   const [backgroundImage, setBackgroundImage] = useState(
     `url("https://c4.wallpaperflare.com/wallpaper/864/934/398/4k-screenshot-assetto-corsa-competizione-wallpaper-thumb.jpg")`
@@ -10,11 +10,11 @@ export const Banner = () => {
     const handleResize = () => {
       if (window.innerWidth < 480) {
         setBackgroundImage(
-          `url("https://img.freepik.com/premium-photo/fashion-beauty-blog-banner-featuring-makeup-products-peach-background-concept-beauty-products-makeup-display-peach-background-fashion-blog-banner-design_864588-295634.jpg")`
+          `url("/assets/img/logo-wakeup.png")`
         );
       } else {
         setBackgroundImage(
-          `url("https://c4.wallpaperflare.com/wallpaper/864/934/398/4k-screenshot-assetto-corsa-competizione-wallpaper-thumb.jpg")`
+          `url("/assets/img/banner1.jpg")`
         );
       }
     };
