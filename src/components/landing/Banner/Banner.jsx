@@ -14,7 +14,7 @@ export const Banner = () => {
         );
       } else {
         setBackgroundImage(
-          `url("/assets/img/banner1.jpg")`
+          `url("/assets/img/bannerd.jpg")`
         );
       }
     };
