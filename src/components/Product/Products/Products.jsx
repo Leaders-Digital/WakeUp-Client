@@ -7,6 +7,8 @@ export const Products = ({ products }) => {
 
 
   const handleAddToCart = (product) => {
+    console.log('product', product);
+    
     setCart([...cart, { ...product, quantity: 1 }]);
   };
   return (

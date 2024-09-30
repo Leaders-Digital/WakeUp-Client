@@ -11,7 +11,14 @@ export const navItem = [
     name: "Nos Produits",
     path: "/shop",
   },
-
+  {
+    name: "Nos Pack",
+    path: "/packs",
+  },
+  {
+    name: "à propos",
+    path: "/about",
+  },
   {
     name: "Blog",
     path: "/blog",
@@ -19,10 +26,6 @@ export const navItem = [
   {
     name: "Contact",
     path: "/contact",
-  },
-  {
-    name: "About",
-    path: "/about",
   },
   {
     name: "suivi commande",

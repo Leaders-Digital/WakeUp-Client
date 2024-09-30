@@ -40,7 +40,7 @@ export const Checkout = () => {
     note: "",
   });
   const [orderCode, setOrderCode] = useState("");
-  const { cart ,setCart} = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
 
   const makeTheCartEmpty = () => {
     setCart([]); // Correct way to empty the cart
@@ -50,12 +50,25 @@ export const Checkout = () => {
     0
   );
 
-  const listeDesProduits = cart.map((item) => ({
-    variant: item.variantId,
-    quantite: item.quantity,
-  }));
+  const listeDesProduits = [];
+  const listeDesPack = [];
+console.log("cart",cart);
 
-
+  cart.forEach((item) => {
+    if (item.categorie !== "PACK") {
+      listeDesProduits.push({
+        variant: item.variantId,
+        quantite: item.quantity,
+      });
+    } else {
+      listeDesPack.push({
+        pack: item._id,
+        quantite: item.quantity,
+      });
+    }
+  });
+console.log("listeDesProduits",listeDesProduits);
+console.log("listeDesPack",listeDesPack);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -79,16 +92,12 @@ export const Checkout = () => {
     if (
       !nom ||
       !prenom ||
-      !email ||
       !numTelephone ||
       !ville ||
       !adresse ||
       !gouvernorat ||
-      !codePostal ||
-      !note
+      !codePostal
     ) {
-
-
       // Trigger a toast notification if any field is empty
       toast.error("Veuillez remplir tous les champs."); // This will show the error message
       return; // Exit the function if validation fails
@@ -103,25 +112,28 @@ export const Checkout = () => {
   const handleCreateOrder = async () => {
     setLoading(true);
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}api/order/create`, {
-        ...data,
-        listeDesProduits,
-        prixTotal: total,
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_KEY}api/order/create`,
+        {
+          ...data,
+          listeDesProduits,
+          listeDesPack,
+          prixTotal: total,
+        }
+      );
       setOrderCode(res.data.orderCode);
 
       setTimeout(() => {
         setLoading(false);
         handleNextPage();
         makeTheCartEmpty();
-     
-      }, 1500);
+      }, 1000);
     } catch (error) {
+      console.log(error);
       setTimeout(() => {
         setLoading(false);
-        makeTheCartEmpty();
-      
-      }, 1500);
+        // makeTheCartEmpty();
+      }, 1000);
     }
   };
 

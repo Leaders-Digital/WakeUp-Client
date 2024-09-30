@@ -5,35 +5,40 @@ import { Card } from './Card/Card';
 
 export const CheckoutOrders = ({total}) => {
   const { cart } = useContext(CartContext);
- 
-
+  const getLoadingDate = () => {
+    const today = new Date();
+    const futureDate = new Date(today);
+    futureDate.setDate(today.getDate() + 2); // Add 2 days
+    return futureDate.toLocaleDateString(); // Format as dd/mm/yyyy or mm/dd/yyyy depending on locale
+  };
+  const loadingDate = getLoadingDate(); // Get the dynamic loading date
   return (
     <>
       <div className='checkout-order'>
-        <h5>Your Order</h5>
+        <h5>Votre commande</h5>
         {cart.map((order) => (
           <Card key={order.id} order={order} />
         ))}
       </div>
       <div className='cart-bottom__total'>
         <div className='cart-bottom__total-goods'>
-          Goods on
-          <span>${total.toFixed(2)}</span>
+          Produits pour
+          <span>{total.toFixed(2)} TND</span>
         </div>
         <div className='cart-bottom__total-promo'>
-          Discount on promo code
-          <span>No</span>
+          Réduction sur code promo
+          <span>Non</span>
         </div>
         <div className='cart-bottom__total-delivery'>
-          Delivery{' '}
+          Livraison{' '}
           <span className='cart-bottom__total-delivery-date'>
-            (Aug 28,2020 at 11:30)
+            {loadingDate}
           </span>
-          <span>$8  </span>
+          <span>8 TND</span>
         </div>
         <div className='cart-bottom__total-num'>
           total:
-          <span>${(total + 8).toFixed(2)}</span>
+          <span>{(total + 8).toFixed(2)} TND</span>
         </div>
       </div>
     </>

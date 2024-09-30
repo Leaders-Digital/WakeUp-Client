@@ -21,7 +21,7 @@ const ContactPage = () => {
       <ContactDetailBlock />
       <ContactInfo />
       <BrandLogo />
-      {/* <ContactFrom /> */}
+      <ContactFrom />
       <Map />
     </PublicLayout>
   );

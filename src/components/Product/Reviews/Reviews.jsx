@@ -10,9 +10,6 @@ export const Reviews = ({ reviews }) => {
         {reviews.slice(0, 3).map((review, index) => (
           <Card key={index} review={review} />
         ))}
-        <a href='#' className='blog-item__link'>
-          show more <i className='icon-arrow-md'></i>
-        </a>
       </div>
       {/* <!-- Reviews EOF   --> */}
     </>

@@ -6,7 +6,7 @@ export const SingleProduct = ({
   onAddToCart,
   addedInCart,
 }) => {
-  const { nom, soldePourcentage, prix, mainPicture, solde, createdAt, _id } =
+  const { nom, soldePourcentage, prix, mainPicture, solde, createdAt, _id,categorie } =
     product;
 
   const isNew = () => {
@@ -45,20 +45,39 @@ export const SingleProduct = ({
               <button
                 disabled={addedInCart}
                 className={`addList ${addedInCart ? "added" : ""}`}
-                onClick={() =>
-                  onAddToCart({
-                    nom: product.nom,
-                    prix,
-                    solde,
-                    stock: product.variants[0].quantity,
-                    soldePourcentage,
-                    mainPicture: product.variants[0].picture,
-                    quantity: 1,
-                    codeAbarre: product.variants[0].codeAbarre,
-                    reference: product.variants[0].reference,
-                    variantId: product.variants[0]._id,
-                    _id,
-                  })
+                onClick={() =>{
+                  if(categorie==="PACK"){
+                    onAddToCart({
+                      nom: product.nom,
+                      prix,
+                      solde,
+                      soldePourcentage,
+                      mainPicture,
+                      quantity: 1,
+                      stock:3,
+                      reference:"package",
+                      categorie,
+                      _id,
+                    })
+                  }else{
+                    onAddToCart({
+                      nom: product.nom,
+                      prix,
+                      solde,
+                      stock: product.variants[0].quantity,
+                      soldePourcentage,
+                      mainPicture: product.variants[0].picture,
+                      quantity: 1,
+                      categorie,
+                      codeAbarre: product.variants[0].codeAbarre,
+                      reference: product.variants[0].reference,
+                      variantId: product.variants[0]._id,
+                      _id, 
+                    })
+                  }
+                }
+             
+                
                 }
               >
                 <i className="icon-cart"></i>

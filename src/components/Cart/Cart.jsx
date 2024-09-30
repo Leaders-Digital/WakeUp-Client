@@ -17,6 +17,7 @@ export const Cart = () => {
     return total + Number(prixFinal) * Number(item.quantity);
   }, 0);
 
+ console.log("cart",cart);
  
 
   const handleProductQuantity = (change, quantity, id ,stock) => {

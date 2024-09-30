@@ -55,7 +55,7 @@ export const ProductDetails = () => {
     console.log(variantExistsInCart, "while adding to cart");
 
     if (variantExistsInCart)
-      return toast.error("produit deja exist dans votre panier "); // If the variant is already in the cart, return
+      return toast.error("Le produit existe déjà dans votre panier"); // If the variant is already in the cart, return
     const newProduct = {
       nom: product.nom,
       prix: product.prix,
@@ -96,15 +96,14 @@ export const ProductDetails = () => {
                   asNavFor={nav2}
                   arrows={false}
                   lazyLoad={true}
-                  // ref={(slider1) => setNav1(slider1)}
                 >
                   <div className="product-slider__main-item">
                     <div className="products-item__type">
                       {product.isSale && (
-                        <span className="products-item__sale">sale</span>
+                        <span className="products-item__sale">En solde</span>
                       )}
                       {product.isNew && (
-                        <span className="products-item__new">new</span>
+                        <span className="products-item__new">Nouveau</span>
                       )}
                     </div>
                     <img
@@ -154,7 +153,7 @@ export const ProductDetails = () => {
             <div className="product-info">
               <h3>{product.nom}</h3>
               {product.quantite > 0 ? (
-                <span className="product-stock">in stock</span>
+                <span className="product-stock">En stock</span>
               ) : (
                 ""
               )}
@@ -163,15 +162,15 @@ export const ProductDetails = () => {
               </span>
               {product.solde ? (
                 <span className="product-price">
-                  <span>{product.prix}TND</span>
-                  {product.prix}TND
+                  <span>{product.prix} TND</span>
+                  {product.prix} TND
                 </span>
               ) : (
-                <span className="product-price">{product.prix}TND</span>
+                <span className="product-price">{product.prix} TND</span>
               )}
               <p>{product.description}</p>
               <div className="contacts-info__social">
-                <span>Find us here:</span>
+                <span>Retrouvez-nous ici :</span>
                 <ul>
                   {socialLinks.map((social, index) => (
                     <li key={index}>
@@ -185,9 +184,10 @@ export const ProductDetails = () => {
 
               <div className="product-options">
                 <div className="product-info__color">
-                  <span>Color:</span>
-                  <ul>
+                {product?.variants.length ? <span>Couleur :</span>:null}
+                <ul>
                     {product?.variants &&
+                    
                       product?.variants.map((variant, index) => (
                         <li
                           onClick={() => {
@@ -204,7 +204,7 @@ export const ProductDetails = () => {
                 </div>
                 <div className="product-info__quantity">
                   <span className="product-info__quantity-title">
-                    Quantity:
+                    Quantité :
                   </span>
                   <div className="counter-box">
                     <span
@@ -238,10 +238,7 @@ export const ProductDetails = () => {
                   onClick={() => handleAddToCart()}
                   className="btn btn-icon"
                 >
-                  <i className="icon-cart"></i> cart
-                </button>
-                <button className="btn btn-grey btn-icon">
-                  <i className="icon-heart"></i> wish
+                  <i className="icon-cart"></i> Ajouter au panier
                 </button>
               </div>
             </div>
@@ -260,7 +257,7 @@ export const ProductDetails = () => {
                   className={tab === 2 ? "active" : ""}
                   onClick={() => setTab(2)}
                 >
-                  Reviews
+                  Avis
                 </li>
               </ul>
               <div className="box-tab-cont">

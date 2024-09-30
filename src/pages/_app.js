@@ -16,12 +16,17 @@ const MyApp = ({ Component, pageProps }) => {
       {/* Cart fixed to top-right corner */}
       <div
         style={{
-          padding: "30px",
+          padding: "10px",
           position: "fixed", // Change to 'fixed' for consistent positioning
           zIndex: "1000",
           bottom: "0",
           right: "0",
-          margin: "7px",
+          margin: "10px",
+          backgroundColor: "#F8CFA9",
+          borderRadius: "50%",
+          height: "50px",
+          width: "50px",
+          boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;"
         }}
       >
         <li>

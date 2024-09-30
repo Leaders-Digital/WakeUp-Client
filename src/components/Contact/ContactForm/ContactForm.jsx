@@ -8,35 +8,35 @@ export const ContactFrom = () => {
       >
         <div className='wrapper'>
           <div className='discount-info'>
-            <span className='saint-text'>write to us</span>
-            <span className='main-text'>leave a message</span>
+            <span className='saint-text'>écrivez-nous</span>
+            <span className='main-text'>laissez un message</span>
             <p>
-              Write to us if you have any questions, we will definitely contact
-              you and find a solution.
+              Écrivez-nous si vous avez des questions, nous vous contacterons
+              certainement et trouverons une solution.
             </p>
             <form>
               <div className='box-field'>
                 <input
                   type='text'
                   className='form-control'
-                  placeholder='Enter your name'
+                  placeholder='Entrez votre nom'
                 />
               </div>
               <div className='box-field'>
                 <input
                   type='email'
                   className='form-control'
-                  placeholder='Enter your email'
+                  placeholder='Entrez votre email'
                 />
               </div>
               <div className='box-field box-field__textarea'>
                 <textarea
                   className='form-control'
-                  placeholder='Enter your message'
+                  placeholder='Entrez votre message'
                 ></textarea>
               </div>
               <button type='submit' className='btn'>
-                send
+                envoyer
               </button>
             </form>
           </div>
