@@ -41,7 +41,7 @@ const MyApp = ({ Component, pageProps }) => {
                   // camelCase property names
                   fontWeight: "700",
                   fontSize: "16px",
-                  color: "#d05278",
+                  color: "#F8CFA9",
                 }}
               >
                 {cart.length ?? "0"}

@@ -78,8 +78,9 @@ header {
       position: relative;
       a {
         color: #222222;
-        font-size: 14px;
+        font-size: 17px;
         line-height: 17px;
+        font-weight: 700;
         position: relative;
         text-transform: uppercase;
         z-index: 2;
@@ -92,7 +93,7 @@ header {
           width: 30px;
           height: 37px;
           opacity: 0;
-          background-image: url(/assets/img/link-bg.png);
+          // background-image: url(/assets/img/link-bg.png);
           background-size: contain;
           background-repeat: no-repeat;
           background-position: center;
@@ -100,7 +101,7 @@ header {
         }
         &:hover,
         &.active {
-          color: #d05278;
+          color: #F8CFA9;
           &:after {
             opacity: 1;
           }
@@ -128,7 +129,7 @@ header {
             padding: 7.6px 40px;
             display: block;
             &:hover {
-              background-color: #d05278;
+              background-color: #F8CFA9;
               color: #ffffff;
               &:after {
                 display: none;
@@ -168,7 +169,7 @@ header {
         transition: $transition;
         font-size: 19px;
         &:hover {
-          color: #d05278;
+          color: #F8CFA9;
         }
       }
       span {
@@ -178,7 +179,7 @@ header {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: #d05278;
+        background: #F8CFA9;
         font-family: 'Montserrat';
         font-weight: 700;
         font-size: 12px;

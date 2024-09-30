@@ -10,11 +10,11 @@ export const Banner = () => {
     const handleResize = () => {
       if (window.innerWidth < 480) {
         setBackgroundImage(
-          `url("/assets/img/logo-wakeup.png")`
+          `url("/assets/img/banner2.jpg")`
         );
       } else {
         setBackgroundImage(
-          `url("/assets/img/banner.jpg")`
+          `url("/assets/img/banner2.jpg")`
         );
       }
     };
