@@ -223,7 +223,7 @@ h6,
 .main-block {
   padding-top: 340px;
   padding-bottom: 237px;
-  background-image: url(/assets/img/main-bg.jpg);
+  // background-image: url(/assets/img/main-bg.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -6990,7 +6990,7 @@ input[type='search']::-webkit-search-results-decoration {
 
 @media screen and (max-width: 480px) {
   .main-block {
-    background-image: url(/assets/img/main-bg-sm.jpg) !important;
+   
 
     &.load-bg {
       background-image: none;
