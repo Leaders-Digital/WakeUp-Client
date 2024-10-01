@@ -47,7 +47,21 @@ export const Header = () => {
       <header className="header">
         {promo && (
           <div className="header-top">
-            <span>30% OFF ON ALL PRODUCTS ENTER CODE: beshop2020</span>
+            <span  style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+              Awaken Your inner beauty
+              <h6></h6>
+              <img
+                src="https://www.countryflags.com/wp-content/uploads/tunisia-flag-png-xl.png"
+                alt=""
+                style={{ width: "20px",marginLeft:"5px" }}
+              />
+              <img
+                src="https://www.countryflags.com/wp-content/uploads/italy-flag-png-large.png"
+                alt=""
+                style={{ width: "20px",marginLeft:"5px" }}
+              />
+            </span>
+
             <i
               onClick={() => setPromo(false)}
               className="header-top-close js-header-top-close icon-close"
@@ -55,10 +69,10 @@ export const Header = () => {
           </div>
         )}
         <div className={`header-content ${fixedNav ? "fixed" : ""}`}>
-          <div className="heder-logo" >
+          <div className="heder-logo">
             <Link href="/">
               <a>
-                <img src={header.logo} alt=""  style={{width:"120px"}}/>
+                <img src={header.logo} alt="" style={{ width: "120px" }} />
               </a>
             </Link>
           </div>
@@ -66,7 +80,6 @@ export const Header = () => {
             {/* Nav */}
             <Nav navItem={navItem} />
             {/* header options */}
-        
           </div>
 
           <div

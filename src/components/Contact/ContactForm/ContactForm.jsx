@@ -6,11 +6,11 @@ export const ContactFrom = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-
+  const [telephone, setTelephone] = useState("");
   const handleSubmit = async () => {
     try {
-      if(!name || !email || !message){
-        return toast.error("Veuillez remplir tous les champs")
+      if (!name || !email || !message) {
+        return toast.error("Veuillez remplir tous les champs");
       }
       setName("");
       setEmail("");
@@ -18,9 +18,10 @@ export const ContactFrom = () => {
       await axios.post(
         `${process.env.NEXT_PUBLIC_API_KEY}api/reclamation/create`,
         {
-          nom:name,
+          nom: name,
           email,
           message,
+          telephone,
         }
       );
       toast.success("Votre message a été envoyé avec succès");
@@ -46,37 +47,43 @@ export const ContactFrom = () => {
               Écrivez-nous si vous avez des questions, nous vous contacterons
               certainement et trouverons une solution.
             </p>
-          
-              <div className="box-field">
-                <input
-                  value={name}
-                  type="text"
-                  className="form-control"
-                  placeholder="Entrez votre nom"
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="box-field">
-                <input
-                  value={email}
-                  type="email"
-                  className="form-control"
-                  placeholder="Entrez votre email"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="box-field box-field__textarea">
-                <textarea
-                  value={message}
-                  className="form-control"
-                  placeholder="Entrez votre message"
-                  onChange={(e) => setMessage(e.target.value)}
-                ></textarea>
-              </div>
-              <button onClick={handleSubmit} className="btn">
-                envoyer
-              </button>
-   
+
+            <div className="box-field">
+              <input
+                value={name}
+                type="text"
+                className="form-control"
+                placeholder="Entrez votre nom"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="box-field">
+              <input
+                value={email}
+                type="email"
+                className="form-control"
+                placeholder="Entrez votre email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                value={telephone}
+                type="email"
+                className="form-control"
+                placeholder="Entrez Numéro de téléphone"
+                onChange={(e) => setTelephone(e.target.value)}
+              />
+            </div>
+            <div className="box-field box-field__textarea">
+              <textarea
+                value={message}
+                className="form-control"
+                placeholder="Entrez votre message"
+                onChange={(e) => setMessage(e.target.value)}
+              ></textarea>
+            </div>
+            <button onClick={handleSubmit} className="btn">
+              envoyer
+            </button>
           </div>
         </div>
       </div>

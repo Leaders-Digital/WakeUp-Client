@@ -20,8 +20,8 @@ const ContactPage = () => {
     <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle='Contact'>
       <ContactDetailBlock />
       <ContactInfo />
-      <BrandLogo />
       <ContactFrom />
+      <BrandLogo />
       <Map />
     </PublicLayout>
   );

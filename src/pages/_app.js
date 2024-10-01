@@ -21,8 +21,8 @@ const MyApp = ({ Component, pageProps }) => {
           zIndex: "1000",
           bottom: "0",
           right: "0",
-          margin: "10px",
-          backgroundColor: "#F8CFA9",
+          margin: "30px",
+          backgroundColor: "#de8c06",
           borderRadius: "50%",
           height: "50px",
           width: "50px",
@@ -41,7 +41,7 @@ const MyApp = ({ Component, pageProps }) => {
                   // camelCase property names
                   fontWeight: "700",
                   fontSize: "16px",
-                  color: "#F8CFA9",
+                  color: "#de8c06",
                 }}
               >
                 {cart.length ?? "0"}

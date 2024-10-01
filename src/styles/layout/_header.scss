@@ -101,7 +101,7 @@ header {
         }
         &:hover,
         &.active {
-          color: #F8CFA9;
+          color: #de8c06;
           &:after {
             opacity: 1;
           }
@@ -129,7 +129,7 @@ header {
             padding: 7.6px 40px;
             display: block;
             &:hover {
-              background-color: #F8CFA9;
+              background-color: #de8c06;
               color: #ffffff;
               &:after {
                 display: none;
@@ -169,7 +169,7 @@ header {
         transition: $transition;
         font-size: 19px;
         &:hover {
-          color: #F8CFA9;
+          color: #de8c06;
         }
       }
       span {
@@ -179,7 +179,7 @@ header {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: #F8CFA9;
+        background: #de8c06;
         font-family: 'Montserrat';
         font-weight: 700;
         font-size: 12px;
