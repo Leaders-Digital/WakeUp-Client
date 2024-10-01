@@ -7,7 +7,6 @@ import { Discount } from "components/landing/Discount/Discount";
 import { TopCategories } from "components/landing/TopCategories/TopCategories";
 import BrandLogo from "components/shared/BrandLogo/BrandLogo";
 import { Advantage } from "components/shared/Advantage/Advantage";
-
 const advantages1 = [
   {
     icon: "/assets/img/icons/Plan de travail 3.svg",
@@ -43,34 +42,15 @@ const advantages2 = [
     body: "Jamais testé sur les animaux, pour des pratiques éthiques.",
   },
 ];
-
 export default function Home() {
   const { ref: trendingRef, inView: trendingInView } = useInView({
-    threshold: 0.2, // Trigger when 20% of the element is visible
-    triggerOnce: true,
-    rootMargin: "-50px",
+    threshold: 0.5, // Trigger when 50% of the element is visible
+    triggerOnce: true, // Only trigger once
+    rootMargin: "-50px", // Adjust the trigger point based on the viewport
   });
 
   const { ref: discountRef, inView: discountInView } = useInView({
-    threshold: 0.2,
-    triggerOnce: true,
-    rootMargin: "-50px",
-  });
-
-  const { ref: advantageRef, inView: advantageInView } = useInView({
-    threshold: 0.2,
-    triggerOnce: true,
-    rootMargin: "-50px",
-  });
-
-  const { ref: categoriesRef, inView: categoriesInView } = useInView({
-    threshold: 0.2,
-    triggerOnce: true,
-    rootMargin: "-50px",
-  });
-
-  const { ref: logoRef, inView: logoInView } = useInView({
-    threshold: 0.2,
+    threshold: 0.5,
     triggerOnce: true,
     rootMargin: "-50px",
   });
@@ -97,31 +77,30 @@ export default function Home() {
       </motion.div>
 
       <motion.div
-        ref={advantageRef}
+        ref={discountRef}
         initial={{ opacity: 0, y: 50, scale: 0.9 }}
-        animate={advantageInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+        animate={discountInView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{ ease: "easeOut", duration: 0.5 }}
       >
         <Advantage advantages={[...advantages1, ...advantages2]} />
       </motion.div>
 
       <motion.div
-        ref={categoriesRef}
+        ref={discountRef}
         initial={{ opacity: 0, y: 50, scale: 0.9 }}
-        animate={categoriesInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+        animate={discountInView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{ ease: "easeOut", duration: 0.5 }}
       >
         <TopCategories />
       </motion.div>
 
       <motion.div
-        ref={logoRef}
+        ref={discountRef}
         initial={{ opacity: 0, y: 50, scale: 0.9 }}
-        animate={logoInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+        animate={discountInView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{ ease: "easeOut", duration: 0.5 }}
-      >
-        <BrandLogo />
-      </motion.div>
+      ></motion.div>
+      <BrandLogo />
     </Layout>
   );
 }
