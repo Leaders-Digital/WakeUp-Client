@@ -1,5 +1,5 @@
-// import { useInView } from "react-intersection-observer";
-// import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { motion } from "framer-motion";
 import { Layout } from "layout/Layout";
 import { Banner } from "components/landing/Banner/Banner";
 import { Trending } from "components/landing/Trending/Trending";
@@ -45,83 +45,83 @@ const advantages2 = [
 ];
 
 export default function Home() {
-  // const { ref: trendingRef, inView: trendingInView } = useInView({
-  //   threshold: 0.2, // Trigger when 20% of the element is visible
-  //   triggerOnce: true,
-  //   rootMargin: "-50px",
-  // });
+  const { ref: trendingRef, inView: trendingInView } = useInView({
+    threshold: 0.2, // Trigger when 20% of the element is visible
+    triggerOnce: true,
+    rootMargin: "-50px",
+  });
 
-  // const { ref: discountRef, inView: discountInView } = useInView({
-  //   threshold: 0.2,
-  //   triggerOnce: true,
-  //   rootMargin: "-50px",
-  // });
+  const { ref: discountRef, inView: discountInView } = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+    rootMargin: "-50px",
+  });
 
-  // const { ref: advantageRef, inView: advantageInView } = useInView({
-  //   threshold: 0.2,
-  //   triggerOnce: true,
-  //   rootMargin: "-50px",
-  // });
+  const { ref: advantageRef, inView: advantageInView } = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+    rootMargin: "-50px",
+  });
 
-  // const { ref: categoriesRef, inView: categoriesInView } = useInView({
-  //   threshold: 0.2,
-  //   triggerOnce: true,
-  //   rootMargin: "-50px",
-  // });
+  const { ref: categoriesRef, inView: categoriesInView } = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+    rootMargin: "-50px",
+  });
 
-  // const { ref: logoRef, inView: logoInView } = useInView({
-  //   threshold: 0.2,
-  //   triggerOnce: true,
-  //   rootMargin: "-50px",
-  // });
+  const { ref: logoRef, inView: logoInView } = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+    rootMargin: "-50px",
+  });
 
   return (
     <Layout>
       <Banner />
-      {/* <motion.div
+      <motion.div
         ref={trendingRef}
         initial={{ opacity: 0, y: 50, scale: 0.9 }}
         animate={trendingInView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{ ease: "easeOut", duration: 0.5 }}
-      > */}
+      >
         <Trending />
-      {/* </motion.div> */}
+      </motion.div>
 
-      {/* <motion.div
+      <motion.div
         ref={discountRef}
         initial={{ opacity: 0, y: 50, scale: 0.9 }}
         animate={discountInView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{ ease: "easeOut", duration: 0.5 }}
-      > */}
+      >
         <Discount />
-      {/* </motion.div> */}
+      </motion.div>
 
-      {/* <motion.div
+      <motion.div
         ref={advantageRef}
         initial={{ opacity: 0, y: 50, scale: 0.9 }}
         animate={advantageInView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{ ease: "easeOut", duration: 0.5 }}
-      > */}
+      >
         <Advantage advantages={[...advantages1, ...advantages2]} />
-      {/* </motion.div> */}
+      </motion.div>
 
-      {/* <motion.div
+      <motion.div
         ref={categoriesRef}
         initial={{ opacity: 0, y: 50, scale: 0.9 }}
         animate={categoriesInView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{ ease: "easeOut", duration: 0.5 }}
-      > */}
+      >
         <TopCategories />
-      {/* </motion.div> */}
-{/* 
+      </motion.div>
+
       <motion.div
         ref={logoRef}
         initial={{ opacity: 0, y: 50, scale: 0.9 }}
         animate={logoInView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{ ease: "easeOut", duration: 0.5 }}
-      > */}
+      >
         <BrandLogo />
-      {/* </motion.div> */}
+      </motion.div>
     </Layout>
   );
 }
