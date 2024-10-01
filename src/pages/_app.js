@@ -15,34 +15,43 @@ const MyApp = ({ Component, pageProps }) => {
       <Component {...pageProps} />
       {/* Cart fixed to top-right corner */}
       <div
+       className="cardIcon"
         style={{
+          
           padding: "10px",
           position: "fixed", // Change to 'fixed' for consistent positioning
           zIndex: "1000",
           bottom: "0",
           right: "0",
           margin: "30px",
-          backgroundColor: "#de8c06",
           borderRadius: "50%",
           height: "50px",
           width: "50px",
           boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;"
         }}
       >
-        <li>
+        <li style={{position:"relative"}}>
           <Link href="/cart">
             <a>
               <i
                 className="icon-cart"
-                style={{ fontSize: "30px", color: "black" }}
+                style={{ fontSize: "30px"}}
               ></i>
               <span
                 style={{
                   // camelCase property names
                   fontWeight: "700",
                   fontSize: "16px",
-                  color: "#de8c06",
+                  color: "#de86a0",
+                  position: "absolute",
+                  backgroundColor: "white",
+                  border : "2px solid #eee",
+                  padding: "5px",
+                  borderRadius: "50%",
+                  top:"-10px",
+                  transitionDuration:"0.5s"
                 }}
+               
               >
                 {cart.length ?? "0"}
               </span>

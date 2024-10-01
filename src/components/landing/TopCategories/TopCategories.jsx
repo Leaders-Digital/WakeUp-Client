@@ -6,17 +6,17 @@ const categoriesData = [
   {
     "categoryId": "makeup",
     "name": "Maquillage",
-    "image": "/assets/img/top-categories-img1.jpg"
+    "image": "/assets/img/makeupp1.jpg"
   },
   {
     "categoryId": "skincare",
     "name": "Produits de soin",
-    "image": "/assets/img/top-categories-img2.jpg"
+    "image": "/assets/img/skincase2.jpg"
   },
   {
     "categoryId": "Accessoires",
     "name": "Accessoires",
-    "image": "/assets/img/top-categories-img3.jpg"
+    "image": "/assets/img/assces.jpg"
   },
 ]
 

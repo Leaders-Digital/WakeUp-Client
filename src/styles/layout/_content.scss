@@ -710,7 +710,7 @@ h6,
       transition: $transition;
       text-align: center;
       flex-direction: column;
-      opacity: 0;
+      opacity: 1;
 
       span {
         display: block;
@@ -1232,7 +1232,7 @@ h6,
 
 .detail-block {
   padding-top: 218px;
-  background-image: url(/assets/img/detail-main-bg.jpg);
+  background-image: url(/assets/img/topbanner1.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -5637,7 +5637,9 @@ input[type='search']::-webkit-search-results-decoration {
       }
     }
   }
-
+.cardIcon:hover{
+  transform: scale(1.1);
+}
   .wrapper {
     padding-left: 15px;
     padding-right: 15px;

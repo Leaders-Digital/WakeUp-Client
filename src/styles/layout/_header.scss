@@ -188,7 +188,21 @@ header {
     }
   }
 }
-
+.cardIcon{
+  transition-duration: 0.7s;
+  background-color:#ffffff;
+}
+.cardIcon i{
+  color:#de8c06;
+  transition-duration: 0.7s;
+}
+.cardIcon:hover{
+  transform: scale(1.1);
+  background-color: #de8c06;
+}
+.cardIcon:hover i{
+  color:#ffffff;
+}
 .btn-menu {
   color: #222222;
   cursor: pointer;
