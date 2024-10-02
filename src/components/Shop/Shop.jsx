@@ -88,7 +88,7 @@ export const Shop = ({ setTitle }) => {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}api/product/all`, {
         params: {
           page: page, // Send current page as a query parameter
-          limit: 6, // Send limit as a query parameter
+          limit: 12, // Send limit as a query parameter
           categorie: selectedCategory,
           solde: filter.isSale,
           search: search,
