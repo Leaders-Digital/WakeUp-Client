@@ -1232,7 +1232,7 @@ h6,
 
 .detail-block {
   padding-top: 218px;
-  background-image: url(/assets/img/topbanner1.jpg);
+  background-image: url(/assets/img/bannerproduct.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1582,7 +1582,7 @@ h6,
 
     .discount-info {
       max-width: 470px;
-      margin-right: 82px;
+      margin-right: -32px;
 
       p {
         padding-left: 0;
@@ -2586,7 +2586,6 @@ blockquote,
         margin-left: 15px;
         margin-right: 15px;
         margin-bottom: 56px;
-        border: 1px solid #eeeeee;
 
         & button.addList {
           border: none;

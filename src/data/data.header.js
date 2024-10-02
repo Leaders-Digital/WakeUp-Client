@@ -17,7 +17,7 @@ export const navItem = [
   },
   {
     name: "E-Catalogue",
-    path: "/packs",
+    path: "/catalogue",
   },
   {
     name: "à propos",

@@ -29,9 +29,9 @@ export const Card = ({ order }) => {
             </a>
           </Link>
           <span className='checkout-order__item-price'>
-            ${(prix * quantity).toFixed(2)}
+            {(prix * quantity).toFixed(2)} TND
           </span>
-          <span className='checkout-order__item-num'>SKU: {reference}</span>
+          <span className='checkout-order__item-num'>reference : {reference}</span>
         </div>
       </div>
       {/* <!-- ORDER ITEM CARD EOF --> */}

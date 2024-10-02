@@ -1,34 +1,35 @@
 import { useState } from "react";
 import Dropdown from "react-dropdown";
 
-const countries = [
-  "Ariana",
-  "Béja",
-  "Ben Arous",
-  "Bizerte",
-  "Gabès",
-  "Gafsa",
-  "Jendouba",
-  "Kairouan",
-  "Kasserine",
-  "Kébili",
-  "Kef",
-  "Mahdia",
-  "Manouba",
-  "Médenine",
-  "Monastir",
-  "Nabeul",
-  "Sfax",
-  "Sidi Bouzid",
-  "Siliana",
-  "Sousse",
-  "Tataouine",
-  "Tozeur",
-  "Tunis",
-  "Zaghouan"
-];
+
 
 export const CheckoutStep1 = ({ onNext , data , setData ,handleChange  }) => {
+  const countries = [
+    "Ariana",
+    "Béja",
+    "Ben Arous",
+    "Bizerte",
+    "Gabès",
+    "Gafsa",
+    "Jendouba",
+    "Kairouan",
+    "Kasserine",
+    "Kébili",
+    "Kef",
+    "Mahdia",
+    "Manouba",
+    "Médenine",
+    "Monastir",
+    "Nabeul",
+    "Sfax",
+    "Sidi Bouzid",
+    "Siliana",
+    "Sousse",
+    "Tataouine",
+    "Tozeur",
+    "Tunis",
+    "Zaghouan"
+  ];
   return (
     <>
       {/* <!-- BEING CHECKOUT STEP ONE -->  */}

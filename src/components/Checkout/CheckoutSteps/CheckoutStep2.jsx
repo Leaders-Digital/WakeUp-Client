@@ -1,5 +1,5 @@
 import { useState } from "react";
-import laodingGif from "../../../assets/gifcard.gif";
+
 export const CheckoutStep2 = ({
   onNext,
   onPrev,

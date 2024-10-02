@@ -1,10 +1,15 @@
 import productData from 'data/product/product';
-import { CartContext } from 'pages/_app';
+import { CartContext, PromoContext } from 'pages/_app';
 import { useContext } from 'react';
 import { Card } from './Card/Card';
 
 export const CheckoutOrders = ({total}) => {
   const { cart } = useContext(CartContext);
+  const { promo } = useContext(PromoContext);
+  const totalWithDiscount = promo
+  ? total - (total * promo) / 100 // Assuming promo is a percentage
+  : total;
+  
   const getLoadingDate = () => {
     const today = new Date();
     const futureDate = new Date(today);
@@ -27,7 +32,7 @@ export const CheckoutOrders = ({total}) => {
         </div>
         <div className='cart-bottom__total-promo'>
           Réduction sur code promo
-          <span>Non</span>
+          <span> {promo ? promo + "%" : "Non"}</span>
         </div>
         <div className='cart-bottom__total-delivery'>
           Livraison{' '}
@@ -38,7 +43,7 @@ export const CheckoutOrders = ({total}) => {
         </div>
         <div className='cart-bottom__total-num'>
           total:
-          <span>{(total + 8).toFixed(2)} TND</span>
+          <span> {promo ? totalWithDiscount + 8 : total.toFixed(2) + 8} TND </span>
         </div>
       </div>
     </>

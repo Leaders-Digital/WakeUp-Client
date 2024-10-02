@@ -2,16 +2,17 @@ import Link from "next/link";
 import React from "react";
 
 // Helper function to calculate today's date and add 2 days
-const getLoadingDate = () => {
-  const today = new Date();
-  const futureDate = new Date(today);
-  futureDate.setDate(today.getDate() + 2); // Add 2 days
-  return futureDate.toLocaleDateString(); // Format as dd/mm/yyyy or mm/dd/yyyy depending on locale
-};
 
 export const CheckoutStep3 = ({ orderCode }) => {
+  
+  const getLoadingDate = () => {
+    const today = new Date();
+    const futureDate = new Date(today);
+    futureDate.setDate(today.getDate() + 2); // Add 2 days
+    return futureDate.toLocaleDateString(); // Format as dd/mm/yyyy or mm/dd/yyyy depending on locale
+  };
   const loadingDate = getLoadingDate(); // Get the dynamic loading date
-
+  
   return (
     <>
       {/* <!-- CHECKOUT ÉTAPE TROIS -->  */}

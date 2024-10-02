@@ -10,11 +10,11 @@ export const Banner = () => {
     const handleResize = () => {
       if (window.innerWidth < 480) {
         setBackgroundImage(
-          `url("/assets/img/banner-mini.jpg")`
+          `url("/assets/img/banner-mini1.png")`
         );
       } else {
         setBackgroundImage(
-          `url("/assets/img/banner3.jpg")`
+          `url("/assets/img/banner1.png")`
         );
       }
     };

@@ -1,33 +1,38 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { CheckoutOrders } from "./CheckoutOrder/CheckoutOrders";
 import { CheckoutStep1 } from "./CheckoutSteps/CheckoutStep1";
 import { CheckoutStep2 } from "./CheckoutSteps/CheckoutStep2";
 import { CheckoutStep3 } from "./CheckoutSteps/CheckoutStep3";
 import toast, { Toaster } from "react-hot-toast";
-import { CartContext } from "pages/_app";
-import axios from "axios";
 
+import { CartContext, PromoContext } from "pages/_app";
+import axios from "axios";
 const detailBlocks = [
   {
-    step: "Step 1",
-    title: "Order Details",
+    step: "Étape 1",
+    title: "Détails de la commande",
     icon: "icon-step1",
   },
   {
-    step: "Step 2",
-    title: "Payment method",
+    step: "Étape 2",
+    title: "Mode de paiement",
     icon: "icon-step2",
   },
   {
-    step: "Step 3",
-    title: "Finish!",
+    step: "Étape 3",
+    title: "Terminé !",
     icon: "icon-step3",
   },
 ];
 
+
 export const Checkout = () => {
+  const { promo } = useContext(PromoContext);
+  const { cart, setCart } = useContext(CartContext);
   const [activeStep, setActiveStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [orderCode, setOrderCode] = useState("");
   const [data, setData] = useState({
     nom: "",
     prenom: "",
@@ -39,20 +44,29 @@ export const Checkout = () => {
     codePostal: "",
     note: "",
   });
-  const [orderCode, setOrderCode] = useState("");
-  const { cart, setCart } = useContext(CartContext);
+  
+  const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true); // Mark component as mounted
+    if (cart.length === 0) {
+      router.push("/cart"); // Redirect if the cart is empty
+    }
+  }, [cart, router]);
 
   const makeTheCartEmpty = () => {
     setCart([]); // Correct way to empty the cart
   };
+
   const total = cart.reduce(
     (total, item) => total + Number(item.prix) * Number(item.quantity),
     0
   );
+  const totalWithDiscount = promo ? total - (total * promo) / 100 : total;
 
   const listeDesProduits = [];
   const listeDesPack = [];
-console.log("cart",cart);
 
   cart.forEach((item) => {
     if (item.categorie !== "PACK") {
@@ -67,15 +81,11 @@ console.log("cart",cart);
       });
     }
   });
-console.log("listeDesProduits",listeDesProduits);
-console.log("listeDesPack",listeDesPack);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-  const handleNextPage = () => {
-    setActiveStep(activeStep + 1);
-  };
+
   const handleNext = () => {
     const {
       nom,
@@ -99,8 +109,8 @@ console.log("listeDesPack",listeDesPack);
       !codePostal
     ) {
       // Trigger a toast notification if any field is empty
-      toast.error("Veuillez remplir tous les champs."); // This will show the error message
-      return; // Exit the function if validation fails
+      toast.error("Veuillez remplir tous les champs.");
+      return;
     }
     setActiveStep(activeStep + 1);
   };
@@ -118,29 +128,32 @@ console.log("listeDesPack",listeDesPack);
           ...data,
           listeDesProduits,
           listeDesPack,
-          prixTotal: total,
+          prixTotal: totalWithDiscount,
         }
       );
       setOrderCode(res.data.orderCode);
 
       setTimeout(() => {
         setLoading(false);
-        handleNextPage();
+        setActiveStep(activeStep + 1);
         makeTheCartEmpty();
       }, 1000);
     } catch (error) {
       console.log(error);
       setTimeout(() => {
         setLoading(false);
-        // makeTheCartEmpty();
       }, 1000);
     }
   };
 
+  // Prevent server-side rendering issues
+  if (!mounted) {
+    return null; // Don't render anything on the server-side
+  }
+
   return (
     <>
       <Toaster position="bottom-center" />
-
       <div className="wrapper">
         {/* <!-- BEGIN DETAIL MAIN BLOCK --> */}
         <div className="detail-block__items">
