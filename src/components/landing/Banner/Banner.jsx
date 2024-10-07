@@ -30,10 +30,15 @@ export const Banner = () => {
       // Ensure that the path is properly formatted with forward slashes
       const mainBannerUrl = banners.mainBanner
         ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.mainBanner.replace(/\\/g, '/')}`
-        : `url("/assets/img/banner-mini1.png")` ;
+        : `/assets/img/banner-mini1.png`;
 
+      const miniMainBannerUrl = banners.miniMainBanner
+        ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.miniMainBanner.replace(/\\/g, '/')}`
+        : `/assets/img/banner-mini1.png`;
+
+      // Use miniMainBanner if screen width is less than 480px, otherwise use mainBanner
       if (window.innerWidth < 480) {
-        setBackgroundImage(`url(${mainBannerUrl})`);
+        setBackgroundImage(`url(${miniMainBannerUrl})`);
       } else {
         setBackgroundImage(`url(${mainBannerUrl})`);
       }

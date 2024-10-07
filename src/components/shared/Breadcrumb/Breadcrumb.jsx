@@ -11,10 +11,9 @@ export const Breadcrumb = ({ breadcrumb, title, description }) => {
       <div className='detail-block detail-block_margin'>
         <div className='wrapper'>
           <div className='detail-block__content'>
-            <h1>{title}</h1>
-
+            <h1>{title}</h1>  
             {breadcrumb && (
-              <ul className='bread-crumbs'>
+              <ul className='bread-crumbs'> 
                 {breadcrumb?.map(({ path, label }, i) => {
                   return (
                     <React.Fragment key={i}>

@@ -1,12 +1,38 @@
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export const Discount = () => {
+  const [banners, setBanners] = useState({});
+
+  // Function to fetch the banner data
+  const getBanner = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`
+      );
+      console.log(response.data);
+      setBanners(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getBanner();
+  }, []);
+
+  // Ensure that the path is properly formatted with forward slashes
+  const contactBannerUrl = banners.contactBanner
+    ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.contactBanner.replace(/\\/g, '/')}`
+    : `/assets/img/bannersale2.png`; // Fallback image
+
   return (
     <>
       {/* <!-- BEGIN DISCOUNT --> */}
       <div
         className="discount js-img"
-        style={{ backgroundImage: `url("/assets/img/bannersale2.png")` }}
+        style={{ backgroundImage: `url(${contactBannerUrl})` }}
       >
         <div className="wrapper">
           <div className="discount-info">
@@ -20,12 +46,12 @@ export const Discount = () => {
             </p>
 
             <Link href="/shop">
-              <a className="btn">get now!</a>
+              <a className="btn">Get now!</a>
             </Link>
           </div>
         </div>
       </div>
-      {/* <!-- DISCOUNT EOF   --> */}
+      {/* <!-- DISCOUNT EOF --> */}
     </>
   );
 };
