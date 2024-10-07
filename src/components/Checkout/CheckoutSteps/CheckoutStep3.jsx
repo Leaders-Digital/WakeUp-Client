@@ -3,7 +3,7 @@ import React from "react";
 
 // Helper function to calculate today's date and add 2 days
 
-export const CheckoutStep3 = ({ orderCode }) => {
+export const CheckoutStep3 = ({ orderCode , makeTheCartEmpty}) => {
   
   const getLoadingDate = () => {
     const today = new Date();
@@ -46,7 +46,7 @@ export const CheckoutStep3 = ({ orderCode }) => {
           style={{ minHeight: "50vh", textAlign: "center", marginTop: "60px" }}
         >
           <Link href="/shop">
-            <a className="btn" style={{ marginTop: "30px" }}>
+            <a className="btn" style={{ marginTop: "30px" }} onClick={makeTheCartEmpty}>
               Continuer vos achats
             </a>
           </Link>

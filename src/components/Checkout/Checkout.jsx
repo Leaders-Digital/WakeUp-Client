@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 import { CartContext, PromoContext } from "pages/_app";
 import axios from "axios";
+
 const detailBlocks = [
   {
     step: "Étape 1",
@@ -26,7 +27,6 @@ const detailBlocks = [
   },
 ];
 
-
 export const Checkout = () => {
   const { promo } = useContext(PromoContext);
   const { cart, setCart } = useContext(CartContext);
@@ -44,16 +44,9 @@ export const Checkout = () => {
     codePostal: "",
     note: "",
   });
-  
+
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true); // Mark component as mounted
-    if (cart.length === 0) {
-      router.push("/cart"); // Redirect if the cart is empty
-    }
-  }, [cart, router]);
 
   const makeTheCartEmpty = () => {
     setCart([]); // Correct way to empty the cart
@@ -64,7 +57,6 @@ export const Checkout = () => {
     0
   );
   const totalWithDiscount = promo ? total - (total * promo) / 100 : total;
-
   const listeDesProduits = [];
   const listeDesPack = [];
 
@@ -99,6 +91,8 @@ export const Checkout = () => {
       note,
     } = data;
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (
       !nom ||
       !prenom ||
@@ -112,6 +106,13 @@ export const Checkout = () => {
       toast.error("Veuillez remplir tous les champs.");
       return;
     }
+
+    if (!email || !emailRegex.test(email)) {
+      // Trigger a toast notification if the email is missing or invalid
+      toast.error("Veuillez entrer une adresse e-mail valide.");
+      return;
+    }
+
     setActiveStep(activeStep + 1);
   };
 
@@ -132,19 +133,24 @@ export const Checkout = () => {
         }
       );
       setOrderCode(res.data.orderCode);
-
-      setTimeout(() => {
-        setLoading(false);
-        setActiveStep(activeStep + 1);
-        makeTheCartEmpty();
-      }, 1000);
+      setLoading(false);
+      setActiveStep(activeStep + 1);
     } catch (error) {
       console.log(error);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
+
+      setLoading(false);
     }
   };
+
+  const checkCart = () => {
+    setMounted(true); // Mark component as mounted
+    if (cart.length === 0) {
+      router.push("/cart"); // Redirect if the cart is empty
+    }
+  };
+  useEffect(() => {
+    checkCart();
+  },[cart, router]);
 
   // Prevent server-side rendering issues
   if (!mounted) {
@@ -211,7 +217,7 @@ export const Checkout = () => {
                     />
                   );
                 case 3:
-                  return <CheckoutStep3 orderCode={orderCode} />;
+                  return <CheckoutStep3 orderCode={orderCode}  makeTheCartEmpty={makeTheCartEmpty}/>;
 
                 default:
                   return null;

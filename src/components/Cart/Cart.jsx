@@ -93,6 +93,7 @@ export const Cart = () => {
                   <div className="cart-table__col">Prix</div>
                   <div className="cart-table__col">Quantité</div>
                   <div className="cart-table__col">Total</div>
+                  <div className="cart-table__col"></div>
                 </div>
 
                 {cart.map((cart) => (

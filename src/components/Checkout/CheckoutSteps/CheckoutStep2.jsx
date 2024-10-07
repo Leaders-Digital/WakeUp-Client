@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import laodingGif from "../../../assets/gifcard.gif";
 export const CheckoutStep2 = ({
   onNext,
   onPrev,
@@ -12,7 +12,7 @@ export const CheckoutStep2 = ({
       {/* <!-- BEING CHECKOUT STEP TWO -->  */}
       {!loading ? (
         <div className="checkout-payment checkout-form">
-          <h4>Payment Methods</h4>
+          <h4>Méthodes de paiement</h4>
           <div
             className={`checkout-payment__item ${
               payment === "cash" && "active"
@@ -20,7 +20,7 @@ export const CheckoutStep2 = ({
           >
             <div className="checkout-payment__item-head">
               <label onClick={() => setPayment("cash")} className="radio-box">
-                Cash payment
+                Paiement en espèces
                 <input type="radio" checked={payment === "cash"} name="radio" />
                 <span className="checkmark"></span>
                 <span className="radio-box__info">
@@ -36,7 +36,7 @@ export const CheckoutStep2 = ({
           </div>
           <div className="checkout-buttons">
             <button onClick={onPrev} className="btn btn-grey btn-icon">
-              <i className="icon-arrow"></i> back
+              <i className="icon-arrow"></i> Retour
             </button>
             <button
               onClick={() => {
@@ -44,15 +44,15 @@ export const CheckoutStep2 = ({
               }}
               className="btn btn-icon btn-next"
             >
-              next <i className="icon-arrow"></i>
+              Suivant <i className="icon-arrow"></i>
             </button>
           </div>
         </div>
       ) : (
-        <div style={{ display: "flex", justifyContent: "center",textAlign:"center",width:"100%" }}>
-          <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+        <div style={{ display: "flex", justifyContent: "center", textAlign: "center", width: "100%" }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
             <div className="spinner"></div>
-           <h6>Creation de Votre commande</h6>
+            <h6>Création de votre commande</h6>
           </div>
         </div>
       )}

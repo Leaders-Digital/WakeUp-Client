@@ -1,21 +1,41 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-// import banner from "assets/img/banner.jpg";
+import axios from "axios";
+
 export const Banner = () => {
   const [backgroundImage, setBackgroundImage] = useState(
-    `url("https://c4.wallpaperflare.com/wallpaper/864/934/398/4k-screenshot-assetto-corsa-competizione-wallpaper-thumb.jpg")`
+    `url("/assets/img/banner-mini1.png")`
   );
+  const [banners, setBanners] = useState({});
+
+  // Function to fetch the banner data
+  const getBanner = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`
+      );
+      console.log(response.data);
+      setBanners(response.data); // Set banners with the response data
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getBanner();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
+      // Ensure that the path is properly formatted with forward slashes
+      const mainBannerUrl = banners.mainBanner
+        ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.mainBanner.replace(/\\/g, '/')}`
+        : `url("/assets/img/banner-mini1.png")` ;
+
       if (window.innerWidth < 480) {
-        setBackgroundImage(
-          `url("/assets/img/banner-mini1.png")`
-        );
+        setBackgroundImage(`url(${mainBannerUrl})`);
       } else {
-        setBackgroundImage(
-          `url("/assets/img/banner1.png")`
-        );
+        setBackgroundImage(`url(${mainBannerUrl})`);
       }
     };
 
@@ -29,15 +49,12 @@ export const Banner = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [banners]); // Re-run this effect whenever banners change
 
   return (
     <>
       {/* <!-- BEGIN MAIN BLOCK --> */}
-      <div
-        className="main-block load-bg"
-        style={{ backgroundImage }}
-      >
+      <div className="main-block load-bg" style={{ backgroundImage }}>
         <div className="wrapper">
           <div className="main-block__content">
             <span className="saint-text">Professionnel</span>

@@ -23,7 +23,7 @@ export const Nav = ({ navItem }) => {
           }}
         >
           <Link href={nav.path}>
-            <a className={nav.path === router.pathname ? "active" : ""}>
+            <a className={nav.path === router.pathname ? "active" : ""} style={{fontSize:"12px"}}>
               {nav.name}
             </a>
           </Link>

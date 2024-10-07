@@ -193,6 +193,7 @@ export const ProductDetails = () => {
                           onClick={() => {
                             handleditection(variant._id);
                             setActiveColor(index);
+                            setQuantity(1)
                             setSelectedVariant(variant);
                           }}
                           className={activeColor === index ? "active" : ""}
@@ -235,7 +236,7 @@ export const ProductDetails = () => {
               <div className="product-buttons">
                 <button
                   disabled={addedInCart}
-                  onClick={() => handleAddToCart()}
+                  onClick={() => {handleAddToCart() ; setQuantity(1)} }
                   className="btn btn-icon"
                 >
                   <i className="icon-cart"></i> Ajouter au panier
