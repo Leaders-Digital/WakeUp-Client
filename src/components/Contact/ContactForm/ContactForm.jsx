@@ -38,7 +38,6 @@ export const ContactFrom = () => {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`
       );
-      console.log(response.data);
       setBanner(response.data);
     } catch (error) {
       console.log(error);

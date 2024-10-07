@@ -52,8 +52,6 @@ export const ProductDetails = () => {
     // Check if the selected variant is already in the cart
     const theId = { ...selectedVariant };
     const variantExistsInCart = handleditection(theId._id);
-    console.log(variantExistsInCart, "while adding to cart");
-
     if (variantExistsInCart)
       return toast.error("Le produit existe déjà dans votre panier"); // If the variant is already in the cart, return
     const newProduct = {

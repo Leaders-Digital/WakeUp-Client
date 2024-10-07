@@ -179,27 +179,7 @@ export const Shop = ({ setTitle }) => {
                   })}
                 </ul>
               </div>
-              <div className="shop-aside__item">
-                <span className="shop-aside__item-title">Prix</span>
-                <div className="range-slider">
-                  <Range
-                    min={fixMin}
-                    max={fixMax} // Assuming highPrice is defined and comes from your state or props
-                    defaultValue={[fixMin, fixMax]} // Initial values for the slider
-                    tipFormatter={(value) => `${value}€`}
-                    // allowCross={false}
-                    // value={[lowPrice, highPrice]}
-                    tipProps={{
-                      placement: "bottom",
-                      prefixCls: "rc-slider-tooltip",
-                    }}
-                    onChange={(value) => {
-                      setLowprice(value[0]);
-                      setHighPrice(value[1]);
-                    }}
-                  />
-                </div>
-              </div>
+           
             </div>
             {/* <!-- Boutique Principale --> */}
             <div className="shop-main">

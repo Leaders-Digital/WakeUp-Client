@@ -13,7 +13,6 @@ export const Blog = () => {
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}api/blog/main`);
       setBlogs(res.data.data);
-      console.log(res.data.data);
       
     } catch (error) {
       console.error(error);
