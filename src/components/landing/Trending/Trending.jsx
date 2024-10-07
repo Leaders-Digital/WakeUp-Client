@@ -43,7 +43,7 @@ export const Trending = () => {
       value: "FACE",
     },
     {
-      name: "Brosse",
+      name: "Pinceau ",
       value: "Brush",
     },
     {

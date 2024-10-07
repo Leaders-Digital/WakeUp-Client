@@ -23,8 +23,8 @@ export const Discount = () => {
   }, []);
 
   // Ensure that the path is properly formatted with forward slashes
-  const contactBannerUrl = banners.contactBanner
-    ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.contactBanner.replace(/\\/g, '/')}`
+  const contactBannerUrl = banners.promo
+    ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.promo.replace(/\\/g, '/')}`
     : `/assets/img/bannersale2.png`; // Fallback image
 
   return (
