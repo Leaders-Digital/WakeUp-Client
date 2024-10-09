@@ -7,7 +7,6 @@ export const PromoContext = createContext();
 const MyApp = ({ Component, pageProps }) => {
   const [promo, setPromo] = useState(null);
   const [cart, setCart] = useState([]);
-
   return (
     <PromoContext.Provider value={{ promo, setPromo }}>
       <CartContext.Provider value={{ cart, setCart }}>

@@ -1,12 +1,12 @@
-import { useInView } from 'react-intersection-observer';
-import { motion } from 'framer-motion';
-import { Layout } from 'layout/Layout';
-import { Banner } from 'components/landing/Banner/Banner';
-import { Trending } from 'components/landing/Trending/Trending';
-import { Discount } from 'components/landing/Discount/Discount';
-import { TopCategories } from 'components/landing/TopCategories/TopCategories';
-import BrandLogo from 'components/shared/BrandLogo/BrandLogo';
-import { Advantage } from 'components/shared/Advantage/Advantage';
+import { useInView } from "react-intersection-observer";
+import { motion } from "framer-motion";
+import { Layout } from "layout/Layout";
+import { Banner } from "components/landing/Banner/Banner";
+import { Trending } from "components/landing/Trending/Trending";
+import { Discount } from "components/landing/Discount/Discount";
+import { TopCategories } from "components/landing/TopCategories/TopCategories";
+import BrandLogo from "components/shared/BrandLogo/BrandLogo";
+import { Advantage } from "components/shared/Advantage/Advantage";
 
 const advantages1 = [
   {
@@ -46,7 +46,7 @@ const advantages2 = [
 
 export default function Home() {
   const { ref: trendingRef, inView: trendingInView } = useInView({
-    threshold: 0.5,   // Trigger when 50% of the element is visible
+    threshold: 0.5, // Trigger when 50% of the element is visible
     triggerOnce: true, // Only trigger once
     rootMargin: "-50px", // Adjust the trigger point based on the viewport
   });
@@ -63,15 +63,15 @@ export default function Home() {
     rootMargin: "-50px",
   });
 
+
   return (
     <Layout>
       <Banner />
-
       <motion.div
         ref={trendingRef}
         initial={{ opacity: 0, y: 50, scale: 0.9 }}
         animate={trendingInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-        transition={{ ease: "easeOut", duration: 0.4, delay: 0.1 }}  // Faster animation
+        transition={{ ease: "easeOut", duration: 0.4, delay: 0.1 }} // Faster animation
       >
         <Trending />
       </motion.div>
@@ -80,7 +80,7 @@ export default function Home() {
         ref={discountRef}
         initial={{ opacity: 0, y: 50, scale: 0.9 }}
         animate={discountInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-        transition={{ ease: "easeOut", duration: 0.4, delay: 0.2 }}  // Slight delay for smoother stagger
+        transition={{ ease: "easeOut", duration: 0.4, delay: 0.2 }} // Slight delay for smoother stagger
       >
         <Discount />
       </motion.div>
@@ -89,7 +89,7 @@ export default function Home() {
         ref={advantageRef}
         initial={{ opacity: 0, y: 50, scale: 0.9 }}
         animate={advantageInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-        transition={{ ease: "easeOut", duration: 0.4, delay: 0.3 }}  // Further delay to stagger with previous
+        transition={{ ease: "easeOut", duration: 0.4, delay: 0.3 }} // Further delay to stagger with previous
       >
         <Advantage advantages={[...advantages1, ...advantages2]} />
       </motion.div>

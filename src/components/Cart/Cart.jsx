@@ -42,6 +42,7 @@ export const Cart = () => {
     setCart(updatedCart); // Update cart in context
     setCount(count + 1); // Trigger re-render
   };
+console.log(cart);
 
   const handlePromo = async () => {
     setLoadingCode(true);
