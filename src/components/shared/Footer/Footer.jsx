@@ -17,7 +17,7 @@ export const Footer = () => {
       <footer className='footer'>
         <div className='wrapper'>
           <div className='footer-top'>
-           
+
             <div className='footer-top__logo'>
               <Link href='/'>
                 <a>
@@ -38,7 +38,7 @@ export const Footer = () => {
               </ul>
             </div>
             {/* Payment method */}
-         
+
           </div>
           <div className='footer-nav'>
             {/* Footer Nav */}
@@ -54,11 +54,11 @@ export const Footer = () => {
                 <li>
                   <i className='icon-smartphone'></i>
                   <div className='footer-nav__col-phones'>
-                    <a href='tel:+13459971345'>+216 26 644 400</a>
-                    <a href='tel:+13457464975'>+216 27 360 067</a>
+                    <a href='tel:+21626644400'>+216 26 644 400</a>
+                    <a href='tel:+21627360067'>+216 27 360 067</a>
                   </div>
                 </li>
-                <li > 
+                <li >
                   <i className='icon-mail'></i>
                   <a href='mailto:contact@leaders-makeup.com'>contact@leaders-makeup.com</a>
                 </li>
