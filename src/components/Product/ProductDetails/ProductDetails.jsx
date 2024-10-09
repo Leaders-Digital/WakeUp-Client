@@ -8,7 +8,7 @@ import { ReviewFrom } from "../ReviewForm/ReviewFrom";
 import { Reviews } from "../Reviews/Reviews";
 import toast, { Toaster } from "react-hot-toast";
 
-export const ProductDetails = () => {
+const ProductDetails = () => {
   const router = useRouter();
   const { cart, setCart } = useContext(CartContext);
 
@@ -22,6 +22,7 @@ export const ProductDetails = () => {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
   const [addedInCart, setAddedInCart] = useState(false);
+  console.log(product);
 
   const getProduct = async (id) => {
     try {
@@ -52,24 +53,38 @@ export const ProductDetails = () => {
     // Check if the selected variant is already in the cart
     const theId = { ...selectedVariant };
     const variantExistsInCart = handleditection(theId._id);
-    console.log(variantExistsInCart, "while adding to cart");
-
     if (variantExistsInCart)
       return toast.error("Le produit existe déjà dans votre panier"); // If the variant is already in the cart, return
-    const newProduct = {
-      nom: product.nom,
-      prix: product.prix,
-      mainPicture: selectedVariant.picture,
-      codeAbarre: selectedVariant.codeAbarre,
-      reference: selectedVariant.reference,
-      _id: product._id,
-      quantity: quantity,
-      variantId: selectedVariant._id,
-      solde: product.solde,
-      stock: selectedVariant.quantity,
-      soldePourcentage: product.soldePourcentage,
-    };
+    let newProduct = {};
+ if (product.categorie === "PACK") {
+  newProduct= {
+    nom: product.nom,
+    prix: product.prix,
+    mainPicture: product.mainPicture,
+    quantity: quantity,
+    stock: 3,
+    reference: "package",
+    categorie: product.categorie,
+    _id: product._id,
+    solde: product.solde,
+    soldePourcentage: product.solde
 
+  }
+ }else{
+  newProduct =  {    
+    nom: product.nom,
+    prix: product.prix,
+    mainPicture: selectedVariant.picture,
+    codeAbarre: selectedVariant.codeAbarre,
+    reference: selectedVariant.reference,
+    _id: product._id,
+    quantity: quantity,
+    variantId: selectedVariant._id,
+    solde: product.solde,
+    stock: selectedVariant.quantity,
+    soldePourcentage: product.soldePourcentage,
+  }
+ }
     setCart([...cart, newProduct]); // Add the new product to the cart
     return toast.success("Produit ajouté avec succès");
   };
@@ -158,12 +173,16 @@ export const ProductDetails = () => {
                 ""
               )}
               <span className="product-num">
-                SKU: {selectedVariant?.reference}
+                {selectedVariant?.reference
+                  ? "Reference " + selectedVariant.reference
+                  : ""}
               </span>
               {product.solde ? (
                 <span className="product-price">
                   <span>{product.prix} TND</span>
-                  {product.prix} TND
+                  {product.prix -
+                    product.prix * (product.soldePourcentage / 100)}
+                  TND
                 </span>
               ) : (
                 <span className="product-price">{product.prix} TND</span>
@@ -184,16 +203,15 @@ export const ProductDetails = () => {
 
               <div className="product-options">
                 <div className="product-info__color">
-                {product?.variants.length ? <span>Couleur :</span>:null}
-                <ul>
+                  {product?.variants.length ? <span>Couleur :</span> : null}
+                  <ul>
                     {product?.variants &&
-                    
                       product?.variants.map((variant, index) => (
                         <li
                           onClick={() => {
                             handleditection(variant._id);
                             setActiveColor(index);
-                            setQuantity(1)
+                            setQuantity(1);
                             setSelectedVariant(variant);
                           }}
                           className={activeColor === index ? "active" : ""}
@@ -236,7 +254,10 @@ export const ProductDetails = () => {
               <div className="product-buttons">
                 <button
                   disabled={addedInCart}
-                  onClick={() => {handleAddToCart() ; setQuantity(1)} }
+                  onClick={() => {
+                    handleAddToCart();
+                    setQuantity(1);
+                  }}
                   className="btn btn-icon"
                 >
                   <i className="icon-cart"></i> Ajouter au panier
@@ -270,7 +291,6 @@ export const ProductDetails = () => {
                 {tab === 2 && (
                   <div className="tab-cont product-reviews">
                     {product.retings && <Reviews reviews={product.retings} />}
-
                     <ReviewFrom
                       productId={product._id}
                       getProduct={getProduct}
@@ -286,3 +306,4 @@ export const ProductDetails = () => {
     </>
   );
 };
+export default ProductDetails;

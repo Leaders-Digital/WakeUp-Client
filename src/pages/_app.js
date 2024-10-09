@@ -5,11 +5,8 @@ import Link from "next/link";
 export const CartContext = createContext();
 export const PromoContext = createContext();
 const MyApp = ({ Component, pageProps }) => {
-  console.log("API Key:", process.env.NEXT_PUBLIC_API_KEY);
-
   const [promo, setPromo] = useState(null);
   const [cart, setCart] = useState([]);
-
   return (
     <PromoContext.Provider value={{ promo, setPromo }}>
       <CartContext.Provider value={{ cart, setCart }}>

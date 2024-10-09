@@ -22,10 +22,6 @@ export const Cart = () => {
 
     return total + Number(prixFinal) * Number(item.quantity);
   }, 0);
-
-  console.log("cart", cart);
-  console.log("promo", promo);
-
   const totalWithDiscount = promo
     ? total - (total * promo) / 100 // Assuming promo is a percentage
     : total;
@@ -46,6 +42,7 @@ export const Cart = () => {
     setCart(updatedCart); // Update cart in context
     setCount(count + 1); // Trigger re-render
   };
+console.log(cart);
 
   const handlePromo = async () => {
     setLoadingCode(true);
@@ -54,7 +51,6 @@ export const Cart = () => {
         `${process.env.NEXT_PUBLIC_API_KEY}api/promo/applyPromoCode`,
         { code: promoCode }
       );
-      console.log(res.data);
       setLoadingCode(false);
       setPromo(res.data.discountValue);
       toast.success("Code promo appliqué avec succès");

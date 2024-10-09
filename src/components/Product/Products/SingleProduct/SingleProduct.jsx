@@ -6,8 +6,16 @@ export const SingleProduct = ({
   onAddToCart,
   addedInCart,
 }) => {
-  const { nom, soldePourcentage, prix, mainPicture, solde, createdAt, _id,categorie } =
-    product;
+  const {
+    nom,
+    soldePourcentage,
+    prix,
+    mainPicture,
+    solde,
+    createdAt,
+    _id,
+    categorie,
+  } = product;
 
   const isNew = () => {
     const currentDate = new Date();
@@ -27,9 +35,9 @@ export const SingleProduct = ({
         </div>
         <div className="products-item__img">
           <img
-            src={`${process.env.NEXT_PUBLIC_API_KEY}`+ mainPicture}
+            src={`${process.env.NEXT_PUBLIC_API_KEY}` + mainPicture}
             className="js-img"
-            style={{objectFit: "contain"}}
+            style={{ objectFit: "contain" }}
             alt=""
           />
           <div className="products-item__hover">
@@ -45,8 +53,8 @@ export const SingleProduct = ({
               <button
                 disabled={addedInCart}
                 className={`addList ${addedInCart ? "added" : ""}`}
-                onClick={() =>{
-                  if(categorie==="PACK"){
+                onClick={() => {
+                  if (categorie === "PACK") {
                     onAddToCart({
                       nom: product.nom,
                       prix,
@@ -54,12 +62,12 @@ export const SingleProduct = ({
                       soldePourcentage,
                       mainPicture,
                       quantity: 1,
-                      stock:3,
-                      reference:"package",
+                      stock: 3,
+                      reference: "package",
                       categorie,
                       _id,
-                    })
-                  }else{
+                    });
+                  } else {
                     onAddToCart({
                       nom: product.nom,
                       prix,
@@ -72,13 +80,10 @@ export const SingleProduct = ({
                       codeAbarre: product.variants[0].codeAbarre,
                       reference: product.variants[0].reference,
                       variantId: product.variants[0]._id,
-                      _id, 
-                    })
+                      _id,
+                    });
                   }
-                }
-             
-                
-                }
+                }}
               >
                 <i className="icon-cart"></i>
               </button>
@@ -92,8 +97,8 @@ export const SingleProduct = ({
             </a>
           </Link>
           <span className="products-item__cost">
-            <span>{solde && `$${prix}`}</span> 
-            {prix - prix * (soldePourcentage / 100)}{" "}TND
+            <span>{solde && `$${prix}`}</span>
+            {prix - prix * (soldePourcentage / 100)} TND
           </span>
         </div>
       </div>

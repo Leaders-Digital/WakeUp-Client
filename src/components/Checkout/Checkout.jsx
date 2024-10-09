@@ -28,7 +28,7 @@ const detailBlocks = [
 ];
 
 export const Checkout = () => {
-  const { promo } = useContext(PromoContext);
+  const { promo, setPromo  } = useContext(PromoContext);
   const { cart, setCart } = useContext(CartContext);
   const [activeStep, setActiveStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -135,6 +135,7 @@ export const Checkout = () => {
       setOrderCode(res.data.orderCode);
       setLoading(false);
       setActiveStep(activeStep + 1);
+      setPromo(0);
     } catch (error) {
       console.log(error);
 
@@ -150,7 +151,7 @@ export const Checkout = () => {
   };
   useEffect(() => {
     checkCart();
-  },[cart, router]);
+  }, [cart, router]);
 
   // Prevent server-side rendering issues
   if (!mounted) {
@@ -217,7 +218,12 @@ export const Checkout = () => {
                     />
                   );
                 case 3:
-                  return <CheckoutStep3 orderCode={orderCode}  makeTheCartEmpty={makeTheCartEmpty}/>;
+                  return (
+                    <CheckoutStep3
+                      orderCode={orderCode}
+                      makeTheCartEmpty={makeTheCartEmpty}
+                    />
+                  );
 
                 default:
                   return null;

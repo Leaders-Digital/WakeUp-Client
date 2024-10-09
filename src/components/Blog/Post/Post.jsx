@@ -16,13 +16,9 @@ export const Post = () => {
       
     } catch (error) {
       console.log(error);
-      
-      
     }
 
   }
-  console.log(blog);
-  
   useEffect(() => {
     getblogById();
   }, [router.query.id]);

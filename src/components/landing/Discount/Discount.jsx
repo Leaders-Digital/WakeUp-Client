@@ -11,7 +11,6 @@ export const Discount = () => {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`
       );
-      console.log(response.data);
       setBanners(response.data);
     } catch (error) {
       console.log(error);

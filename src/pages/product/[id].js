@@ -1,5 +1,4 @@
-import { MostViewed } from 'components/shared/MostViewed/MostViewed';
-import { ProductDetails } from 'components/Product/ProductDetails/ProductDetails';
+import ProductDetails from 'components/Product/ProductDetails/ProductDetails';
 
 const { PublicLayout } = require('layout/PublicLayout');
 
