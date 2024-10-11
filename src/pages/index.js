@@ -62,8 +62,6 @@ export default function Home() {
     triggerOnce: true,
     rootMargin: "-50px",
   });
-
-
   return (
     <Layout>
       <Banner />

@@ -24,6 +24,11 @@ export const ContactFrom = () => {
           email,
           message,
           telephone,
+        },  // Data being sent in the body of the request
+        {
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+          },
         }
       );
       toast.success("Votre message a été envoyé avec succès");
@@ -36,7 +41,12 @@ export const ContactFrom = () => {
   const getBanner = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`
+        `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`,  // Data being sent in the body of the request
+        {
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+          },
+        }
       );
       setBanner(response.data);
     } catch (error) {

@@ -130,6 +130,11 @@ export const Checkout = () => {
           listeDesProduits,
           listeDesPack,
           prixTotal: totalWithDiscount,
+        },  // Data being sent in the body of the request
+        {
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+          },
         }
       );
       setOrderCode(res.data.orderCode);

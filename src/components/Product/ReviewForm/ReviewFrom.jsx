@@ -27,6 +27,11 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
         ...data,
         rating: rating / 20,
         productId,
+      },  // Data being sent in the body of the request
+      {
+        headers: {
+          'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+        },
       });
       getProduct(productId);
     } catch (error) {

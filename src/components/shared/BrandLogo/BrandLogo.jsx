@@ -7,7 +7,12 @@ const BrandLogo = () => {
   const getPartenaire = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/partenaire/getPartenaires`
+        `${process.env.NEXT_PUBLIC_API_KEY}api/partenaire/getPartenaires`,  // Data being sent in the body of the request
+        {
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+          },
+        }
       );
 
       setPartenaire(response.data.data);

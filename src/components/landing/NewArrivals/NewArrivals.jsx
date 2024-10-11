@@ -15,15 +15,20 @@ export const NewArrivals = () => {
           params: {
             categorie: "FACE",
           },
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Ensure this is the correct reference
+          },
         }
       );
-
-
+  
       setProductData(res.data.products);
     } catch (error) {
-      console.error(error);
+      console.error(error); // Log error for better debugging
     }
   };
+  
+  
+  
   useEffect(() => {
     getProducts();
   }, []);

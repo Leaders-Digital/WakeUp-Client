@@ -11,7 +11,11 @@ export const Post = () => {
 
   const getblogById = async()=>{
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}api/blog/get/article/${router.query.id}`);
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}api/blog/get/article/${router.query.id}`,{
+        headers: {
+          'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+        },
+      });
       setBlog(res.data.data);
       
     } catch (error) {

@@ -12,7 +12,12 @@ export const Banner = () => {
   const getBanner = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`
+        `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`,  // Data being sent in the body of the request
+        {
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+          },
+        }
       );
       setBanners(response.data); // Set banners with the response data
     } catch (error) {

@@ -13,7 +13,12 @@ export const Wishlist = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/order/code/${orderCode}`
+        `${process.env.NEXT_PUBLIC_API_KEY}api/order/code/${orderCode}`,  // Data being sent in the body of the request
+        {
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+          },
+        }
       );
 
       setOrder(response.data.data);

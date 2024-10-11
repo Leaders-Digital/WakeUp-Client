@@ -76,7 +76,12 @@ export const Shop = ({ setTitle }) => {
   const getCategories = async () => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/product/get-category`
+        `${process.env.NEXT_PUBLIC_API_KEY}api/product/get-category`,  // Data being sent in the body of the request
+        {
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+          },
+        }
       );
       setCategories(res.data.categoryCounts);
     } catch (error) {}
@@ -85,6 +90,7 @@ export const Shop = ({ setTitle }) => {
   const getProducts = async () => {
     try {
       setLoading(true);
+      
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}api/product/all`, {
         params: {
           page: page, // Send current page as a query parameter
@@ -95,7 +101,11 @@ export const Shop = ({ setTitle }) => {
           sortByPrice: sortByPrice,
           searchArray: objecttofind[mainCategory],
         },
+        headers: {
+          'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+        },
       });
+  
       setProductData(res.data.products);
       setFixMin(res.data.lowestPrice);
       setFixMax(res.data.highestPrice);
@@ -103,9 +113,10 @@ export const Shop = ({ setTitle }) => {
       setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false); // Ensure loading state is reset on error
     }
   };
-
+  
   const previewsPage = async () => {
     if (page > 1) {
       setPage(page - 1);

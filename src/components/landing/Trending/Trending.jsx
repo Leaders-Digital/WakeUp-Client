@@ -13,21 +13,25 @@ export const Trending = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/product/all/home`,
+        `${process.env.NEXT_PUBLIC_API_KEY}api/product/all/home`, // Correctly formatted URL
         {
           params: {
-            categorie: selectedCategory,
+            categorie: selectedCategory, // Query parameters
+          },
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_KEY, // API key in headers
           },
         }
       );
-
-
+  
       setProductData(res.data.products);
       setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false); // Ensure loading is set to false even on error
     }
   };
+  
 
   useEffect(() => {
     getProducts();

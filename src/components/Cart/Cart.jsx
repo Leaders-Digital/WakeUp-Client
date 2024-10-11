@@ -42,23 +42,29 @@ export const Cart = () => {
     setCart(updatedCart); // Update cart in context
     setCount(count + 1); // Trigger re-render
   };
-console.log(cart);
 
-  const handlePromo = async () => {
-    setLoadingCode(true);
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/promo/applyPromoCode`,
-        { code: promoCode }
-      );
-      setLoadingCode(false);
-      setPromo(res.data.discountValue);
-      toast.success("Code promo appliqué avec succès");
-    } catch (error) {
-      setLoadingCode(false);
-      toast.error(error.response.data.message);
-    }
-  };
+
+const handlePromo = async () => {
+  setLoadingCode(true);
+  try {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_KEY}api/promo/applyPromoCode`,
+      { code: promoCode },  // Data being sent in the body of the request
+      {
+        headers: {
+          'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+        },
+      }
+    );
+    setLoadingCode(false);
+    setPromo(res.data.discountValue);
+    toast.success("Code promo appliqué avec succès");
+  } catch (error) {
+    setLoadingCode(false);
+    toast.error(error.response.data.message);
+  }
+};
+
 
   useEffect(() => {
     setCart(cart);

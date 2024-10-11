@@ -41,6 +41,9 @@ export const Packs = () => {
             solde: filter.isSale,
             search: search,
           },
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+          },
         }
       );
       setProductData(res.data.products);

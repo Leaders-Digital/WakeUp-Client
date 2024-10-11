@@ -27,7 +27,12 @@ const ProductDetails = () => {
   const getProduct = async (id) => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/product/${id}`
+        `${process.env.NEXT_PUBLIC_API_KEY}api/product/${id}`,  // Data being sent in the body of the request
+        {
+          headers: {
+            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+          },
+        }
       );
       setProduct(res.data);
       setSelectedVariant({ ...res.data.variants[0] });
