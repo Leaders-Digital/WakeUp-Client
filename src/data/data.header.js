@@ -15,10 +15,10 @@ export const navItem = [
     name: "Nos Pack",
     path: "/packs",
   },
-  {
-    name: "E-Catalogue",
-    path: "/catalogue",
-  },
+  // {
+  //   name: "E-Catalogue",
+  //   path: "/catalogue",
+  // },
   {
     name: "à propos",
     path: "/about",

@@ -62,7 +62,7 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
             ratingValue={rating}
             fillColor="#cfc819"
             size="20px"
-            emptyColor="#fff"
+            emptyColor="#fff" 
           />
         </div>
         <div className="box-field">
