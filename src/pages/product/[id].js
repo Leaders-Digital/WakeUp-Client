@@ -1,6 +1,9 @@
-import ProductDetails from 'components/Product/ProductDetails/ProductDetails';
+// import ProductDetails from 'components/Product/ProductDetails/ProductDetails';
 
-const { PublicLayout } = require('layout/PublicLayout');
+import ProductDetails from "components/Product/ProductDetails/ProductDetails";
+import { PublicLayout } from "layout/PublicLayout";
+
+// const { PublicLayout } = require('layout/PublicLayout');
 
 const breadcrumbsData = [
   {
@@ -15,8 +18,7 @@ const breadcrumbsData = [
 const SingleProductPage = () => {
   return (
     <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle='Shop'>
-      <ProductDetails />
-      {/* <MostViewed additionalClass='product-viewed' /> */}
+      <ProductDetails /> 
     </PublicLayout>
   );
 };

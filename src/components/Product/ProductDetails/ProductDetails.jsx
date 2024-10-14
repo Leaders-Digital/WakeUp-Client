@@ -23,14 +23,15 @@ const ProductDetails = () => {
   const [nav2, setNav2] = useState();
   const [addedInCart, setAddedInCart] = useState(false);
   console.log(product);
+  console.log(selectedVariant);
 
   const getProduct = async (id) => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/product/${id}`,  // Data being sent in the body of the request
+        `${process.env.NEXT_PUBLIC_API_KEY}api/product/${id}`, // Data being sent in the body of the request
         {
           headers: {
-            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+            "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
           },
         }
       );
@@ -61,35 +62,34 @@ const ProductDetails = () => {
     if (variantExistsInCart)
       return toast.error("Le produit existe déjà dans votre panier"); // If the variant is already in the cart, return
     let newProduct = {};
- if (product.categorie === "PACK") {
-  newProduct= {
-    nom: product.nom,
-    prix: product.prix,
-    mainPicture: product.mainPicture,
-    quantity: quantity,
-    stock: 3,
-    reference: "package",
-    categorie: product.categorie,
-    _id: product._id,
-    solde: product.solde,
-    soldePourcentage: product.solde
-
-  }
- }else{
-  newProduct =  {    
-    nom: product.nom,
-    prix: product.prix,
-    mainPicture: selectedVariant.picture,
-    codeAbarre: selectedVariant.codeAbarre,
-    reference: selectedVariant.reference,
-    _id: product._id,
-    quantity: quantity,
-    variantId: selectedVariant._id,
-    solde: product.solde,
-    stock: selectedVariant.quantity,
-    soldePourcentage: product.soldePourcentage,
-  }
- }
+    if (product.categorie === "PACK") {
+      newProduct = {
+        nom: product.nom,
+        prix: product.prix,
+        mainPicture: product.mainPicture,
+        quantity: quantity,
+        stock: 3,
+        reference: "package",
+        categorie: product.categorie,
+        _id: product._id,
+        solde: product.solde,
+        soldePourcentage: product.solde,
+      };
+    } else {
+      newProduct = {
+        nom: product.nom,
+        prix: product.prix,
+        mainPicture: selectedVariant.picture,
+        codeAbarre: selectedVariant.codeAbarre,
+        reference: selectedVariant.reference,
+        _id: product._id,
+        quantity: quantity,
+        variantId: selectedVariant._id,
+        solde: product.solde,
+        stock: selectedVariant.quantity,
+        soldePourcentage: product.soldePourcentage,
+      };
+    }
     setCart([...cart, newProduct]); // Add the new product to the cart
     return toast.success("Produit ajouté avec succès");
   };
@@ -205,57 +205,74 @@ const ProductDetails = () => {
                   ))}
                 </ul>
               </div>
-
               <div className="product-options">
-                <div className="product-info__color">
-                  {product?.variants.length ? <span>Couleur :</span> : null}
-                  <ul>
-                    {product?.variants &&
-                      product?.variants.map((variant, index) => (
-                        <li
-                          onClick={() => {
-                            handleditection(variant._id);
-                            setActiveColor(index);
-                            setQuantity(1);
-                            setSelectedVariant(variant);
-                          }}
-                          className={activeColor === index ? "active" : ""}
-                          key={index}
-                          style={{ backgroundColor: variant.color }}
-                        ></li>
-                      ))}
-                  </ul>
-                </div>
-                <div className="product-info__quantity">
-                  <span className="product-info__quantity-title">
-                    Quantité :
-                  </span>
-                  <div className="counter-box">
-                    <span
-                      onClick={() => {
-                        if (quantity > 1) {
-                          setQuantity(quantity - 1);
-                        }
-                      }}
-                      className="counter-link counter-link__prev"
-                    >
-                      <i className="icon-arrow"></i>
-                    </span>
-                    <input
-                      type="text"
-                      className="counter-input"
-                      disabled
-                      value={quantity}
-                    />
-                    <span
-                      onClick={() => setQuantity(quantity + 1)}
-                      className="counter-link counter-link__next"
-                    >
-                      <i className="icon-arrow"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
+  <div className="product-info__color">
+    {product?.variants.length ? <span>Couleur :</span> : null}
+    <ul>
+      {product?.variants &&
+        product?.variants.map((variant, index) => (
+          <li
+            onClick={() => {
+              if (variant.quantity > 0) {
+                setSelectedVariant(variant);
+                handleditection(variant._id);
+                setActiveColor(index);
+                setQuantity(1);
+              }
+            }}
+            className={activeColor === index ? "active" : ""}
+            key={index}
+            style={{
+              backgroundColor: variant.color,
+              opacity: variant.quantity ? "1" : "0.8",
+              position: "relative", // Add this for the absolute "X"
+            }}
+          >
+            {/* Conditionally render "X" if quantity is 0 */}
+            {variant.quantity === 0 && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  color: "red", // Adjust color as needed
+                  fontSize: "24px", // Adjust font size as needed
+                  fontWeight: "bold",
+                }}
+              >
+                X
+              </span>
+            )}
+          </li>
+        ))}
+    </ul>
+  </div>
+
+  <div className="product-info__quantity">
+    <span className="product-info__quantity-title">Quantité :</span>
+    <div className="counter-box">
+      <span
+        onClick={() => {
+          if (quantity > 1) {
+            setQuantity(quantity - 1);
+          }
+        }}
+        className="counter-link counter-link__prev"
+      >
+        <i className="icon-arrow"></i>
+      </span>
+      <input type="text" className="counter-input" disabled value={quantity} />
+      <span
+        onClick={() => setQuantity(quantity + 1)}
+        className="counter-link counter-link__next"
+      >
+        <i className="icon-arrow"></i>
+      </span>
+    </div>
+  </div>
+</div>
+
               <div className="product-buttons">
                 <button
                   disabled={addedInCart}
