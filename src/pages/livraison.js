@@ -1,6 +1,6 @@
 // import Packs from 'components/Packs/Packs';
-import Policy from "components/Policy/Policy";
-import { Subscribe } from "components/shared/Subscribe/Subscribe";
+
+import LivraisonPage from "components/Livraison/LivraisonPage";
 import { PublicLayout } from "layout/PublicLayout";
 
 const breadcrumbsData = [
@@ -9,20 +9,20 @@ const breadcrumbsData = [
     path: "/",
   },
   {
-    label: "Politique de confidentialité",
+    label: "Détails de livraison",
     path: "/policy",
   },
 ];
-const PolicyPage = () => {
+const Livraison = () => {
   return (
     <PublicLayout
       breadcrumb={breadcrumbsData}
-      breadcrumbTitle="Politique de confidentialité"
+      breadcrumbTitle="Détails de livraison"
     >
-      <Policy />
+      <LivraisonPage />
       {/* <Subscribe /> */}
     </PublicLayout>
   );
 };
 
-export default PolicyPage;
+export default Livraison;

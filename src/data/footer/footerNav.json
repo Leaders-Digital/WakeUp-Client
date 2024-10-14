@@ -32,7 +32,7 @@
     "title": "Liens utiles",
     "navLinks": [
       {
-        "name": "Carrières",
+        "name": "Mentions légales",
         "path": "/about"
       },
       {
@@ -44,16 +44,12 @@
         "path": "/about"
       },
       {
-        "name": "Assistance",
-        "path": "/blog"
+        "name": "Politique de cookies",
+        "path": "/about"
       },
       {
         "name": "Détails de livraison",
-        "path": "/about"
-      },
-      {
-        "name": "Informations",
-        "path": "/about"
+        "path": "/livraison"
       }
     ]
   }
