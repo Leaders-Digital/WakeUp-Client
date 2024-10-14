@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Rating } from "react-simple-star-rating";
 
 export const ReviewFrom = ({ productId, getProduct, productimage }) => {
@@ -34,6 +35,7 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
         },
       });
       getProduct(productId);
+      toast.success("Votre avis a été envoyé avec succès");
     } catch (error) {
       console.log(error);
     }
