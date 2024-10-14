@@ -33,7 +33,7 @@
     "navLinks": [
       {
         "name": "Mentions légales",
-        "path": "/about"
+        "path": "/montion"
       },
       {
         "name": "Politique de confidentialité",
@@ -41,11 +41,11 @@
       },
       {
         "name": "Conditions d'utilisation",
-        "path": "/about"
+        "path": "/condition"
       },
       {
         "name": "Politique de cookies",
-        "path": "/about"
+        "path": "/cookies"
       },
       {
         "name": "Détails de livraison",
