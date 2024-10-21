@@ -1,7 +1,8 @@
-import ProductDetails from 'components/Product/ProductDetails/ProductDetails';
+import ProductDetails from "components/Product/ProductDetails/ProductDetails";
+import { PublicLayout } from "layout/PublicLayout";
 
 
-const { PublicLayout } = require('layout/PublicLayout');
+
 
 const breadcrumbsData = [
   {
