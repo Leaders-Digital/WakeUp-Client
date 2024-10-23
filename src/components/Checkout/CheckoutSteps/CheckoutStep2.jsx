@@ -6,7 +6,7 @@ export const CheckoutStep2 = ({
   handleCreateOrder,
   loading,
 }) => {
-  const [payment, setPayment] = useState("credit-card");
+  const [payment, setPayment] = useState("cash");
   return (
     <>
       {/* <!-- BEING CHECKOUT STEP TWO -->  */}
@@ -26,9 +26,39 @@ export const CheckoutStep2 = ({
                 <span className="radio-box__info">
                   <i className="icon-info"></i>
                   <span className="radio-box__info-content">
-                    Aliqua nulla id aliqua minim ullamco adipisicing enim. Do
-                    sint nisi velit qui. Ullamco Lorem aliquip dolor nostrud
-                    cupidatat amet.
+                    Le paiement à la livraison est disponible en Tunisie.
+                    Profitez de ce mode de paiement simple et sécurisé pour
+                    recevoir vos produits à domicile.
+                  </span>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
+            className={`checkout-payment__item ${
+              payment === "cash" && "active"
+            }`}
+          >
+            <div
+              className="checkout-payment__item-head"
+              style={{ opacity: "0.2" }}
+            >
+              <label className="radio-box">
+                Paiement en Ligne
+                <input
+                  type="radio"
+                  checked={payment === "card"}
+                  name="radio"
+                  disabled
+                />
+                <span className="checkmark"></span>
+                <span className="radio-box__info">
+                  <i className="icon-info" ></i>
+                  <span className="radio-box__info-content" >
+                    Le paiement en ligne n'est pas encore disponible. Vous
+                    pouvez toutefois utiliser le paiement à la livraison en
+                    Tunisie, un mode simple et sécurisé pour recevoir vos
+                    produits à domicile.
                   </span>
                 </span>
               </label>
@@ -49,8 +79,22 @@ export const CheckoutStep2 = ({
           </div>
         </div>
       ) : (
-        <div style={{ display: "flex", justifyContent: "center", textAlign: "center", width: "100%" }}>
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            textAlign: "center",
+            width: "100%",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <div className="spinner"></div>
             <h6>Création de votre commande</h6>
           </div>

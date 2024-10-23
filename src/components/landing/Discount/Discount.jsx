@@ -9,10 +9,10 @@ export const Discount = () => {
   const getBanner = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`,  // Data being sent in the body of the request
+        `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`, // Data being sent in the body of the request
         {
           headers: {
-            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+            "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
           },
         }
       );
@@ -28,7 +28,7 @@ export const Discount = () => {
 
   // Ensure that the path is properly formatted with forward slashes
   const contactBannerUrl = banners.promo
-    ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.promo.replace(/\\/g, '/')}`
+    ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.promo.replace(/\\/g, "/")}`
     : `/assets/img/bannersale2.png`; // Fallback image
 
   return (
@@ -40,17 +40,16 @@ export const Discount = () => {
       >
         <div className="wrapper">
           <div className="discount-info">
-            <span className="saint-text">Discount</span>
             <span className="main-text">
-              Get Your <span>50%</span> Off
+              Découvrez <span>nos packs exclusifs</span>
             </span>
             <p>
-              Nourish your skin with toxin-free cosmetic products. With the
-              offers that you can’t refuse.
+              Profitez de nos offres irrésistibles et explorez nos packs
+              soigneusement sélectionnés pour répondre à tous vos besoins.
             </p>
 
-            <Link href="/shop">
-              <a className="btn">Get now!</a>
+            <Link href="/packs">
+              <a className="btn">Voir les packs</a>
             </Link>
           </div>
         </div>
