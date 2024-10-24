@@ -51,8 +51,8 @@ export const Subscribe = () => {
               />
             </div>
             <div className="toform">
-              <h3>Restez en contact</h3>
-              <p>Soignez votre peau avec des produits cosmétiques sans toxines.</p>
+              <h3>Soyez les premiers informés !</h3>
+              <p>La gamme essentielle pour révéler l'éclat naturel de votre peau.</p>
               <div className="box-field__row">
                 <div className="box-field">
                   <input
