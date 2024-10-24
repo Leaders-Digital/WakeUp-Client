@@ -65,14 +65,8 @@ export default function Home() {
   return (
     <Layout>
       <Banner />
-      <motion.div
-        ref={trendingRef}
-        initial={{ opacity: 0, y: 50, scale: 0.9 }}
-        animate={trendingInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-        transition={{ ease: "easeOut", duration: 0.4, delay: 0.1 }} // Faster animation
-      >
-        <Trending />
-      </motion.div>
+
+      <Trending />
 
       <motion.div
         ref={discountRef}
