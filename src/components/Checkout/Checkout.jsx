@@ -28,7 +28,7 @@ const detailBlocks = [
 ];
 
 export const Checkout = () => {
-  const { promo, setPromo  } = useContext(PromoContext);
+  const { promo, setPromo } = useContext(PromoContext);
   const { cart, setCart } = useContext(CartContext);
   const [activeStep, setActiveStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -60,10 +60,8 @@ export const Checkout = () => {
     return total + Number(prixFinal) * Number(item.quantity);
   }, 0);
 
+  console.log("tootallll", total);
 
-
-  console.log("tootallll",total);
-  
   const totalWithDiscount = promo ? total - (total * promo) / 100 : total;
   const listeDesProduits = [];
   const listeDesPack = [];
@@ -138,21 +136,79 @@ export const Checkout = () => {
           listeDesProduits,
           listeDesPack,
           prixTotal: totalWithDiscount,
-        },  // Data being sent in the body of the request
+        }, // Data being sent in the body of the request
         {
           headers: {
-            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+            "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
           },
         }
       );
       setOrderCode(res.data.orderCode);
       setLoading(false);
-      setActiveStep(activeStep + 1);
+      // setActiveStep(activeStep + 1);
       setPromo(0);
     } catch (error) {
       console.log(error);
 
       setLoading(false);
+    }
+  };
+
+  console.log("orderCode", {
+    ...data,
+    listeDesProduits,
+    listeDesPack,
+    prixTotal: totalWithDiscount,
+  });
+
+  const onlinePayment = async () => {
+    try {
+      await handleCreateOrder();
+      let totalwithDilevery = (totalWithDiscount + 8)*1000;
+      console.log("totalwithDilevery", totalwithDilevery);
+
+      const paymentData = {
+        receiverWalletId: "672256c051a38c7f6cb8bba5",
+        token: "TND",
+        amount: totalwithDilevery,
+        type: "immediate",
+        description: "payment description",
+        acceptedPaymentMethods: ["wallet", "bank_card", "e-DINAR"],
+        lifespan: 10,
+        checkoutForm: true,
+        addPaymentFeesToAmount: true,
+        firstName: data.prenom,
+        lastName: data.nom,
+        phoneNumber: data.numTelephone,
+        email: data.email,
+        orderId: orderCode,
+        webhook: "https://merchant.tech/api/notification_payment",
+        silentWebhook: true,
+        successUrl: "http://localhost:3000/checkout",
+        failUrl: "https://gateway.sandbox.konnect.network/payment-failure",
+        theme: "light",
+      };
+
+      const res = await axios.post(
+        `https://api.preprod.konnect.network/api/v2/payments/init-payment`,
+        paymentData,
+        {
+          headers: {
+            "x-api-key": "672256c051a38c7f6cb8bb9d:FwrRxNCJDKERkDab8krLhZrq",
+          },
+        }
+      );
+      if (res.data.payUrl) {
+        window.location.href = res.data.payUrl;
+      } else {
+        console.error("Payment URL not found in response");
+      }
+
+      // setOrderCode(res.data.orderCode);
+      // setActiveStep(activeStep + 1);
+      setPromo(0);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -228,6 +284,7 @@ export const Checkout = () => {
                       onNext={handleNext}
                       onPrev={handlePrev}
                       handleCreateOrder={handleCreateOrder}
+                      onlinePayment={onlinePayment}
                       loading={loading}
                     />
                   );

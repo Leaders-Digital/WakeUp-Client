@@ -4,9 +4,23 @@ export const CheckoutStep2 = ({
   onNext,
   onPrev,
   handleCreateOrder,
+  onlinePayment,
   loading,
 }) => {
   const [payment, setPayment] = useState("cash");
+  console.log(payment);
+
+  const handleOrder = () => {
+    if (payment === "cash") {
+      handleCreateOrder();
+    } else {
+      onlinePayment();
+    }
+  };
+  
+
+  
+
   return (
     <>
       {/* <!-- BEING CHECKOUT STEP TWO -->  */}
@@ -35,26 +49,20 @@ export const CheckoutStep2 = ({
             </div>
           </div>
           <div
-            className={`checkout-payment__item ${
-              payment === "cash" && "active"
-            }`}
+              className={`checkout-payment__item ${
+                payment === "card" && "active"
+              }`}
           >
             <div
               className="checkout-payment__item-head"
-              style={{ opacity: "0.2" }}
             >
-              <label className="radio-box">
+              <label className="radio-box" onClick={() => setPayment("card")}>
                 Paiement en Ligne
-                <input
-                  type="radio"
-                  checked={payment === "card"}
-                  name="radio"
-                  disabled
-                />
+                <input type="radio" checked={payment === "card"} name="radio" />
                 <span className="checkmark"></span>
                 <span className="radio-box__info">
-                  <i className="icon-info" ></i>
-                  <span className="radio-box__info-content" >
+                  <i className="icon-info"></i>
+                  <span className="radio-box__info-content">
                     Le paiement en ligne n'est pas encore disponible. Vous
                     pouvez toutefois utiliser le paiement à la livraison en
                     Tunisie, un mode simple et sécurisé pour recevoir vos
@@ -70,7 +78,7 @@ export const CheckoutStep2 = ({
             </button>
             <button
               onClick={() => {
-                handleCreateOrder();
+                handleOrder();
               }}
               className="btn btn-icon btn-next"
             >
