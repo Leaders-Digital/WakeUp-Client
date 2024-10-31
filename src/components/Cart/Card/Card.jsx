@@ -15,6 +15,7 @@ export const Card = ({ cart, onChangeQuantity, handleDelete }) => {
     reference,
     stock,
   } = cart;
+console.log("ddd",cart);
 
   return (
     <>
@@ -48,7 +49,8 @@ export const Card = ({ cart, onChangeQuantity, handleDelete }) => {
           {solde ? (
             <span className="cart-table__price">
               <span>{prix}TND</span>
-              {prix - prix * (soldePourcentage / 100)}TND
+              {prix -
+                    prix * (soldePourcentage / 100)}TND
             </span>
           ) : (
             <span className="cart-table__price">{prix}TND</span>
@@ -92,7 +94,7 @@ export const Card = ({ cart, onChangeQuantity, handleDelete }) => {
           </span>
         </div>
         <div className="cart-table__col">
-          <i class="fa-solid fa-trash-can"></i>
+       
           <span
             onClick={() => handleDelete(variantId)}
             className="cart-table__delete "

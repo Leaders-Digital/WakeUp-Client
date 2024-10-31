@@ -6,6 +6,8 @@ import { Card } from './Card/Card';
 export const CheckoutOrders = ({total}) => {
   const { cart } = useContext(CartContext);
   const { promo } = useContext(PromoContext);
+
+
   const totalWithDiscount = promo
   ? total - (total * promo) / 100 // Assuming promo is a percentage
   : total;
@@ -16,6 +18,7 @@ export const CheckoutOrders = ({total}) => {
     futureDate.setDate(today.getDate() + 2); // Add 2 days
     return futureDate.toLocaleDateString(); // Format as dd/mm/yyyy or mm/dd/yyyy depending on locale
   };
+ 
   const loadingDate = getLoadingDate(); // Get the dynamic loading date
   return (
     <>
@@ -28,7 +31,7 @@ export const CheckoutOrders = ({total}) => {
       <div className='cart-bottom__total'>
         <div className='cart-bottom__total-goods'>
           Produits pour
-          <span>{total.toFixed(2)} TND</span>
+          <span>{total} TND</span>
         </div>
         <div className='cart-bottom__total-promo'>
           Réduction sur code promo
@@ -43,7 +46,7 @@ export const CheckoutOrders = ({total}) => {
         </div>
         <div className='cart-bottom__total-num'>
           total:
-          <span> {promo ? totalWithDiscount + 8 : total.toFixed(2) + 8} TND </span>
+          <span> {promo ? totalWithDiscount + 8  : 8 + Number(total.toFixed(2))  } TND </span>
         </div>
       </div>
     </>

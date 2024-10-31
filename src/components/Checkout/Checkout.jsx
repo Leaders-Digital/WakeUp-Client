@@ -52,10 +52,18 @@ export const Checkout = () => {
     setCart([]); // Correct way to empty the cart
   };
 
-  const total = cart.reduce(
-    (total, item) => total + Number(item.prix) * Number(item.quantity),
-    0
-  );
+  const total = cart.reduce((total, item) => {
+    const prixFinal = item.solde
+      ? item.prix - item.prix * (item.soldePourcentage / 100)
+      : item.prix;
+
+    return total + Number(prixFinal) * Number(item.quantity);
+  }, 0);
+
+
+
+  console.log("tootallll",total);
+  
   const totalWithDiscount = promo ? total - (total * promo) / 100 : total;
   const listeDesProduits = [];
   const listeDesPack = [];
@@ -154,6 +162,7 @@ export const Checkout = () => {
       router.push("/cart"); // Redirect if the cart is empty
     }
   };
+
   useEffect(() => {
     checkCart();
   }, [cart, router]);

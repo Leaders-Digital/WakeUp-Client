@@ -14,14 +14,14 @@ export const Footer = () => {
   return (
     <>
       {/* <!-- BEGIN FOOTER --> */}
-      <footer className='footer'>
+      <footer className='footer' style={{background:"white"}}>
         <div className='wrapper'>
           <div className='footer-top'>
 
             <div className='footer-top__logo'>
               <Link href='/'>
                 <a>
-                  <img src={footerLogo} className='js-img' alt='' />
+                  <img src={footerLogo} className='js-img' alt='' style={{width:"150px"}} />
                 </a>
               </Link>
             </div>

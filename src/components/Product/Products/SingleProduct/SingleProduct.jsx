@@ -31,7 +31,7 @@ export const SingleProduct = ({
       <div className="products-item">
         <div className="products-item__type">
           {solde && <span className="products-item__sale">sale</span>}
-          {isNew() && <span className="products-item__new">new</span>}
+          {/* {isNew() && <span className="products-item__new">new</span>} */}
         </div>
         <div className="products-item__img">
           <img

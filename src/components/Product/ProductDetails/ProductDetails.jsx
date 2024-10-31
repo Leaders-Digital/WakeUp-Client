@@ -206,73 +206,79 @@ const ProductDetails = () => {
                 </ul>
               </div>
               <div className="product-options">
-  <div className="product-info__color">
-    {product?.variants.length ? <span>Couleur :</span> : null}
-    <ul>
-      {product?.variants &&
-        product?.variants.map((variant, index) => (
-          <li
-            onClick={() => {
-              if (variant.quantity > 0) {
-                setSelectedVariant(variant);
-                handleditection(variant._id);
-                setActiveColor(index);
-                setQuantity(1);
-              }
-            }}
-            className={activeColor === index ? "active" : ""}
-            key={index}
-            style={{
-              backgroundColor: variant.color,
-              opacity: variant.quantity ? "1" : "0.8",
-              position: "relative", // Add this for the absolute "X"
-            }}
-          >
-            {/* Conditionally render "X" if quantity is 0 */}
-            {variant.quantity === 0 && (
-              <span
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  color: "red", // Adjust color as needed
-                  fontSize: "24px", // Adjust font size as needed
-                  fontWeight: "bold",
-                }}
-              >
-                X
-              </span>
-            )}
-          </li>
-        ))}
-    </ul>
-  </div>
+                <div className="product-info__color">
+                  {product?.variants.length ? <span>Couleur :</span> : null}
+                  <ul>
+                    {product?.variants &&
+                      product?.variants.map((variant, index) => (
+                        <li
+                          onClick={() => {
+                            if (variant.quantity > 0) {
+                              setSelectedVariant(variant);
+                              handleditection(variant._id);
+                              setActiveColor(index);
+                              setQuantity(1);
+                            }
+                          }}
+                          className={activeColor === index ? "active" : ""}
+                          key={index}
+                          style={{
+                            backgroundColor: variant.color,
+                            opacity: variant.quantity ? "1" : "0.8",
+                            position: "relative", // Add this for the absolute "X"
+                          }}
+                        >
+                          {/* Conditionally render "X" if quantity is 0 */}
+                          {variant.quantity === 0 && (
+                            <span
+                              style={{
+                                position: "absolute",
+                                top: "50%",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)",
+                                color: "red", // Adjust color as needed
+                                fontSize: "24px", // Adjust font size as needed
+                                fontWeight: "bold",
+                              }}
+                            >
+                              X
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
 
-  <div className="product-info__quantity">
-    <span className="product-info__quantity-title">Quantité :</span>
-    <div className="counter-box">
-      <span
-        onClick={() => {
-          if (quantity > 1) {
-            setQuantity(quantity - 1);
-          }
-        }}
-        className="counter-link counter-link__prev"
-      >
-        <i className="icon-arrow"></i>
-      </span>
-      <input type="text" className="counter-input" disabled value={quantity} />
-      <span
-        onClick={() => setQuantity(quantity + 1)}
-        className="counter-link counter-link__next"
-      >
-        <i className="icon-arrow"></i>
-      </span>
-    </div>
-  </div>
-</div>
-
+                <div className="product-info__quantity">
+                  <span className="product-info__quantity-title">
+                    Quantité :
+                  </span>
+                  <div className="counter-box">
+                    <span
+                      onClick={() => {
+                        if (quantity > 1) {
+                          setQuantity(quantity - 1);
+                        }
+                      }}
+                      className="counter-link counter-link__prev"
+                    >
+                      <i className="icon-arrow"></i>
+                    </span>
+                    <input
+                      type="text"
+                      className="counter-input"
+                      disabled
+                      value={quantity}
+                    />
+                    <span
+                      onClick={() => setQuantity(quantity + 1)}
+                      className="counter-link counter-link__next"
+                    >
+                      <i className="icon-arrow"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
               <div className="product-buttons">
                 <button
                   disabled={addedInCart}
@@ -281,8 +287,26 @@ const ProductDetails = () => {
                     setQuantity(1);
                   }}
                   className="btn btn-icon"
+                  style={{ textTransform: "capitalize" }}
                 >
-                  <i className="icon-cart"></i> Ajouter au panier
+                  Panier
+                  <i class="fa-solid fa-cart-shopping" style={{marginLeft:"10px"}}></i>
+                </button>
+                <button
+                  className="btn btn-icon"
+                  style={{ background: "#25D366", textTransform: "capitalize" }}
+                  onClick={() => {
+                    const produitLien = window.location.href;
+                    const numero = "+21626644400"; // Remplacez par votre numéro de téléphone
+                    const texte = encodeURIComponent(
+                      `Bonjour, je suis intéressé par ce produit: ${produitLien}`
+                    );
+                    const lienWhatsApp = `https://api.whatsapp.com/send?phone=${numero}&text=${texte}`;
+                    window.open(lienWhatsApp, "_blank");
+                  }}
+                >
+                  Commander par WhatsApp 
+                  <i class="fa-brands fa-whatsapp fa-beat-fade" style={{marginLeft:"10px"}} ></i>
                 </button>
               </div>
             </div>

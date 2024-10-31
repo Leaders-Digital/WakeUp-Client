@@ -35,4 +35,12 @@ export const navItem = [
     name: "suivi commande",
     path: "/wishlist",
   },
+  {
+    name: "Retrouvez-nous",
+    path: "/collab",
+  },
+  {
+    name: "Nos Événements",
+    path: "/event",
+  }
 ];

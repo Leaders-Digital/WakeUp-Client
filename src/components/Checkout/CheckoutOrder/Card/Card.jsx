@@ -10,9 +10,14 @@ export const Card = ({ order }) => {
     prix,
     quantity,
     variantId,
-    reference
+    reference,
+    solde,
+    soldePourcentage,
   } = order;
-
+console.log(order);
+const prixFinal = solde
+? prix - prix * (soldePourcentage / 100)
+: prix;
   return (
     <>
       {/* <!-- BEING ORDER ITEM CARD --> */}
@@ -29,7 +34,7 @@ export const Card = ({ order }) => {
             </a>
           </Link>
           <span className='checkout-order__item-price'>
-            {(prix * quantity).toFixed(2)} TND
+            {(prixFinal * quantity).toFixed(2)} TND
           </span>
           <span className='checkout-order__item-num'>reference : {reference}</span>
         </div>
