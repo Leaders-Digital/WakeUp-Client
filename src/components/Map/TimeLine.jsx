@@ -7,7 +7,7 @@ import "react-vertical-timeline-component/style.min.css";
 
 const TimeLine = () => {
   return (
-    <VerticalTimeline>
+    <VerticalTimeline lineColor="#eee">
       <VerticalTimelineElement
         className="vertical-timeline-element--work"
         contentStyle={{ background: "#eee", color: "black" }}
@@ -37,8 +37,14 @@ const TimeLine = () => {
         contentStyle={{ background: "#eee", color: "black" }}
         contentArrowStyle={{ borderRight: "7px solid #eee" }}
       >
-        <h3 className="vertical-timeline-element-title">Title of Event</h3>
-        <p>Brief description of the event.</p>
+        <h3 className="vertical-timeline-element-title">
+          Lancement des produits de beauté Wakeup Cosmetics en Tunisie
+        </h3>
+        <p>
+          Retour à notre récent événement de lancement des produits de beauté
+          Wakeup Cosmetics, d'origine italienne 🇮🇹 exclusivement, en Tunisie 🇹🇳
+          et en collaboration spéciale avec 𝗟𝗲𝗮𝗱𝗲𝗿𝘀 𝗠𝗮𝗸𝗲𝘂𝗽 ✨
+        </p>
 
         <div style={{ marginTop: "1rem" }}>
           <iframe

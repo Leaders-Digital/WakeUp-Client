@@ -75,7 +75,9 @@ export default function Home() {
         animate={discountInView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{ ease: "easeOut", duration: 0.4, delay: 0.2 }} // Slight delay for smoother stagger
       >
-        <Discount />
+        {/* <Discount /> */}
+      <TopCategories />
+
       </motion.div>
 
       <motion.div
@@ -87,7 +89,6 @@ export default function Home() {
         <Advantage advantages={[...advantages1, ...advantages2]} />
       </motion.div>
 
-      <TopCategories />
 
       <AboutPromo />
 
