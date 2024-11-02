@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 import { CartContext, PromoContext } from "pages/_app";
 import axios from "axios";
+import { redirect } from "next/dist/server/api-utils";
 
 const detailBlocks = [
   {
@@ -199,11 +200,11 @@ export const Checkout = () => {
         }
       );
       if (res.data.payUrl) {
-        window.location.href = res.data.payUrl;
+        // redirect(res.data.payUrl)
+        router.push(res.data.payUrl);
       } else {
         console.error("Payment URL not found in response");
       }
-
       // setOrderCode(res.data.orderCode);
       // setActiveStep(activeStep + 1);
       setPromo(0);
