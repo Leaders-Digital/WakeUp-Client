@@ -46,27 +46,16 @@ export const Header = () => {
       {/* <!-- BEGIN HEADER --> */}
       <header className="header">
         {promo && (
-          <div className="header-top" style={{background:"#D47E00",padding:"12px"}}>
+          <div className="header-top" style={{ background: "#D47E00" }}>
             <span
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "1.2rem",
+                fontSize: "13px",
               }}
             >
               Réveillez votre beauté naturelle
-              <h6></h6>
-              <img
-                src="https://www.countryflags.com/wp-content/uploads/tunisia-flag-png-xl.png"
-                alt=""
-                style={{ width: "20px", marginLeft: "5px" }}
-              />
-              <img
-                src="https://www.countryflags.com/wp-content/uploads/italy-flag-png-large.png"
-                alt=""
-                style={{ width: "20px", marginLeft: "5px" }}
-              />
             </span>
 
             <i

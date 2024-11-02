@@ -46,7 +46,7 @@ export const CheckoutOrders = ({total}) => {
         </div>
         <div className='cart-bottom__total-num'>
           total:
-          <span> {promo ? totalWithDiscount + 8  : 8 + Number(total.toFixed(2))  } TND </span>
+          <span> {promo ? (totalWithDiscount + 8 ).toFixed(2) : 8 + Number(total.toFixed(2))  } TND </span>
         </div>
       </div>
     </>

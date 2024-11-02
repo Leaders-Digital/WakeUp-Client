@@ -45,7 +45,7 @@ const defaultAdvantages = [
 const AboutPage = () => {
   return (
     <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle="à Propos">
-      <DetailBlock />
+      
       <SectionTitle
         subTitle="Notre Philosophie"
         title="Chaque visage peut être une œuvre d'art ..."

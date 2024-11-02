@@ -271,7 +271,10 @@ const ProductDetails = () => {
                       value={quantity}
                     />
                     <span
-                      onClick={() => setQuantity(quantity + 1)}
+                      onClick={() =>
+                        quantity < selectedVariant.quantity &&
+                         setQuantity(quantity + 1)
+                        }
                       className="counter-link counter-link__next"
                     >
                       <i className="icon-arrow"></i>

@@ -38,7 +38,7 @@ footer {
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba($color: #ffffff, $alpha: 0.1);
+            background: rgba($color: #999999, $alpha: 0.1);
             i {
               &:before {
                 color: #999999;
@@ -48,7 +48,7 @@ footer {
             &:hover {
               i {
                 &:before {
-                  color: #fff;
+                  color: #999999;
                 }
               }
             }
@@ -75,7 +75,7 @@ footer {
           margin-right: 11.5px;
           a {
             &:hover {
-              opacity: 0.8;
+              color: #999999;
             }
           }
         }
@@ -106,13 +106,13 @@ footer {
             margin-bottom: 0;
           }
           a {
-            color: #bbbbbb;
+            color: #696767;
             font-size: 16px;
             line-height: 170%;
             position: relative;
             padding-left: 15px;
             &:hover {
-              color: #fff;
+              color: #bbb;
             }
             &:before {
               position: absolute;

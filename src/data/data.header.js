@@ -23,18 +23,18 @@ export const navItem = [
     name: "à propos",
     path: "/about",
   },
-  {
-    name: "Blog",
-    path: "/blog",
-  },
+  // {
+  //   name: "Blog",
+  //   path: "/blog",
+  // },
   {
     name: "Contact",
     path: "/contact",
   },
-  {
-    name: "suivi commande",
-    path: "/wishlist",
-  },
+  // {
+  //   name: "suivi commande",
+  //   path: "/wishlist",
+  // },
   {
     name: "Retrouvez-nous",
     path: "/collab",
