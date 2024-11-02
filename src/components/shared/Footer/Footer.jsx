@@ -30,7 +30,7 @@ export const Footer = () => {
               </Link>
             </div>
             <div className="footer-top__social">
-              <span>Find us here:</span>
+              <span>Retrouvez-nous ici:</span>
               <ul>
                 {footerSocial.map((social, index) => (
                   <li key={index}>
@@ -41,9 +41,7 @@ export const Footer = () => {
                 ))}
               </ul>
             </div>
-            <div className="footer-top__social" style={{display:"flex",alignItems:"center"}}>
-              <Link href="/wishlist">Suivi Commande </Link>
-            </div>
+           
             {/* Payment method */}
           </div>
           <div className="footer-nav">

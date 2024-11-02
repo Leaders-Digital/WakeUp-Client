@@ -27,9 +27,9 @@ export const TopCategories = () => {
       {/* <!-- BEGIN TOP CATEGORIES --> */}
       <section className='top-categories'>
         <SectionTitle
-          subTitle='Popular collections'
-          title='top categories'
-          body='Nourish your skin with toxin-free cosmetic products. With the offers that you can’t refuse.'
+          subTitle='Collections populaires'
+          title='Catégories principales'
+          body='Prenez soin de votre peau avec des produits cosmétiques sans toxines. Profitez des offres irrésistibles .'
         />
         <div className='top-categories__items'>
           {<Categories categories={categories} />}

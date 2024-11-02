@@ -48,6 +48,10 @@
         "path": "/cookies"
       },
       {
+        "name": "Suivi commande",
+        "path": "/wishlist"
+      },
+      {
         "name": "Détails de livraison",
         "path": "/livraison"
       }
