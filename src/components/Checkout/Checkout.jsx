@@ -62,6 +62,8 @@ export const Checkout = () => {
   }, 0);
 
   console.log("tootallll", total);
+  const baseURL = `${window.location.protocol}//${window.location.host}`;
+
 
   const totalWithDiscount = promo ? total - (total * promo) / 100 : total;
   const listeDesProduits = [];
@@ -182,12 +184,11 @@ export const Checkout = () => {
         orderId: orderid,
         webhook: `https://merchant.tech/api/notification_payment`,
         silentWebhook: true,
-        successUrl: `http://localhost:3000/success?orderId=${orderid}`,
+        successUrl: `${baseURL}/success?orderId=${orderid}`,
         failUrl: "https://gateway.sandbox.konnect.network/payment-failure",
         theme: "light",
       };
-      console.log("paymentData", paymentData);
-
+      
       const res = await axios.post(
         `https://api.preprod.konnect.network/api/v2/payments/init-payment`,
         paymentData,
