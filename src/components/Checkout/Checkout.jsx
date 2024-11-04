@@ -127,7 +127,7 @@ export const Checkout = () => {
     setActiveStep(activeStep - 1);
   };
 
-  const handleCreateOrder = async () => {
+  const handleCreateOrder = async (method) => {
     setLoading(true);
     try {
       const res = await axios.post(
@@ -146,11 +146,12 @@ export const Checkout = () => {
       );
       setOrderCode(res.data.orderCode);
       setLoading(false);
-      // setActiveStep(activeStep + 1);
+      if (method === "cash") {
+        setActiveStep(activeStep + 1);
+      }
       setPromo(0);
     } catch (error) {
       console.log(error);
-
       setLoading(false);
     }
   };
@@ -164,8 +165,8 @@ export const Checkout = () => {
 
   const onlinePayment = async () => {
     try {
-      await handleCreateOrder();
-      let totalwithDilevery = (totalWithDiscount + 8)*1000;
+      await handleCreateOrder("pay");
+      let totalwithDilevery = (totalWithDiscount + 8) * 1000;
       console.log("totalwithDilevery", totalwithDilevery);
 
       const paymentData = {
@@ -183,9 +184,9 @@ export const Checkout = () => {
         phoneNumber: data.numTelephone,
         email: data.email,
         orderId: orderCode,
-        webhook: "https://merchant.tech/api/notification_payment",
+        webhook: `https://merchant.tech/api/notification_payment`,
         silentWebhook: true,
-        successUrl: "http://localhost:3000/checkout",
+        successUrl: `http://localhost:3000/success?orderId=${orderCode}`,
         failUrl: "https://gateway.sandbox.konnect.network/payment-failure",
         theme: "light",
       };

@@ -12,7 +12,7 @@ export const CheckoutStep2 = ({
 
   const handleOrder = () => {
     if (payment === "cash") {
-      handleCreateOrder();
+      handleCreateOrder("cash");
     } else {
       onlinePayment();
     }

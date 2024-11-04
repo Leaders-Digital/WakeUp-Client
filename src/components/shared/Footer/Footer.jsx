@@ -53,12 +53,16 @@ export const Footer = () => {
               <span className="footer-nav__col-title">Contact</span>
               <ul>
                 <li>
-                  <i className="icon-map-pin"></i>Les berges du lac 2 - Cité les
+                  <i className="icon-map-pin"></i>
+                  <span style={{color:'#999999',fontWeight:"500"}}>
+                    Les berges du lac 2 - Cité les
                   Pins, En face clinique Hannibal
+                  </span>
+                  
                 </li>
                 <li>
                   <i className="icon-smartphone"></i>
-                  <div className="footer-nav__col-phones">
+                  <div className="footer-nav__col-phones" style={{color:"black"}}>
                     <a href="tel:+21626644400">+216 26 644 400</a>
                     <a href="tel:+21627360067">+216 27 360 067</a>
                   </div>
