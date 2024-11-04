@@ -62,7 +62,11 @@ export const Checkout = () => {
   }, 0);
 
   console.log("tootallll", total);
-  const baseURL = `${window.location.protocol}//${window.location.host}`;
+  const [baseURL, setBaseURL] = useState("");
+
+  useEffect(() => {
+    setBaseURL(`${window.location.protocol}//${window.location.host}`);
+  }, []);
 
 
   const totalWithDiscount = promo ? total - (total * promo) / 100 : total;
@@ -199,10 +203,8 @@ export const Checkout = () => {
         }
       );
       if (res.data.payUrl) {
-        console.log(res.data);
+        router.push(res.data.payUrl);
 
-        // redirect(res.data.payUrl)
-        // router.push(res.data.payUrl);
       } else {
         console.error("Payment URL not found in response");
       }
