@@ -39,8 +39,8 @@ export const navItem = [
     name: "Retrouvez-nous",
     path: "/collab",
   },
-  {
-    name: "Nos Événements",
-    path: "/event",
-  }
+  // {
+  //   name: "Nos Événements",
+  //   path: "/event",
+  // }
 ];
