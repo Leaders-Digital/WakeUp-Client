@@ -24,6 +24,7 @@ export const SingleProduct = ({
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Difference in days
     return diffDays <= 30; // Consider "new" if within the last 30 days
   };
+  console.log(product);
 
   return (
     <>
@@ -72,14 +73,14 @@ export const SingleProduct = ({
                       nom: product.nom,
                       prix,
                       solde,
-                      stock: product.variants[0].quantity,
+                      stock: product.variantDetails[0].quantity,
                       soldePourcentage,
-                      mainPicture: product.variants[0].picture,
+                      mainPicture: product.variantDetails[0].picture,
                       quantity: 1,
                       categorie,
-                      codeAbarre: product.variants[0].codeAbarre,
-                      reference: product.variants[0].reference,
-                      variantId: product.variants[0]._id,
+                      codeAbarre: product.variantDetails[0].codeAbarre,
+                      reference: product.variantDetails[0].reference,
+                      variantId: product.variantDetails[0]._id,
                       _id,
                     });
                   }

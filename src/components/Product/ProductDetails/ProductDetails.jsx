@@ -210,42 +210,29 @@ const ProductDetails = () => {
                   {product?.variants.length ? <span>Couleur :</span> : null}
                   <ul>
                     {product?.variants &&
-                      product?.variants.map((variant, index) => (
-                        <li
-                          onClick={() => {
-                            if (variant.quantity > 0) {
-                              setSelectedVariant(variant);
-                              handleditection(variant._id);
-                              setActiveColor(index);
-                              setQuantity(1);
-                            }
-                          }}
-                          className={activeColor === index ? "active" : ""}
-                          key={index}
-                          style={{
-                            backgroundColor: variant.color,
-                            opacity: variant.quantity ? "1" : "0.8",
-                            position: "relative", // Add this for the absolute "X"
-                          }}
-                        >
-                          {/* Conditionally render "X" if quantity is 0 */}
-                          {variant.quantity === 0 && (
-                            <span
-                              style={{
-                                position: "absolute",
-                                top: "50%",
-                                left: "50%",
-                                transform: "translate(-50%, -50%)",
-                                color: "red", // Adjust color as needed
-                                fontSize: "24px", // Adjust font size as needed
-                                fontWeight: "bold",
-                              }}
-                            >
-                              X
-                            </span>
-                          )}
-                        </li>
-                      ))}
+                      product?.variants
+                        .filter((variant) => variant.quantity > 0) // Filter out variants with zero quantity
+                        .map((variant, index) => (
+                          <li
+                            onClick={() => {
+                              if (variant.quantity > 0) {
+                                setSelectedVariant(variant);
+                                handleditection(variant._id);
+                                setActiveColor(index);
+                                setQuantity(1);
+                              }
+                            }}
+                            className={activeColor === index ? "active" : ""}
+                            key={index}
+                            style={{
+                              backgroundColor: variant.color,
+                              opacity: variant.quantity ? "1" : "0.8",
+                              position: "relative", // Add this for the absolute "X"
+                            }}
+                          >
+                            {/* Additional content can go here */}
+                          </li>
+                        ))}
                   </ul>
                 </div>
 
@@ -273,8 +260,8 @@ const ProductDetails = () => {
                     <span
                       onClick={() =>
                         quantity < selectedVariant.quantity &&
-                         setQuantity(quantity + 1)
-                        }
+                        setQuantity(quantity + 1)
+                      }
                       className="counter-link counter-link__next"
                     >
                       <i className="icon-arrow"></i>
@@ -293,7 +280,10 @@ const ProductDetails = () => {
                   style={{ textTransform: "capitalize" }}
                 >
                   Panier
-                  <i class="fa-solid fa-cart-shopping" style={{marginLeft:"10px"}}></i>
+                  <i
+                    class="fa-solid fa-cart-shopping"
+                    style={{ marginLeft: "10px" }}
+                  ></i>
                 </button>
                 <button
                   className="btn btn-icon"
@@ -308,8 +298,11 @@ const ProductDetails = () => {
                     window.open(lienWhatsApp, "_blank");
                   }}
                 >
-                  Commander par WhatsApp 
-                  <i class="fa-brands fa-whatsapp fa-beat-fade" style={{marginLeft:"10px"}} ></i>
+                  Commander par WhatsApp
+                  <i
+                    class="fa-brands fa-whatsapp fa-beat-fade"
+                    style={{ marginLeft: "10px" }}
+                  ></i>
                 </button>
               </div>
             </div>
