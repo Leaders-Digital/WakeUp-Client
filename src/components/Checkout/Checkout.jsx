@@ -62,6 +62,8 @@ export const Checkout = () => {
   }, 0);
 
   console.log("tootallll", total);
+  const baseURL = `${window.location.protocol}//${window.location.host}`;
+
 
   const totalWithDiscount = promo ? total - (total * promo) / 100 : total;
   const listeDesProduits = [];
@@ -144,30 +146,26 @@ export const Checkout = () => {
           },
         }
       );
-      setOrderCode(res.data.orderCode);
+
       setLoading(false);
       if (method === "cash") {
+        setOrderCode(res.data.orderCode);
         setActiveStep(activeStep + 1);
       }
       setPromo(0);
+      return res.data.orderCode;
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
   };
 
-  console.log("orderCode", {
-    ...data,
-    listeDesProduits,
-    listeDesPack,
-    prixTotal: totalWithDiscount,
-  });
-
   const onlinePayment = async () => {
     try {
-      await handleCreateOrder("pay");
+      let orderid = await handleCreateOrder("pay");
       let totalwithDilevery = (totalWithDiscount + 8) * 1000;
       console.log("totalwithDilevery", totalwithDilevery);
+      console.log("orderCodesss", orderid);
 
       const paymentData = {
         receiverWalletId: "672256c051a38c7f6cb8bba5",
@@ -183,14 +181,14 @@ export const Checkout = () => {
         lastName: data.nom,
         phoneNumber: data.numTelephone,
         email: data.email,
-        orderId: orderCode,
+        orderId: orderid,
         webhook: `https://merchant.tech/api/notification_payment`,
         silentWebhook: true,
-        successUrl: `http://localhost:3000/success?orderId=${orderCode}`,
+        successUrl: `${baseURL}/success?orderId=${orderid}`,
         failUrl: "https://gateway.sandbox.konnect.network/payment-failure",
         theme: "light",
       };
-
+      
       const res = await axios.post(
         `https://api.preprod.konnect.network/api/v2/payments/init-payment`,
         paymentData,
@@ -201,13 +199,13 @@ export const Checkout = () => {
         }
       );
       if (res.data.payUrl) {
+        console.log(res.data);
+
         // redirect(res.data.payUrl)
-        router.push(res.data.payUrl);
+        // router.push(res.data.payUrl);
       } else {
         console.error("Payment URL not found in response");
       }
-      // setOrderCode(res.data.orderCode);
-      // setActiveStep(activeStep + 1);
       setPromo(0);
     } catch (error) {
       console.log(error);
