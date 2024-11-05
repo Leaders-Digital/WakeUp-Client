@@ -1,20 +1,12 @@
-@font-face {
-  font-family: 'icomoon';
-  src: url('/assets/fonts/icomoon/icomoon.eot?1cf6lm');
-  src: url('/assets/fonts/icomoon/icomoon.eot?1cf6lm#iefix')
-      format('embedded-opentype'),
-    url('/assets/fonts/icomoon/icomoon.ttf?1cf6lm') format('truetype'),
-    url('/assets/fonts/icomoon/icomoon.woff?1cf6lm') format('woff'),
-    url('/assets/fonts/icomoon/icomoon.svg?1cf6lm#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
-  font-display: block;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif; /* Set Roboto as the default font */
 }
 
 [class^='icon-'],
 [class*=' icon-'] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
+  font-family: 'Roboto' !important; /* Update to Roboto font */
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -26,6 +18,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Remove the Icomoon font */
+* {
+  font-family: 'Roboto', sans-serif !important; /* Ensure all elements use Roboto */
+}
+
+
 .icon-google:before {
   content: '\e924';
   color: #fff;
