@@ -41,17 +41,15 @@ const defaultAdvantages = [
   },
 ];
 
-
 const AboutPage = () => {
   return (
     <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle="à Propos">
-      
-      <SectionTitle
-        subTitle="Notre Philosophie"
-        title="Chaque visage peut être une œuvre d'art ..."
-        body=""
-      />
-      <div className="wrapper" style={{marginBottom:"50px"}}>
+      <div className="wrapper" style={{ marginBottom: "50px",marginTop:"50px" }}>
+        <SectionTitle
+          subTitle="Notre Philosophie"
+          title="Chaque visage peut être une œuvre d'art ..."
+          body=""
+        />
         <p>
           Wakeup Cosmetics Milano n'est pas seulement une marque de cosmétiques,
           mais représente une nouvelle philosophie de maquillage conçue pour
@@ -63,11 +61,11 @@ const AboutPage = () => {
         subTitle="Nos valeurs"
         // style={{marginTop:"50px"}}
       />
-      <div className="">
+      <div>
         <div className="wrapper">
-          <div className="advantages-items" style={{display:"flex"}}>
+          <div className="advantages-items" style={{ display: "flex" }}>
             {defaultAdvantages.map((advantage, index) => (
-              <div className="advantages-item" style={{ width: "300px"  }}>
+              <div className="advantages-item" style={{ width: "300px" }}>
                 <div className="advantages-item__icon">
                   <img
                     src={advantage.icon}
@@ -76,10 +74,16 @@ const AboutPage = () => {
                     style={{ objectFit: "cover" }}
                   />
                 </div>
-                <h6 style={{ fontSize: "17px",fontWeight:"500", textAlign: "center" }}>
+                <h6
+                  style={{
+                    fontSize: "17px",
+                    fontWeight: "500",
+                    textAlign: "center",
+                  }}
+                >
                   {advantage.title}
                 </h6>
-                 <p style={{ fontSize: "15px" }}>{advantage.body}</p>
+                <p style={{ fontSize: "15px" }}>{advantage.body}</p>
               </div>
             ))}
           </div>

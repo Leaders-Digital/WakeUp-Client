@@ -67,7 +67,7 @@ export const ContactFrom = () => {
       {/* <!-- BEGIN DISCOUNT --> */}
       <div
         className="discount discount-contacts js-img"
-        style={{ backgroundImage: `url(${contactBannerUrl})`}}
+        style={{ backgroundImage: `url(${contactBannerUrl})`,marginTop: "70px" }}
         
       >
         <div className="wrapper">

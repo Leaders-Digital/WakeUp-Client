@@ -68,7 +68,6 @@ export const Checkout = () => {
     setBaseURL(`${window.location.protocol}//${window.location.host}`);
   }, []);
 
-
   const totalWithDiscount = promo ? total - (total * promo) / 100 : total;
   const listeDesProduits = [];
   const listeDesPack = [];
@@ -151,13 +150,13 @@ export const Checkout = () => {
         }
       );
 
-      setLoading(false);
       if (method === "cash") {
+        setLoading(false);
         setOrderCode(res.data.orderCode);
-        setActiveStep(activeStep + 1);
+        // setActiveStep(activeStep + 1);
       }
       setPromo(0);
-      return res.data.orderCode;
+      return res.data.data._id;
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -192,7 +191,7 @@ export const Checkout = () => {
         failUrl: "https://gateway.sandbox.konnect.network/payment-failure",
         theme: "light",
       };
-      
+
       const res = await axios.post(
         `https://api.preprod.konnect.network/api/v2/payments/init-payment`,
         paymentData,
@@ -202,9 +201,19 @@ export const Checkout = () => {
           },
         }
       );
-      if (res.data.payUrl) {
-        router.push(res.data.payUrl);
 
+      if (res.data.payUrl) {
+        await axios.put(
+          `${process.env.NEXT_PUBLIC_API_KEY}api/order/add-payref/${orderid}`,
+          { paymentRef: res.data.paymentRef },
+          {
+            headers: {
+              "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+            },
+          }
+        );
+        router.push(res.data.payUrl);
+        // setLoading(false);
       } else {
         console.error("Payment URL not found in response");
       }

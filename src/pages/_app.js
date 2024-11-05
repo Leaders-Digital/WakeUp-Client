@@ -9,8 +9,8 @@ const MyApp = ({ Component, pageProps }) => {
   const [promo, setPromo] = useState(null);
   const [cart, setCart] = useState([]);
 
-   console.log = () => {};
-   console.error=()=>{};
+  //  console.log = () => {};
+  //  console.error=()=>{};
 
 
   return (
