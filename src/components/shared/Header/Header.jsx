@@ -65,7 +65,7 @@ export const Header = () => {
           {footerSocial.map((social, index) => (
             <li key={index}>
               <a href={social.path}>
-                <i className={social.icon}></i>
+                <i className={social.icon} ></i>
               </a>
             </li>
           ))}

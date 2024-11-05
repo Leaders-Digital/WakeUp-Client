@@ -280,8 +280,8 @@ const ProductDetails = () => {
                   style={{ textTransform: "capitalize" }}
                 >
                   Panier
-                  <i
-                    class="fa-solid fa-cart-shopping"
+                  <i 
+                    class="icon-cart"
                     style={{ marginLeft: "10px" }}
                   ></i>
                 </button>
@@ -300,7 +300,7 @@ const ProductDetails = () => {
                 >
                   Commander par WhatsApp
                   <i
-                    class="fa-brands fa-whatsapp fa-beat-fade"
+                    className="icon-phone"
                     style={{ marginLeft: "10px" }}
                   ></i>
                 </button>
