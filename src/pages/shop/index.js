@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 const breadcrumbsData = [
   {
-    label: 'Accueil',
+    label: "Page d'accueil",
     path: '/',
   },
   {
