@@ -171,7 +171,7 @@ export const Checkout = () => {
       console.log("orderCodesss", orderid);
 
       const paymentData = {
-        receiverWalletId: "672256c051a38c7f6cb8bba5",
+        receiverWalletId: "6721f70f82402c76c27e7fd7",
         token: "TND",
         amount: totalwithDilevery,
         type: "immediate",
@@ -193,11 +193,11 @@ export const Checkout = () => {
       };
 
       const res = await axios.post(
-        `https://api.preprod.konnect.network/api/v2/payments/init-payment`,
+        `https://api.konnect.network/api/v2/payments/init-payment`,
         paymentData,
         {
           headers: {
-            "x-api-key": "672256c051a38c7f6cb8bb9d:FwrRxNCJDKERkDab8krLhZrq",
+            "x-api-key": "6721f70f82402c76c27e7fcf:FwiPR9xkOsuQnHrWWc0Db0uvB",
           },
         }
       );
