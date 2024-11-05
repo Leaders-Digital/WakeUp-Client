@@ -8,7 +8,7 @@ export const AboutPromo = () => {
 
   const promoNumber = [...PromoNumberData];
   const url = play
-    ? 'https://www.youtube.com/embed/3N-5eT2oyUI'
+    ? 'https://www.youtube.com/embed/atLWuquNY80'
     : '';
   return (
     <>

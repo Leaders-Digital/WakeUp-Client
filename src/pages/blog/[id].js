@@ -3,7 +3,7 @@ import { Subscribe } from 'components/shared/Subscribe/Subscribe';
 import { PublicLayout } from 'layout/PublicLayout';
 const breadcrumbsData = [
   {
-    label: 'Home',
+    label: "Page d'accueil",
     path: '/',
   },
   {

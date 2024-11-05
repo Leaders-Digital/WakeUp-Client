@@ -5,7 +5,7 @@ import { PublicLayout } from 'layout/PublicLayout';
 
 const breadcrumbsData = [
   {
-    label: 'Acceuil',
+    label: "Page d'accueil",
     path: '/',
   },
   {
