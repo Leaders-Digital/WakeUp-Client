@@ -60,8 +60,8 @@ export const Header = () => {
         <div style={{ color: "black", display: "flex", alignItems: "center", flex: "1" }}>
           <span href="tel:+21626644400">+216 26 644 400</span>
         </div>
-        <span style={{ flex: "1", textAlign: "center" }}>Réveillez votre beauté naturelle</span>
-        <ul style={{ display: "flex", flexDirection: "row", gap: "10px", flex: "1", justifyContent: "flex-end" }}>
+        <span style={{ flex: "1", textAlign: "center" }}>Réveillez Votre Beauté Naturelle</span>
+        <ul style={{ display: "flex", flexDirection: "row", gap: "10px", flex: "1", justifyContent: "flex-end", fontSize:"12px", paddingRight:"20px"}}>
           {footerSocial.map((social, index) => (
             <li key={index}>
               <a href={social.path}>
