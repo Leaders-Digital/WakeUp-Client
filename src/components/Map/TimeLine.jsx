@@ -12,17 +12,18 @@ const TimeLine = () => {
         className="vertical-timeline-element--work"
         contentStyle={{ background: "#eee", color: "black" }}
         contentArrowStyle={{ borderRight: "7px solid #eee" }}
-        date="2008 - 2010"
+        date="2024"
         iconStyle={{ background: "#eee", color: "#fff" }}
       >
-        <h3 className="vertical-timeline-element-title">Title of Event</h3>
-        <p>Brief description of the event.</p>
+        <h3 className="vertical-timeline-element-title">Wakeup Cosmetics Milano exclusivement en Tunisie
+        </h3>
+        <p>Soirée de lancement de la marque Wakeup Cosmetics Miliano ! .</p>
 
         <div style={{ marginTop: "1rem" }}>
           <iframe
             width="100%"
             height="315"
-            src="https://www.youtube.com/embed/v_hSlfiiVYo"
+            src="https://www.youtube.com/embed/atLWuquNY80"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -32,7 +33,7 @@ const TimeLine = () => {
 
       <VerticalTimelineElement
         className="vertical-timeline-element--work"
-        date="2010 - 2011"
+        date="2023"
         iconStyle={{ background: "#eee", color: "#fff" }}
         contentStyle={{ background: "#eee", color: "black" }}
         contentArrowStyle={{ borderRight: "7px solid #eee" }}
@@ -50,7 +51,7 @@ const TimeLine = () => {
           <iframe
             width="100%"
             height="315"
-            src="https://www.youtube.com/embed/v_hSlfiiVYo"
+            src="https://www.youtube.com/embed/3N-5eT2oyUI"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

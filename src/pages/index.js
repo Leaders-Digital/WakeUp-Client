@@ -8,6 +8,7 @@ import { TopCategories } from "components/landing/TopCategories/TopCategories";
 import BrandLogo from "components/shared/BrandLogo/BrandLogo";
 import { Advantage } from "components/shared/Advantage/Advantage";
 import { AboutPromo } from "components/About/AboutPromo/AboutPromo";
+import { Subscribe } from "components/shared/Subscribe/Subscribe";
 
 const advantages1 = [
   {
@@ -93,6 +94,8 @@ export default function Home() {
       <AboutPromo />
 
       <BrandLogo />
+
+      <Subscribe />
     </Layout>
   );
 }

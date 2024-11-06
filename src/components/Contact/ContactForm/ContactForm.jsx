@@ -74,10 +74,10 @@ export const ContactFrom = () => {
           <div className="discount-info">
             <span className="saint-text">écrivez-nous</span>
             <span className="main-text">laissez un message</span>
-            <p>
+            {/* <p>
               Écrivez-nous si vous avez des questions, nous vous contacterons
               certainement et trouverons une solution.
-            </p>
+            </p> */}
 
             <div className="box-field">
               <input
