@@ -85,7 +85,11 @@ useEffect(() => {getProducts()}, [searchQuery]);
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
-console.log(searchResults);
+
+  const onConfirme = () => {
+      setSearchQuery("");
+  }
+console.log(searchQuery);
 
   return (
     <>
@@ -176,7 +180,7 @@ console.log(searchResults);
 
                   <div className="search-results">
                     {searchResults.map((result, index) => (
-                      <OneResult key={index} result={result} />
+                      <OneResult key={index} result={result} onConfirme={onConfirme} />
                     ))}
                   </div>
                 </div>
@@ -218,7 +222,7 @@ console.log(searchResults);
         }
 
         .search-container.active input {
-          width: 300px;
+          width: 320px;
           opacity: 1;
         }
 
@@ -235,8 +239,9 @@ console.log(searchResults);
           padding: 10px;
           z-index: 10;
           opacity: 1;
-          max-height: 200px;
+          max-height: 400px;
           overflow-y: auto;
+          overflow-x: hidden;
         }
 
         .search-results p {
