@@ -24,7 +24,7 @@ export const SingleProduct = ({
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Difference in days
     return diffDays <= 30; // Consider "new" if within the last 30 days
   };
-  console.log(product);
+
 
   return (
     <>
