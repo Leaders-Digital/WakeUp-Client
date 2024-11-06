@@ -6997,8 +6997,21 @@ input[type="search"]::-webkit-search-results-decoration {
     }
   }
 }
-
+.search-block-mobile {
+  display: none;
+}
 @media screen and (max-width: 480px) {
+  .search-block-mobile {
+    display: flex;
+  }
+  .search-results {
+    width: 97% !important;
+    top: 93px  !important;
+    left:6px !important
+  }
+  .header-options {
+    display: none;
+  }
   .main-block {
     &.load-bg {
       background-image: none;
@@ -7044,6 +7057,10 @@ input[type="search"]::-webkit-search-results-decoration {
       width: 100%;
       margin-bottom: 20px;
     }
+  }
+
+  .search-result img {
+    width: 50px;
   }
 
   .product-slider__main img {

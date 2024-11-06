@@ -10,6 +10,7 @@ const OneResult = ({ result , onConfirme }) => {
         alignItems: "center",
         cursor: "pointer",
         marginBottom: "5px",
+        borderBottom:"1px solid #eee"
       }}
       className="search-result"
       onClick={onConfirme}
@@ -26,6 +27,7 @@ const OneResult = ({ result , onConfirme }) => {
           justifyContent: "flex-start",
           height: "70px",
         }}
+        className="result-info"
       >
         <h5 style={{ fontSize: "20px" }}>{result.nom}</h5>
         <h6 style={{ fontSize: "14px" }}>{result.subCategorie}</h6>

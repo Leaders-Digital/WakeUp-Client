@@ -51,18 +51,18 @@ export const Header = () => {
   }, [openMenu, height]);
 
   // Effect to handle click outside the search input
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setShowSearch(false);
-        setSearchQuery(""); // Clear the search query when hiding
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (searchRef.current && !searchRef.current.contains(event.target)) {
+  //       setShowSearch(false);
+  //       setSearchQuery(""); // Clear the search query when hiding
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
   const getProducts = async () => {
     try {
       const res = await axios.get(
@@ -81,15 +81,17 @@ export const Header = () => {
       console.error(error);
     }
   };
-useEffect(() => {getProducts()}, [searchQuery]);
+  useEffect(() => {
+    getProducts();
+  }, [searchQuery]);
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
   const onConfirme = () => {
-      setSearchQuery("");
-  }
-console.log(searchQuery);
+    setSearchQuery("");
+  };
+  console.log(searchQuery);
 
   return (
     <>
@@ -144,6 +146,7 @@ console.log(searchQuery);
             ></i>
           </div>
         )}
+
         <div className={`header-content ${fixedNav ? "fixed" : ""}`}>
           <div className="heder-logo">
             <Link href="/">
@@ -152,6 +155,7 @@ console.log(searchQuery);
               </a>
             </Link>
           </div>
+
           <div style={{ right: openMenu ? 0 : -360 }} className="header-box">
             {/* Nav */}
             <Nav navItem={navItem} />
@@ -180,7 +184,11 @@ console.log(searchQuery);
 
                   <div className="search-results">
                     {searchResults.map((result, index) => (
-                      <OneResult key={index} result={result} onConfirme={onConfirme} />
+                      <OneResult
+                        key={index}
+                        result={result}
+                        onConfirme={onConfirme}
+                      />
                     ))}
                   </div>
                 </div>
@@ -189,6 +197,40 @@ console.log(searchQuery);
                 </a>
               </li>
             </ul>
+          </div>
+          <div className="search-block-mobile" style={{ gap: "5px", alignItems: "center",marginRight:"50px" }}>
+            <div className={`search-container ${showSearch ? "active" : ""}`}>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                onFocus={() => setShowSearch(true)}
+                style={{
+                  padding: "5px",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                  backgroundColor: "#f9f9f9",
+                  transition: "all 0.3s ease",
+                  opacity: showSearch ? 1 : 0,
+                  width: showSearch ? "100%" : "0px",
+              
+                }}
+                placeholder="Search..."
+              />
+
+              <div className="search-results">
+                {searchResults.map((result, index) => (
+                  <OneResult
+                    key={index}
+                    result={result}
+                    onConfirme={onConfirme}
+                  />
+                ))}
+              </div>
+            </div>
+            <a onClick={() => setShowSearch(!showSearch)}>
+              <i className="icon-search" style={{ cursor: "pointer" ,  color:" #de8c06" }}></i>
+            </a>
           </div>
 
           <div
@@ -231,7 +273,7 @@ console.log(searchQuery);
           position: absolute;
           top: 40px;
           left: 0;
-          width: 100%;
+          width: 110%;
           background-color: #fff;
           border: 1px solid #ddd;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
