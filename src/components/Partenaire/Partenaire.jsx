@@ -30,9 +30,9 @@ const Partnaire = () => {
   return (
     <div className="container-md">
       <div className="row justify-content-center">
-        {partenaire.map((logo, index) =>(
-          <Cards logo={logo} key={index} />
-        ))}
+      
+          <Cards  />
+      
       </div>
     </div>
   );

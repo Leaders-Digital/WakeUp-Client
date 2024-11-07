@@ -93,7 +93,7 @@ export default function Home() {
 
       <AboutPromo />
 
-      <BrandLogo />
+      {/* <BrandLogo /> */}
 
       <Subscribe />
     </Layout>

@@ -300,7 +300,7 @@ const ProductDetails = () => {
                 >
                   Commander par WhatsApp
                   <i
-                    className="icon-phone"
+                    className="icon-whatsapp"
                     style={{ marginLeft: "10px" }}
                   ></i>
                 </button>

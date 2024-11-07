@@ -172,14 +172,14 @@ export const Header = () => {
                     onFocus={() => setShowSearch(true)}
                     style={{
                       padding: "5px",
-                      border: "1px solid #ccc",
+                      border: "3px solid #FCEDEA",
                       borderRadius: "4px",
                       backgroundColor: "#f9f9f9",
                       transition: "all 0.3s ease",
                       opacity: showSearch ? 1 : 0,
                       width: showSearch ? "300px" : "0px",
                     }}
-                    placeholder="Search..."
+                    placeholder="Entrez votre clé de recherche ..."
                   />
 
                   <div className="search-results">
@@ -193,7 +193,7 @@ export const Header = () => {
                   </div>
                 </div>
                 <a onClick={() => setShowSearch(!showSearch)}>
-                  <i className="icon-search" style={{ cursor: "pointer" }}></i>
+                  <i className="icon-search" style={{ cursor: "pointer" , fontSize:"23px"}} ></i> 
                 </a>
               </li>
             </ul>
