@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card/Card";
 import axios from "axios";
+import Cards from "./Card/Card";
 
 const Partnaire = () => {
   const [partenaire, setPartenaire] = useState([]);
@@ -30,7 +31,7 @@ const Partnaire = () => {
     <div className="container-md">
       <div className="row justify-content-center">
         {partenaire.map((logo, index) =>(
-          <Card logo={logo} key={index} />
+          <Cards logo={logo} key={index} />
         ))}
       </div>
     </div>

@@ -27,10 +27,7 @@ export const navItem = [
   //   name: "Blog",
   //   path: "/blog",
   // },
-  {
-    name: "Contact",
-    path: "/contact",
-  },
+ 
   // {
   //   name: "suivi commande",
   //   path: "/wishlist",
@@ -39,8 +36,12 @@ export const navItem = [
     name: "Retrouvez-nous",
     path: "/collab",
   },
-  // {
-  //   name: "Nos Événements",
-  //   path: "/event",
-  // }
+  {
+    name: "Nos Événements",
+    path: "/event",
+  },
+  {
+    name: "Contact",
+    path: "/contact",
+  }
 ];
