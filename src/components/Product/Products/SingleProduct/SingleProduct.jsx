@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Link from "next/link";
 
 export const SingleProduct = ({
@@ -15,7 +16,11 @@ export const SingleProduct = ({
     createdAt,
     _id,
     categorie,
+    variantDetails = [],
   } = product;
+
+  const [isHovered, setIsHovered] = useState(false);
+console.log("variantDetails",variantDetails);
 
   const isNew = () => {
     const currentDate = new Date();
@@ -25,18 +30,25 @@ export const SingleProduct = ({
     return diffDays <= 30; // Consider "new" if within the last 30 days
   };
 
-
   return (
     <>
-      {/* <!-- BEING SINGLE PRODUCT ITEM --> */}
-      <div className="products-item">
+      {/* <!-- BEGIN SINGLE PRODUCT ITEM --> */}
+      <div
+        className="products-item"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <div className="products-item__type">
           {solde && <span className="products-item__sale">Promo</span>}
           {/* {isNew() && <span className="products-item__new">new</span>} */}
         </div>
         <div className="products-item__img">
           <img
-            src={`${process.env.NEXT_PUBLIC_API_KEY}` + mainPicture}
+            src={
+              isHovered && variantDetails.length > 0
+                ? `${process.env.NEXT_PUBLIC_API_KEY}${variantDetails[0].icon}`
+                : `${process.env.NEXT_PUBLIC_API_KEY}${mainPicture}`
+            }
             className="js-img"
             style={{ objectFit: "contain" }}
             alt=""
@@ -73,14 +85,14 @@ export const SingleProduct = ({
                       nom: product.nom,
                       prix,
                       solde,
-                      stock: product.variantDetails[0].quantity,
+                      stock: variantDetails[0].quantity,
                       soldePourcentage,
-                      mainPicture: product.variantDetails[0].picture,
+                      mainPicture: variantDetails[0].picture,
                       quantity: 1,
                       categorie,
-                      codeAbarre: product.variantDetails[0].codeAbarre,
-                      reference: product.variantDetails[0].reference,
-                      variantId: product.variantDetails[0]._id,
+                      codeAbarre: variantDetails[0].codeAbarre,
+                      reference: variantDetails[0].reference,
+                      variantId: variantDetails[0]._id,
                       _id,
                     });
                   }
