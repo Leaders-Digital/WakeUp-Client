@@ -3,16 +3,9 @@
     "icon": "icon-facebook",
     "path": "https://www.facebook.com/wakeupcosmeticstn?_rdr"
   },
-  {
-    "icon": "icon-tiktok",
-    "path": "#/"
-  },
+
   {
     "icon": "icon-insta",
     "path": "https://www.instagram.com/wakeup_cosmetics_tunisie/"
-  },
-  {
-    "icon": "icon-youtube",
-    "path": "#/"
   }
 ]
