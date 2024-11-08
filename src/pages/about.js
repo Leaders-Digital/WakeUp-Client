@@ -50,7 +50,7 @@ const AboutPage = () => {
           title="Chaque visage peut être une œuvre d'art ..."
           body=""
         />
-        <p>
+        <p style={{textAlign:"center"}}>
           Wakeup Cosmetics Milano n'est pas seulement une marque de cosmétiques,
           mais représente une nouvelle philosophie de maquillage conçue pour
           réveiller votre beauté naturelle et vous offrir une expérience unique

@@ -207,7 +207,7 @@ export const Header = () => {
                 onFocus={() => setShowSearch(true)}
                 style={{
                   padding: "5px",
-                  border: "1px solid #ccc",
+                  border: "3px solid #FCEDEA",
                   borderRadius: "4px",
                   backgroundColor: "#f9f9f9",
                   transition: "all 0.3s ease",
@@ -215,7 +215,7 @@ export const Header = () => {
                   width: showSearch ? "100%" : "0px",
               
                 }}
-                placeholder="Search..."
+                placeholder="Trouvez votre produit ..."
               />
 
               <div className="search-results">
