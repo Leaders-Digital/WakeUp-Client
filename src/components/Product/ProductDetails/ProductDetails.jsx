@@ -298,11 +298,8 @@ const ProductDetails = () => {
                     window.open(lienWhatsApp, "_blank");
                   }}
                 >
-                  Commander par WhatsApp
-                  <i
-                    className="icon-whatsapp"
-                    style={{ marginLeft: "10px" }}
-                  ></i>
+                  <span style={{fontSize:"11px"}}>Commander par WhatsApp</span>
+                
                 </button>
               </div>
             </div>
