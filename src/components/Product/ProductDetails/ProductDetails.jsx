@@ -22,8 +22,7 @@ const ProductDetails = () => {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
   const [addedInCart, setAddedInCart] = useState(false);
-  console.log(product);
-  // console.log(selectedVariant);
+  
 
   const getProduct = async (id) => {
     try {
@@ -308,8 +307,9 @@ const ProductDetails = () => {
                     window.open(lienWhatsApp, "_blank");
                   }}
                 >
-                  <span style={{fontSize:"11px"}}>Commander par WhatsApp</span>
-                
+                  <span style={{ fontSize: "11px" }}>
+                    Commander par WhatsApp
+                  </span>
                 </button>
               </div>
             </div>
