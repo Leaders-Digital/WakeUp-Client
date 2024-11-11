@@ -153,7 +153,7 @@ export const Checkout = () => {
       if (method === "cash") {
         setLoading(false);
         setOrderCode(res.data.orderCode);
-        // setActiveStep(activeStep + 1);
+        setActiveStep(activeStep + 1);
       }
       setPromo(0);
       return res.data.data._id;
