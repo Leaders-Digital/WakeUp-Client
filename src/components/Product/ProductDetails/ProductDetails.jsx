@@ -23,7 +23,7 @@ const ProductDetails = () => {
   const [nav2, setNav2] = useState();
   const [addedInCart, setAddedInCart] = useState(false);
   console.log(product);
-  console.log(selectedVariant);
+  // console.log(selectedVariant);
 
   const getProduct = async (id) => {
     try {
@@ -271,23 +271,33 @@ const ProductDetails = () => {
               </div>
               <div className="product-buttons">
                 <button
-                  disabled={addedInCart}
+                  disabled={product.enRupture}
                   onClick={() => {
                     handleAddToCart();
                     setQuantity(1);
                   }}
                   className="btn btn-icon"
-                  style={{ textTransform: "capitalize" }}
+                  style={
+                    !product.enRupture
+                      ? { textTransform: "capitalize" }
+                      : { opacity: 0.7, textTransform: "capitalize" }
+                  }
                 >
                   Panier
-                  <i 
-                    class="icon-cart"
-                    style={{ marginLeft: "10px" }}
-                  ></i>
+                  <i class="icon-cart" style={{ marginLeft: "10px" }}></i>
                 </button>
                 <button
+                  disabled={product.enRupture}
                   className="btn btn-icon"
-                  style={{ background: "#25D366", textTransform: "capitalize" }}
+                  style={
+                    !product.enRupture
+                      ? { textTransform: "capitalize", background: "#25D366" }
+                      : {
+                          opacity: 0.7,
+                          textTransform: "capitalize",
+                          background: "#25D366",
+                        }
+                  }
                   onClick={() => {
                     const produitLien = window.location.href;
                     const numero = "+21626644400"; // Remplacez par votre numéro de téléphone

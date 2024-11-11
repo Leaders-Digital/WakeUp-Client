@@ -70,16 +70,9 @@ export default function Home() {
 
       <Trending />
 
-      <motion.div
-        ref={discountRef}
-        initial={{ opacity: 0, y: 50, scale: 0.9 }}
-        animate={discountInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-        transition={{ ease: "easeOut", duration: 0.4, delay: 0.2 }} // Slight delay for smoother stagger
-      >
-        {/* <Discount /> */}
+ 
       <TopCategories />
 
-      </motion.div>
 
       <motion.div
         ref={advantageRef}

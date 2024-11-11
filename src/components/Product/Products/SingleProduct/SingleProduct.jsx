@@ -16,11 +16,12 @@ export const SingleProduct = ({
     createdAt,
     _id,
     categorie,
+    enRupture,
     variantDetails = [],
   } = product;
 
   const [isHovered, setIsHovered] = useState(false);
-console.log("variantDetails",variantDetails);
+  console.log("variantDetails", product);
 
   const isNew = () => {
     const currentDate = new Date();
@@ -40,7 +41,7 @@ console.log("variantDetails",variantDetails);
       >
         <div className="products-item__type">
           {solde && <span className="products-item__sale">Promo</span>}
-          {/* {isNew() && <span className="products-item__new">new</span>} */}
+          {enRupture && <span className="products-item__new">en Rupture</span>}
         </div>
         <div className="products-item__img">
           <img
@@ -59,48 +60,50 @@ console.log("variantDetails",variantDetails);
                 <i className="icon-search"></i>
               </a>
             </Link>
-            <div className="products-item__hover-options">
-              {/* <button className="addList" onClick={() => onAddToWish(id)}>
+            {!enRupture ? (
+              <div className="products-item__hover-options">
+                {/* <button className="addList" onClick={() => onAddToWish(id)}>
                 <i className="icon-heart"></i>
               </button> */}
-              <button
-                disabled={addedInCart}
-                className={`addList ${addedInCart ? "added" : ""}`}
-                onClick={() => {
-                  if (categorie === "PACK") {
-                    onAddToCart({
-                      nom: product.nom,
-                      prix,
-                      solde,
-                      soldePourcentage,
-                      mainPicture,
-                      quantity: 1,
-                      stock: 3,
-                      reference: "package",
-                      categorie,
-                      _id,
-                    });
-                  } else {
-                    onAddToCart({
-                      nom: product.nom,
-                      prix,
-                      solde,
-                      stock: variantDetails[0].quantity,
-                      soldePourcentage,
-                      mainPicture: variantDetails[0].picture,
-                      quantity: 1,
-                      categorie,
-                      codeAbarre: variantDetails[0].codeAbarre,
-                      reference: variantDetails[0].reference,
-                      variantId: variantDetails[0]._id,
-                      _id,
-                    });
-                  }
-                }}
-              >
-                <i className="icon-cart"></i>
-              </button>
-            </div>
+                <button
+                  disabled={addedInCart}
+                  className={`addList ${addedInCart ? "added" : ""}`}
+                  onClick={() => {
+                    if (categorie === "PACK") {
+                      onAddToCart({
+                        nom: product.nom,
+                        prix,
+                        solde,
+                        soldePourcentage,
+                        mainPicture,
+                        quantity: 1,
+                        stock: 3,
+                        reference: "package",
+                        categorie,
+                        _id,
+                      });
+                    } else {
+                      onAddToCart({
+                        nom: product.nom,
+                        prix,
+                        solde,
+                        stock: variantDetails[0].quantity,
+                        soldePourcentage,
+                        mainPicture: variantDetails[0].picture,
+                        quantity: 1,
+                        categorie,
+                        codeAbarre: variantDetails[0].codeAbarre,
+                        reference: variantDetails[0].reference,
+                        variantId: variantDetails[0]._id,
+                        _id,
+                      });
+                    }
+                  }}
+                >
+                  <i className="icon-cart"></i>
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="products-item__info">
