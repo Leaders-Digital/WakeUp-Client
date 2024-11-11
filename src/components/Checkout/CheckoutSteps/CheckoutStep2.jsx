@@ -63,10 +63,7 @@ export const CheckoutStep2 = ({
                 <span className="radio-box__info">
                   <i className="icon-info"></i>
                   <span className="radio-box__info-content">
-                    Le paiement en ligne n'est pas encore disponible. Vous
-                    pouvez toutefois utiliser le paiement à la livraison en
-                    Tunisie, un mode simple et sécurisé pour recevoir vos
-                    produits à domicile.
+                  Le paiement en ligne est maintenant disponible sur notre site ! Profitez d'un moyen simple, rapide et sécurisé pour régler vos achats.
                   </span>
                 </span>
               </label>
