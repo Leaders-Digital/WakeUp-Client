@@ -64,7 +64,7 @@ export const Footer = () => {
                   <i className="icon-smartphone"></i>
                   <div className="footer-nav__col-phones" style={{color:"black"}}>
                     <a href="tel:+21626644400">+216 26 644 400</a>
-                    <a href="tel:+21627360067">+216 27 360 067</a>
+                    <a href="tel:+21627360067">+216 27 360 073</a>
                   </div>
                 </li>
                 <li>
