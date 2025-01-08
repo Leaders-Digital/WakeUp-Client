@@ -15,8 +15,6 @@ export const Card = ({ cart, onChangeQuantity, handleDelete }) => {
     reference,
     stock,
   } = cart;
-console.log("ddd",cart);
-
   return (
     <>
       <div className="cart-table__row">

@@ -61,7 +61,6 @@ export const Checkout = () => {
     return total + Number(prixFinal) * Number(item.quantity);
   }, 0);
 
-  console.log("tootallll", total);
   const [baseURL, setBaseURL] = useState("");
 
   useEffect(() => {
@@ -167,8 +166,6 @@ export const Checkout = () => {
     try {
       let orderid = await handleCreateOrder("pay");
       let totalwithDilevery = (totalWithDiscount + 8) * 1000;
-      console.log("totalwithDilevery", totalwithDilevery);
-      console.log("orderCodesss", orderid);
 
       const paymentData = {
         receiverWalletId: "6721f70f82402c76c27e7fd7",

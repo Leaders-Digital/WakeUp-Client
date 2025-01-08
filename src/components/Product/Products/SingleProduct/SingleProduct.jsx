@@ -21,7 +21,6 @@ export const SingleProduct = ({
   } = product;
 
   const [isHovered, setIsHovered] = useState(false);
-  console.log("variantDetails", product);
 
   const isNew = () => {
     const currentDate = new Date();

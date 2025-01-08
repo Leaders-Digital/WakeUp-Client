@@ -91,7 +91,7 @@ export const Header = () => {
   const onConfirme = () => {
     setSearchQuery("");
   };
-  console.log(searchQuery);
+
 
   return (
     <>

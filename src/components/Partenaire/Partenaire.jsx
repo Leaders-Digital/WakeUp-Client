@@ -25,7 +25,6 @@ const Partnaire = () => {
   useEffect(() => {
     getPartenaire();
   }, []);
-  console.log(partenaire);
 
   return (
     <div className="container-md">

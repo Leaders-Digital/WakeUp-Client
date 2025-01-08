@@ -21,10 +21,12 @@ export const Shop = ({ setTitle }) => {
   const { category } = router.query;
 
   const [productData, setProductData] = useState([]);
-  const allProducts = [...productData];
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [categories, setCategories] = useState([]);
+  const [categoriesToGoDown, setCategoriesToGoDown] = useState(
+    "Tous les catégories"
+  );
   const [selectedCategory, setSelectedCategory] = useState("");
   const [filter, setFilter] = useState({ isNew: false, isSale: false });
   const [loading, setLoading] = useState(true);
@@ -76,36 +78,41 @@ export const Shop = ({ setTitle }) => {
   const getCategories = async () => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/product/get-category`,  // Data being sent in the body of the request
+        `${process.env.NEXT_PUBLIC_API_KEY}api/product/get-category`, // Data being sent in the body of the request
         {
           headers: {
-            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+            "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
           },
         }
       );
-      setCategories(res.data.categoryCounts);
+      console.log(res.data);
+
+      setCategories(res.data);
     } catch (error) {}
   };
 
   const getProducts = async () => {
     try {
       setLoading(true);
-      
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}api/product/all`, {
-        params: {
-          page: page, // Send current page as a query parameter
-          limit: 12, // Send limit as a query parameter
-          categorie: selectedCategory,
-          solde: filter.isSale,
-          search: search,
-          sortByPrice: sortByPrice,
-          searchArray: objecttofind[mainCategory],
-        },
-        headers: {
-          'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
-        },
-      });
-  
+
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_KEY}api/product/all`,
+        {
+          params: {
+            page: page, // Send current page as a query parameter
+            limit: 12, // Send limit as a query parameter
+            subCategory: selectedCategory,
+            solde: filter.isSale,
+            search: search,
+            sortByPrice: sortByPrice,
+            searchArray: objecttofind[mainCategory],
+          },
+          headers: {
+            "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+          },
+        }
+      );
+
       setProductData(res.data.products);
       setFixMin(res.data.lowestPrice);
       setFixMax(res.data.highestPrice);
@@ -116,32 +123,30 @@ export const Shop = ({ setTitle }) => {
       setLoading(false); // Ensure loading state is reset on error
     }
   };
-  
+
   const previewsPage = async () => {
     if (page > 1) {
       setPage(page - 1);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const nextPage = async () => {
     if (page < totalPages) {
       setPage(page + 1);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
     getProducts();
-  },[]);
+  }, []);
 
   useEffect(() => {
-        getProducts();
-  
-   // Cleanup on uount or when search changes
-  }, [page, selectedCategory, filter, sortByPrice,search]);
+    getProducts();
+
+    // Cleanup on uount or when search changes
+  }, [page, selectedCategory, filter, sortByPrice, search]);
 
   useEffect(() => {
     if (category) {
@@ -172,25 +177,49 @@ export const Shop = ({ setTitle }) => {
                 <span className="shop-aside__item-title">Catégories</span>
 
                 <ul>
-                  {categories.map((category) => {
-                    return (
-                      <li
-                        onClick={() => {
-                          setTitle(category._id);
-                          setSelectedCategory(category._id);
-                          setPage(1);
-                        }}
-                        style={{ cursor: "pointer" }}
-                      >
-                        <a>
-                          {category._id} <span>({category.count})</span>
-                        </a>
-                      </li>
-                    );
-                  })}
+                  {categories.map((category) => (
+                    <li
+                      key={category.category}
+                      onClick={() => {
+                        setTitle(category.category);
+                        setPage(1);
+                        setCategoriesToGoDown(category.category);
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <a>
+                        <span>{category.category}</span>
+                      </a>
+                      {categoriesToGoDown === category.category && (
+                        <ul
+                          className={`subcategories ${
+                            categoriesToGoDown === category.category
+                              ? "visible"
+                              : ""
+                          }`}
+                        >
+                          {category.subcategories.map((subCategory) => (
+                            <li
+                              key={subCategory.name}
+                              onClick={() => {
+                                setSelectedCategory(subCategory.name);
+                                console.log(subCategory.name);
+                                setPage(1);
+                              }}
+                              style={{ cursor: "pointer" }}
+                            >
+                              <a>
+                                {subCategory.name}{" "}
+                                <span>({subCategory.count})</span>
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
                 </ul>
               </div>
-           
             </div>
             {/* <!-- Boutique Principale --> */}
             <div className="shop-main">

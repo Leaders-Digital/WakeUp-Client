@@ -14,7 +14,6 @@ export const Card = ({ order }) => {
     solde,
     soldePourcentage,
   } = order;
-console.log(order);
 const prixFinal = solde
 ? prix - prix * (soldePourcentage / 100)
 : prix;

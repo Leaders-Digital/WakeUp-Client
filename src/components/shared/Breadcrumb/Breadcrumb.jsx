@@ -36,7 +36,6 @@ export const Breadcrumb = ({ breadcrumb, title, description }) => {
         "/"
       )}`
     : `/assets/img/default-banner.png`; // Fallback image
-console.log(breadcrumbBannerUrl);
 
   return (
     <>
