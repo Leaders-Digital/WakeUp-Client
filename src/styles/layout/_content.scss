@@ -4753,6 +4753,20 @@ input[type="search"]::-webkit-search-results-decoration {
     }
   }
 }
+.subcategories {
+  margin-left: 20px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease-in-out;
+}
+
+.subcategories.visible {
+  max-height: 500px; /* Set a value large enough to fit all subcategories */
+  opacity: 1;
+  transform: translateY(0);
+}
 
 // media
 

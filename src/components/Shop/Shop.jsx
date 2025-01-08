@@ -90,6 +90,7 @@ export const Shop = ({ setTitle }) => {
       setCategories(res.data);
     } catch (error) {}
   };
+  console.log("categoriesToGoDown", categoriesToGoDown);
 
   const getProducts = async () => {
     try {
@@ -183,12 +184,44 @@ export const Shop = ({ setTitle }) => {
                       onClick={() => {
                         setTitle(category.category);
                         setPage(1);
-                        setCategoriesToGoDown(category.category);
+                        setCategoriesToGoDown(
+                          categoriesToGoDown === category.category
+                            ? ""
+                            : category.category
+                        );
                       }}
                       style={{ cursor: "pointer" }}
                     >
                       <a>
-                        <span>{category.category}</span>
+                        <span
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            fontWeight:
+                              category.category === mainCategory
+                                ? "bold"
+                                : "normal",
+                            fontSize:
+                              category.category === mainCategory
+                                ? "20px"
+                                : "16px",
+                          }}
+                        >
+                          {category.category}
+                          {/* Add down arrow next to the category */}
+                          <span
+                            style={{
+                              marginLeft: "8px",
+                              transform:
+                                categoriesToGoDown === category.category
+                                  ? "rotate(180deg)"
+                                  : "rotate(0deg)",
+                              transition: "transform 0.3s ease",
+                            }}
+                          >
+                            ▼
+                          </span>
+                        </span>
                       </a>
                       {categoriesToGoDown === category.category && (
                         <ul
@@ -201,14 +234,17 @@ export const Shop = ({ setTitle }) => {
                           {category.subcategories.map((subCategory) => (
                             <li
                               key={subCategory.name}
-                              onClick={() => {
+                              onClick={(e) => {
+                                e.stopPropagation(); // Prevent triggering parent onClick
                                 setSelectedCategory(subCategory.name);
-                                console.log(subCategory.name);
+
+                                console.log("from mini", category.category);
+                                console.log("from mini", subCategory.name);
                                 setPage(1);
                               }}
                               style={{ cursor: "pointer" }}
                             >
-                              <a>
+                              <a style={{ fontSize: "14px" }}>
                                 {subCategory.name}{" "}
                                 <span>({subCategory.count})</span>
                               </a>
