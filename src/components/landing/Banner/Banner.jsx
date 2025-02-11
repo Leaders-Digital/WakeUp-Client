@@ -92,11 +92,11 @@ export const Banner = () => {
             </Link>
           </div>
         </div>
-        <img
+        {/* <img
           className="main-block__decor"
           src="/assets/img/main-block-decor.png"
           alt=""
-        />
+        /> */}
       </div>
       {/* <!-- MAIN BLOCK EOF --> */}
     </>
