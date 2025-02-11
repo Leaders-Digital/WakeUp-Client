@@ -70,15 +70,22 @@ export const Banner = () => {
       <div className="main-block load-bg" style={{ backgroundImage }}>
         <div className="wrapper">
           <div className="main-block__content">
-            <span className="saint-text">Professionnel</span>
-            <h1 className="main-text">Beauté &amp; Soin</h1>
-            <p>
-              Nourrissez votre peau avec des produits cosmétiques sans toxines.
-              Avec des offres que vous ne pouvez pas refuser.
-            </p>
+            <span
+              className="saint-text"
+              style={{ color: "#ab0909", fontFamily: "Better Grade" }}
+            >
+              Le temps file,
+            </span>
+            <h1 className="main-text" style={{ color: "#ab0909" }}>
+              {" "}
+              mais l'amour reste.
+            </h1>
+            <p>Profitez de nos packs Saint Valentin à partir de 60 DT !</p>
 
             <Link href="/shop">
-              <a className="btn">Achetez maintenant</a>
+              <a className="btn" style={{ background: "#ab0909" }}>
+                Achetez & Brillez d'amour
+              </a>
             </Link>
           </div>
         </div>
