@@ -3,19 +3,17 @@ import Link from "next/link";
 import axios from "axios";
 
 export const Banner = () => {
-  const [backgroundImage, setBackgroundImage] = useState(
-    `url("/assets/img/banner-mini1.png")`
-  );
+  const [backgroundImage, setBackgroundImage] = useState(""); // State to store the background image
   const [banners, setBanners] = useState({});
 
   // Function to fetch the banner data
   const getBanner = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`,  // Data being sent in the body of the request
+        `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`, // Data being sent in the body of the request
         {
           headers: {
-            'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+            "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
           },
         }
       );
@@ -33,12 +31,18 @@ export const Banner = () => {
     const handleResize = () => {
       // Ensure that the path is properly formatted with forward slashes
       const mainBannerUrl = banners.mainBanner
-        ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.mainBanner.replace(/\\/g, '/')}`
-        : `/assets/img/banner-mini1.png`;
+        ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.mainBanner.replace(
+            /\\/g,
+            "/"
+          )}`
+        : ``;
 
       const miniMainBannerUrl = banners.miniMainBanner
-        ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.miniMainBanner.replace(/\\/g, '/')}`
-        : `/assets/img/banner-mini1.png`;
+        ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.miniMainBanner.replace(
+            /\\/g,
+            "/"
+          )}`
+        : ``;
 
       // Use miniMainBanner if screen width is less than 480px, otherwise use mainBanner
       if (window.innerWidth < 480) {

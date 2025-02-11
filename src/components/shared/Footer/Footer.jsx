@@ -41,7 +41,7 @@ export const Footer = () => {
                 ))}
               </ul>
             </div>
-           
+
             {/* Payment method */}
           </div>
           <div className="footer-nav">
@@ -54,22 +54,28 @@ export const Footer = () => {
               <ul>
                 <li>
                   <i className="icon-map-pin"></i>
-                  <span style={{color:'#999999',fontWeight:"500"}}>
-                    Les berges du lac 2 - Cité les
-                  Pins, En face clinique Hannibal
+                  <span style={{ color: "#999999", fontWeight: "500" }}>
+                    Les berges du lac 2 - Cité les Pins, En face clinique
+                    Hannibal
                   </span>
-                  
                 </li>
                 <li>
                   <i className="icon-smartphone"></i>
-                  <div className="footer-nav__col-phones" style={{color:"black"}}>
-                    <a href="tel:+21626644400">+216 26 644 400</a>
-                    <a href="tel:+21627360067">+216 27 360 073</a>
-                  </div>
+                  <span className="footer-nav__col-phones">
+                    <a href="tel:+21626644400" style={{ fontSize: "16px" }}>
+                      +216 26 644 400
+                    </a>
+                    <a href="tel:+21627360067" style={{ fontSize: "16px" }}>
+                      +216 27 360 073
+                    </a>
+                  </span>
                 </li>
                 <li>
                   <i className="icon-mail"></i>
-                  <a href="mailto:contact@leaders-makeup.com">
+                  <a
+                    href="mailto:contact@leaders-makeup.com"
+                    style={{ fontSize: "16px", color: "#999999" }}
+                  >
                     contact@leaders-makeup.com
                   </a>
                 </li>

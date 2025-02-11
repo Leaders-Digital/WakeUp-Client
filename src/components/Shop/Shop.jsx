@@ -197,6 +197,7 @@ export const Shop = ({ setTitle }) => {
                           style={{
                             display: "flex",
                             justifyContent: "space-between",
+                            textTransform: "capitalize",
                             fontWeight:
                               category.category === mainCategory
                                 ? "bold"
@@ -206,8 +207,9 @@ export const Shop = ({ setTitle }) => {
                                 ? "20px"
                                 : "16px",
                           }}
+                          
                         >
-                          {category.category}
+                          {category.category.toLowerCase()}{" "}
                           {/* Add down arrow next to the category */}
                           <span
                             style={{
@@ -237,15 +239,12 @@ export const Shop = ({ setTitle }) => {
                               onClick={(e) => {
                                 e.stopPropagation(); // Prevent triggering parent onClick
                                 setSelectedCategory(subCategory.name);
-
-                                console.log("from mini", category.category);
-                                console.log("from mini", subCategory.name);
                                 setPage(1);
                               }}
                               style={{ cursor: "pointer" }}
                             >
-                              <a style={{ fontSize: "14px" }}>
-                                {subCategory.name}{" "}
+                              <a style={{ fontSize: "14px" , textTransform: "capitalize"}}>
+                                {subCategory.name.toLowerCase()}{" "}
                                 <span>({subCategory.count})</span>
                               </a>
                             </li>
