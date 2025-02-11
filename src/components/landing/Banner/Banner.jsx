@@ -80,7 +80,8 @@ export const Banner = () => {
               {" "}
               mais l'amour reste.
             </h1>
-            <p>Profitez de nos packs Saint Valentin à partir de 60 DT !</p>
+            <p>Profitez de nos packs Saint Valentin </p>
+            <p>à partir de 60 DT !</p>
 
             <Link href="/shop">
               <a className="btn" style={{ background: "#ab0909" }}>
