@@ -1,7 +1,6 @@
-import Event from "components/Events/Event";
 import TimeLine from "components/Map/TimeLine";
-import Partnaire from "components/Partenaire/Partenaire";
 import { PublicLayout } from "layout/PublicLayout";
+import { Suspense } from "react";
 
 const breadcrumbsData = [
   {
@@ -16,7 +15,9 @@ const breadcrumbsData = [
 const Events = () => {
   return (
     <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle="Nos Événements">
-      <TimeLine />
+      <Suspense fallback={<div>Loading...</div>}>
+        <TimeLine />
+      </Suspense>
     </PublicLayout>
   );
 };

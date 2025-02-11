@@ -1,5 +1,10 @@
-import Partnaire from "components/Partenaire/Partenaire";
+
 import { PublicLayout } from "layout/PublicLayout";
+import dynamic from "next/dynamic";
+
+const Partnaire = dynamic(() => import("components/Partenaire/Partenaire"), {
+  suspense: true,
+});
 
 const breadcrumbsData = [
   {
