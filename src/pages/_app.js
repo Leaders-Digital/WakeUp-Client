@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import "../styles/styles.scss";
 import Link from "next/link";
-
+import FacebookPixel from "lib/FacebookPixel";
 
 export const CartContext = createContext();
 export const PromoContext = createContext();
@@ -9,14 +9,14 @@ const MyApp = ({ Component, pageProps }) => {
   const [promo, setPromo] = useState(null);
   const [cart, setCart] = useState([]);
 
-   console.log = () => {};
-   console.error=()=>{};
-
+  console.log = () => {};
+  console.error = () => {};
 
   return (
     <PromoContext.Provider value={{ promo, setPromo }}>
       <CartContext.Provider value={{ cart, setCart }}>
         <title>Wakeup Cosmetics</title>
+        <FacebookPixel />
         <Component {...pageProps} />
         {/* Cart fixed to top-right corner */}
         <div

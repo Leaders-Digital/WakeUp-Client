@@ -21,6 +21,7 @@
 }
 
 .wrapper {
+  font-family: "Better Grade";
   min-width: $min-width;
   max-width: $max-width;
   padding: 0 40px 0 40px;
@@ -181,16 +182,18 @@ h6,
 }
 
 .saint-text {
-  font-family: "Mrs Saint Delafield";
+  font-family: "BetterGrade", serif !important;
+  
   color: #ab0909;
   display: block;
-  font-size: 50px;
+  font-size: 60px;
   text-transform: capitalize;
 }
 
 .main-text {
   display: block;
-  font-family: "Tenor Sans";
+  font-family: "BetterGrade", serif !important;
+
   color: #222222;
   font-size: 80px;
   margin-bottom: 30px;

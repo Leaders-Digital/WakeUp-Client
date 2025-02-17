@@ -19,7 +19,6 @@ export const Banner = () => {
       );
       setBanners(response.data); // Set banners with the response data
       console.log(response.data);
-      
     } catch (error) {
       console.log(error);
     }
@@ -71,13 +70,13 @@ export const Banner = () => {
       {/* <!-- BEGIN MAIN BLOCK --> */}
       <div className="main-block load-bg" style={{ backgroundImage }}>
         <div className="wrapper">
-          <div className="main-block__content">
-            <span
-              className="saint-text"
-              style={{ color: "#ab0909", fontFamily: "Better Grade" }}
-            >
+          <div
+            className="main-block__content"
+            // style={{ fontFamily: "Better Grade" }}
+          >
+            <h1 className="saint-text" style={{ color: "#ab0909" }}>
               Le temps file,
-            </span>
+            </h1>
             <h1 className="main-text" style={{ color: "#ab0909" }}>
               {" "}
               mais l'amour reste.
