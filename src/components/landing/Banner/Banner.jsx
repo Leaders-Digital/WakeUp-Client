@@ -74,19 +74,23 @@ export const Banner = () => {
             className="main-block__content"
             // style={{ fontFamily: "Better Grade" }}
           >
-            <h1 className="saint-text" style={{ color: "#ab0909" }}>
-              Le temps file,
+            <h1 className="saint-text" style={{ color: "#D47E00" }}>
+              DES COULEURS ,
             </h1>
-            <h1 className="main-text" style={{ color: "#ab0909" }}>
+            <h1 className="main-text" style={{ color: "#D47E00" }}>
               {" "}
-              mais l'amour reste.
+              QUI VOUS FONT BRILLER.
             </h1>
-            <p>Profitez de nos packs Saint Valentin </p>
-            <p>à partir de 60 DT !</p>
+            <p>
+              Sublimez votre beauté avec des couleurs vibrantes et des textures
+              innovantes. Maquillage longue tenue, pigments intenses, formules
+              ultra-confortables – pour un look qui vous ressemble !
+            </p>
+            {/* <p>à partir de 60 DT !</p> */}
 
             <Link href="/shop">
-              <a className="btn" style={{ background: "#ab0909" }}>
-                Achetez & Brillez d'amour
+              <a className="btn" style={{ background: "#D47E00" }}>
+                Explorer notre gamme !
               </a>
             </Link>
           </div>

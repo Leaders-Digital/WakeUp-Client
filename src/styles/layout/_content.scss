@@ -182,9 +182,7 @@ h6,
 }
 
 .saint-text {
-  font-family: "BetterGrade", serif !important;
-  
-  color: #ab0909;
+  color: #D47E00;
   display: block;
   font-size: 60px;
   text-transform: capitalize;
@@ -192,15 +190,13 @@ h6,
 
 .main-text {
   display: block;
-  font-family: "BetterGrade", serif !important;
-
   color: #222222;
   font-size: 80px;
   margin-bottom: 30px;
   margin-top: 4px;
 
   span {
-    color: #ab0909;
+    color: #D47E00;
     position: relative;
 
     &:before {
@@ -225,7 +221,6 @@ h6,
 .main-block {
   padding-top: 340px;
   padding-bottom: 237px;
-  font-family: "BetterGrade", serif !important;
   // background-image: url(/assets/img/main-bg.jpg);
   background-position: center;
   background-repeat: no-repeat;
@@ -253,7 +248,7 @@ h6,
 
   .main-text {
     line-height: normal;
-    font-family: "BetterGrade", serif !important;
+
   }
 
   p {
@@ -336,7 +331,7 @@ h6,
 
       &.active {
         a {
-          background: #ab0909;
+          background: #D47E00;
           color: #ffffff;
         }
       }
@@ -424,7 +419,7 @@ h6,
           font-size: 20px;
 
           &.icon-cart {
-            background: #ab0909;
+            background: #D47E00;
             color: #fff;
           }
 
@@ -433,7 +428,7 @@ h6,
           }
 
           &.active {
-            background: #ab0909;
+            background: #D47E00;
             color: #fff;
           }
         }
@@ -1056,7 +1051,7 @@ h6,
     // overflow: hidden;
     // text-transform: capitalize;
     &:hover {
-      color: #ab0909;
+      color: #D47E00;
     }
   }
 
@@ -1315,7 +1310,7 @@ h6,
     margin: 0 13px;
     font-size: 16px;
     line-height: 170%;
-    color: #ab0909;
+    color: #D47E00;
     position: relative;
 
     &:after {
@@ -1331,7 +1326,7 @@ h6,
       color: #666666;
 
       &:hover {
-        color: #ab0909;
+        color: #D47E00;
       }
     }
 
@@ -1398,7 +1393,7 @@ h6,
       font-size: 54px;
       line-height: 100%;
       text-transform: capitalize;
-      color: #ab0909;
+      color: #D47E00;
       display: block;
       margin-bottom: 42px;
       z-index: 1;
@@ -1819,7 +1814,7 @@ h6,
       }
 
       .faq-item__head {
-        color: #ab0909;
+        color: #D47E00;
       }
 
       .faq-item__head-btn {
@@ -2341,7 +2336,7 @@ h6,
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: #ab0909;
+  background: #D47E00;
   -webkit-mask: radial-gradient(
     circle closest-side at 50% 40%,
     #0000 94%,
@@ -2383,7 +2378,7 @@ blockquote,
 
 .blockquote-author {
   display: block;
-  color: #ab0909;
+  color: #D47E00;
   text-transform: capitalize;
   font-size: 24px;
   line-height: 100%;
@@ -2483,11 +2478,11 @@ blockquote,
             }
 
             &:hover {
-              color: #ab0909;
-              border-color: #ab0909;
+              color: #D47E00;
+              border-color: #D47E00;
 
               span {
-                color: #ab0909;
+                color: #D47E00;
               }
             }
           }
@@ -2498,22 +2493,22 @@ blockquote,
         margin-bottom: 123px;
 
         .rc-slider-handle {
-          border: solid 2px #ab0909;
-          background-color: #ab0909;
+          border: solid 2px #D47E00;
+          background-color: #D47E00;
 
           &:hover {
-            border-color: #ab0909;
+            border-color: #D47E00;
             cursor: pointer;
           }
         }
 
         .rc-slider-handle:active {
-          border-color: #ab0909;
-          box-shadow: 0 0 5px #ab0909;
+          border-color: #D47E00;
+          box-shadow: 0 0 5px #D47E00;
         }
 
         .rc-slider-track {
-          background-color: #ab0909;
+          background-color: #D47E00;
         }
 
         .rc-slider-tooltip-hidden {
@@ -2573,7 +2568,7 @@ blockquote,
 
         &:hover {
           .shop-aside__item-product-title {
-            color: #ab0909;
+            color: #D47E00;
           }
         }
       }
@@ -2671,13 +2666,13 @@ blockquote,
 
   .irs-bar {
     height: 3px;
-    background-color: #ab0909;
+    background-color: #D47E00;
   }
 
   .irs-handle {
-    background-color: #ab0909;
+    background-color: #D47E00;
     box-shadow: none;
-    border-color: #ab0909;
+    border-color: #D47E00;
     width: 15px;
     height: 15px;
     top: 30px;
@@ -2685,7 +2680,7 @@ blockquote,
 
     &:hover,
     &.state_hover {
-      background-color: #ab0909;
+      background-color: #D47E00;
     }
   }
 
@@ -2757,7 +2752,7 @@ blockquote,
 }
 
 .checkbox-box input:checked ~ .checkmark {
-  background-color: #ab0909;
+  background-color: #D47E00;
 }
 
 .checkmark:after {
@@ -2834,7 +2829,7 @@ blockquote,
 
       &.sel {
         background-color: #fff;
-        color: #ab0909;
+        color: #D47E00;
       }
     }
   }
@@ -2907,7 +2902,7 @@ blockquote,
         }
 
         &.slick-current {
-          border: 2px solid #ab0909;
+          border: 2px solid #D47E00;
 
           &:hover {
             &:after {
@@ -2919,7 +2914,7 @@ blockquote,
 
       & .slick-current {
         & img {
-          border: 2px solid #ab0909;
+          border: 2px solid #D47E00;
         }
       }
     }
@@ -3003,7 +2998,7 @@ blockquote,
 
         &:hover,
         &.active {
-          border: 2px solid #ab0909;
+          border: 2px solid #D47E00;
         }
       }
     }
@@ -3113,8 +3108,8 @@ blockquote,
 
     &.active {
       // a {
-      background: #ab0909;
-      border-color: #ab0909;
+      background: #D47E00;
+      border-color: #D47E00;
       color: #ffffff;
     }
   }
@@ -3346,7 +3341,7 @@ blockquote,
 
       .title5 {
         &:hover {
-          color: #ab0909;
+          color: #D47E00;
         }
       }
 
@@ -3809,7 +3804,7 @@ blockquote,
           }
 
           &:hover {
-            color: #ab0909;
+            color: #D47E00;
           }
         }
       }
@@ -4016,7 +4011,7 @@ blockquote,
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #ab0909;
+  background: #D47E00;
 }
 
 .checkout-purchase {
@@ -4052,7 +4047,7 @@ blockquote,
     font-size: 14px;
     line-height: 170%;
     text-transform: uppercase;
-    color: #ab0909;
+    color: #D47E00;
     display: block;
 
     &:hover {
@@ -4173,7 +4168,7 @@ blockquote,
       }
 
       a {
-        color: #ab0909;
+        color: #D47E00;
         cursor: pointer;
 
         &:hover {
@@ -4390,7 +4385,7 @@ input[type="search"]::-webkit-search-results-decoration {
           color: #222222;
 
           &:hover {
-            color: #ab0909;
+            color: #D47E00;
           }
         }
 
@@ -4419,7 +4414,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
         span {
           font-size: 60px;
-          color: #ab0909;
+          color: #D47E00;
           position: relative;
           display: inline-block;
           margin-top: 16px;
@@ -4618,7 +4613,7 @@ input[type="search"]::-webkit-search-results-decoration {
           font-size: 12px;
           line-height: 170%;
           text-transform: uppercase;
-          color: #ab0909;
+          color: #D47E00;
         }
 
         &-delivered {
@@ -4647,7 +4642,7 @@ input[type="search"]::-webkit-search-results-decoration {
           }
 
           &:after {
-            background: #ab0909;
+            background: #D47E00;
           }
         }
       }
@@ -4750,7 +4745,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
     &.is-selected {
       background-color: #fff;
-      color: #ab0909;
+      color: #D47E00;
     }
 
     &:hover {
@@ -7115,5 +7110,5 @@ input[type="search"]::-webkit-search-results-decoration {
   transform: scale(1.05);
 }
 .search-result:hover h5 {
-  color: #ab0909;
+  color: #D47E00;
 }
