@@ -4,8 +4,8 @@ import socialData from "data/social";
 import { useRouter } from "next/router";
 import { CartContext } from "pages/_app";
 import axios from "axios";
-import { ReviewFrom } from "../ReviewForm/ReviewFrom";
-import { Reviews } from "../Reviews/Reviews";
+// import { ReviewFrom } from "../ReviewForm/ReviewFrom";
+// import { Reviews } from "../Reviews/Reviews";
 import toast, { Toaster } from "react-hot-toast";
 
 const ProductDetails = () => {
@@ -91,6 +91,16 @@ const ProductDetails = () => {
     }
     setCart([...cart, newProduct]); // Add the new product to the cart
     return toast.success("Produit ajouté avec succès");
+  };
+
+  const handleWhatsAppClick = () => {
+    if (typeof window !== "undefined") {
+      const produitLien = window.location.href;
+      const numero = "+21626644400"; 
+      const texte = encodeURIComponent(`Bonjour, je suis intéressé par ce produit: ${produitLien}`);
+      const lienWhatsApp = `https://api.whatsapp.com/send?phone=${numero}&text=${texte}`;
+      window.open(lienWhatsApp, "_blank");
+    }
   };
 
   if (!product)
@@ -297,15 +307,7 @@ const ProductDetails = () => {
                           background: "#25D366",
                         }
                   }
-                  onClick={() => {
-                    const produitLien = window.location.href;
-                    const numero = "+21626644400"; // Remplacez par votre numéro de téléphone
-                    const texte = encodeURIComponent(
-                      `Bonjour, je suis intéressé par ce produit: ${produitLien}`
-                    );
-                    const lienWhatsApp = `https://api.whatsapp.com/send?phone=${numero}&text=${texte}`;
-                    window.open(lienWhatsApp, "_blank");
-                  }}
+                  onClick={handleWhatsAppClick}
                 >
                   <span style={{ fontSize: "11px" }}>
                     Commander par WhatsApp
@@ -339,12 +341,12 @@ const ProductDetails = () => {
                 )}
                 {tab === 2 && (
                   <div className="tab-cont product-reviews">
-                    {product.retings && <Reviews reviews={product.retings} />}
-                    <ReviewFrom
+                    {/* {product.retings && <Reviews reviews={product.retings} />} */}
+                    {/* <ReviewFrom
                       productId={product._id}
                       getProduct={getProduct}
                       productimage={product.mainPicture}
-                    />
+                    /> */}
                   </div>
                 )}
               </div>
