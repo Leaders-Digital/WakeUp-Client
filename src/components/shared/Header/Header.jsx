@@ -101,7 +101,7 @@ export const Header = () => {
           <div
             className="header-top"
             style={{
-              background: "#ab0909",
+              background: "#D47E00",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
@@ -229,7 +229,7 @@ export const Header = () => {
               </div>
             </div>
             <a onClick={() => setShowSearch(!showSearch)}>
-              <i className="icon-search" style={{ cursor: "pointer" ,  color:" #ab0909" }}></i>
+              <i className="icon-search" style={{ cursor: "pointer" ,  color:" #D47E00" }}></i>
             </a>
           </div>
 

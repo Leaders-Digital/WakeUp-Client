@@ -101,7 +101,7 @@ header {
         }
         &:hover,
         &.active {
-          color: #ab0909;
+          color: #D47E00;
           &:after {
             opacity: 1;
           }
@@ -129,7 +129,7 @@ header {
             padding: 7.6px 40px;
             display: block;
             &:hover {
-              background-color: #ab0909;
+              background-color: #D47E00;
               color: #ffffff;
               &:after {
                 display: none;
@@ -169,7 +169,7 @@ header {
         transition: $transition;
         font-size: 19px;
         &:hover {
-          color: #ab0909;
+          color: #D47E00;
         }
       }
       span {
@@ -179,7 +179,7 @@ header {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: #ab0909;
+        background: #D47E00;
         font-family: 'Montserrat';
         font-weight: 700;
         font-size: 12px;
@@ -193,12 +193,12 @@ header {
   background-color:#ffffff;
 }
 .cardIcon i{
-  color:#ab0909;
+  color:#D47E00;
   transition-duration: 0.7s;
 }
 .cardIcon:hover{
   transform: scale(1.1);
-  background-color: #ab0909;
+  background-color: #D47E00;
 }
 .cardIcon:hover i{
   color:#ffffff;

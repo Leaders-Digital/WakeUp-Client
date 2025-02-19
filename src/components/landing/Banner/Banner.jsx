@@ -19,7 +19,6 @@ export const Banner = () => {
       );
       setBanners(response.data); // Set banners with the response data
       console.log(response.data);
-      
     } catch (error) {
       console.log(error);
     }
@@ -71,23 +70,27 @@ export const Banner = () => {
       {/* <!-- BEGIN MAIN BLOCK --> */}
       <div className="main-block load-bg" style={{ backgroundImage }}>
         <div className="wrapper">
-          <div className="main-block__content">
-            <span
-              className="saint-text"
-              style={{ color: "#ab0909", fontFamily: "Better Grade" }}
-            >
-              Le temps file,
-            </span>
-            <h1 className="main-text" style={{ color: "#ab0909" }}>
-              {" "}
-              mais l'amour reste.
+          <div
+            className="main-block__content"
+            // style={{ fontFamily: "Better Grade" }}
+          >
+            <h1 className="saint-text" style={{ color: "#D47E00" }}>
+              DES COULEURS ,
             </h1>
-            <p>Profitez de nos packs Saint Valentin </p>
-            <p>à partir de 60 DT !</p>
+            <h1 className="main-text" style={{ color: "#D47E00" }}>
+              {" "}
+              QUI VOUS FONT BRILLER.
+            </h1>
+            <p>
+              Sublimez votre beauté avec des couleurs vibrantes et des textures
+              innovantes. Maquillage longue tenue, pigments intenses, formules
+              ultra-confortables – pour un look qui vous ressemble !
+            </p>
+            {/* <p>à partir de 60 DT !</p> */}
 
             <Link href="/shop">
-              <a className="btn" style={{ background: "#ab0909" }}>
-                Achetez & Brillez d'amour
+              <a className="btn" style={{ background: "#D47E00" }}>
+                Explorer notre gamme !
               </a>
             </Link>
           </div>
