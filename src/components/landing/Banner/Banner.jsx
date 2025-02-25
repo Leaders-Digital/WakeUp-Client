@@ -69,14 +69,11 @@ export const Banner = () => {
       {/* <!-- BEGIN MAIN BLOCK --> */}
       <div className="main-block load-bg" style={{ backgroundImage }}>
         <div className="wrapper">
-          <div
-            className="main-block__content"
-            // style={{ fontFamily: "Better Grade" }}
-          >
+          <div className="main-block__content">
             <h1 className="saint-text" style={{ color: "#D47E00" }}>
               DES COULEURS ,
             </h1>
-            <h1 className="main-text" style={{ color: "#D47E00" }}>
+            <h1 className="main-text" style={{ color: "#cf7902" }}>
               {" "}
               QUI VOUS FONT BRILLER.
             </h1>

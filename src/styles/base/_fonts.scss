@@ -13,27 +13,27 @@
   font-display: block;
 }
 
-@font-face {
-  font-family: "BetterGrade";
-  src: url("../../../assets/fonts/BetterGrade-519DV.ttf") format("ttf"),
-    url("../../../assets/fonts/BetterGrade-519DV.ttf") format("ttf");
-}
+// @font-face {
+//   font-family: "BetterGrade";
+//   src: url("../../../assets/fonts/BUTTERSHINE\ SERIF.otf") format("otf"),
+//     url("../../../assets/fonts/BUTTERSHINE\ SERIF.otf") format("otf");
+// }
 
-@font-face {
-  font-family: "BetterGrade";
-  src: url("../../../assets/fonts/BetterGrade-519DV.ttf") format("truetype"); /* Correct format */
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "BetterGrade";
-  src: url("/assets/fonts/BetterGrade-519DV.ttf") format("truetype");
-}
+// @font-face {
+//   font-family: "BetterGrade";
+//   src: url("../../../assets/fonts/BUTTERSHINE\ SERIF.otf") format("truetype"); /* Correct format */
+//   font-weight: normal;
+//   font-style: normal;
+//   font-display: swap;
+// }
+// @font-face {
+//   font-family: "BetterGrade";
+//   src: url("../../../assets/fonts/BUTTERSHINE\ SERIF.otf") format("truetype");
+// }
 
-body {
-  font-family: "Better Grade", sans-serif; /* Set Roboto as the default font */
-}
+// body {
+//   font-family: "Better Grade", sans-serif; /* Set Roboto as the default font */
+// }
 
 [class^="icon-"],
 [class*=" icon-"] {
