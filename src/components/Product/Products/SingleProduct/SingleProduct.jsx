@@ -33,7 +33,7 @@ export const SingleProduct = ({
   return (
     <>
       {/* <!-- BEGIN SINGLE PRODUCT ITEM --> */}
-      <Link href={`/product/${_id}`}>
+      {/* <Link href={`/product/${_id}`}> */}
         <div
           className="products-item"
           onMouseEnter={() => setIsHovered(true)}
@@ -121,7 +121,7 @@ export const SingleProduct = ({
           </div>
         </div>
         {/* <!-- SINGLE PRODUCT ITEM EOF --> */}
-      </Link>
+      {/* </Link> */}
     </>
   );
 };

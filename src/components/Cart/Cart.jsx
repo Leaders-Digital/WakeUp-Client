@@ -22,9 +22,49 @@ export const Cart = () => {
 
     return total + Number(prixFinal) * Number(item.quantity);
   }, 0);
+
+  // Calculate total with "buy 2 get 60% off on second item" promotion
+  const calculateTotalWithPromotion = () => {
+    if (cart.length < 2) return total;
+
+    // Sort items by price to apply discount on cheaper item
+    const sortedItems = [...cart].sort((a, b) => {
+      const priceA = a.solde
+        ? a.prix - a.prix * (a.soldePourcentage / 100)
+        : a.prix;
+      const priceB = b.solde
+        ? b.prix - b.prix * (b.soldePourcentage / 100)
+        : b.prix;
+      return priceA - priceB;
+    });
+
+    let totalWithPromo = 0;
+    let itemsCount = 0;
+
+    // Calculate total with promotion
+    sortedItems.forEach((item) => {
+      const prixFinal = item.solde
+        ? item.prix - item.prix * (item.soldePourcentage / 100)
+        : item.prix;
+
+      for (let i = 0; i < item.quantity; i++) {
+        itemsCount++;
+        if (itemsCount % 2 === 0) {
+          // Apply 60% discount on every second item
+          totalWithPromo += prixFinal * 0.4;
+        } else {
+          totalWithPromo += prixFinal;
+        }
+      }
+    });
+
+    return totalWithPromo;
+  };
+
+  const totalWithPromotion = calculateTotalWithPromotion();
   const totalWithDiscount = promo
-    ? total - (total * promo) / 100 // Assuming promo is a percentage
-    : total;
+    ? totalWithPromotion - (totalWithPromotion * promo) / 100
+    : totalWithPromotion;
 
   const handleProductQuantity = (change, quantity, id, stock) => {
     if (change === "increment" && quantity < stock) {
@@ -43,28 +83,26 @@ export const Cart = () => {
     setCount(count + 1); // Trigger re-render
   };
 
-
-const handlePromo = async () => {
-  setLoadingCode(true);
-  try {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_KEY}api/promo/applyPromoCode`,
-      { code: promoCode },  // Data being sent in the body of the request
-      {
-        headers: {
-          'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
-        },
-      }
-    );
-    setLoadingCode(false);
-    setPromo(res.data.discountValue);
-    toast.success("Code promo appliqué avec succès");
-  } catch (error) {
-    setLoadingCode(false);
-    toast.error(error.response.data.message);
-  }
-};
-
+  const handlePromo = async () => {
+    setLoadingCode(true);
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_KEY}api/promo/applyPromoCode`,
+        { code: promoCode }, // Data being sent in the body of the request
+        {
+          headers: {
+            "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+          },
+        }
+      );
+      setLoadingCode(false);
+      setPromo(res.data.discountValue);
+      toast.success("Code promo appliqué avec succès");
+    } catch (error) {
+      setLoadingCode(false);
+      toast.error(error.response.data.message);
+    }
+  };
 
   useEffect(() => {
     setCart(cart);
@@ -170,15 +208,20 @@ const handlePromo = async () => {
                   Produits pour
                   <span>{total.toFixed(2)} TND</span>
                 </div>
-                <div className="cart-bottom__total-promo">
-                  Remise sur le code promo
-                  <span> {promo ? promo + "%" : "Non"}</span>
-                </div>
+                {cart.length >= 2 && (
+                  <div className="cart-bottom__total-promo">
+                    Remise "Acheter 2 articles, le 2ème à -60%"
+                    <span>-{(total - totalWithPromotion).toFixed(2)} TND</span>
+                  </div>
+                )}
+                {promo && (
+                  <div className="cart-bottom__total-promo">
+                    Remise sur le code promo
+                    <span> {promo}%</span>
+                  </div>
+                )}
                 <div className="cart-bottom__total-num">
-                  total :
-                  <span>
-                    {promo ? totalWithDiscount : total.toFixed(2)} TND
-                  </span>
+                  total :<span>{totalWithDiscount.toFixed(2)} TND</span>
                 </div>
                 <Link href="/checkout">
                   <a className="btn">Passer à la caisse</a>
