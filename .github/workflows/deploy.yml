@@ -29,9 +29,6 @@ jobs:
           push: true
           tags: |
             leadersdigital/wakeup-client:latest
-          build-args: |
-            VITE_APP_API_URL=${{ secrets.API_URL }}
-            VITE_APP_API_URL_IMAGES=${{ secrets.API_URL_IMAGES }}
       
       - name: Deploy to server
         uses: appleboy/ssh-action@master
