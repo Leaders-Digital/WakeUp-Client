@@ -11,32 +11,30 @@ export const CheckoutOrders = ({total}) => {
   const calculateTotalWithPromotion = () => {
     if (cart.length < 2) return total;
 
-    // Sort items by price to apply discount on cheaper item
-    const sortedItems = [...cart].sort((a, b) => {
-      const priceA = a.solde ? a.prix - a.prix * (a.soldePourcentage / 100) : a.prix;
-      const priceB = b.solde ? b.prix - b.prix * (b.soldePourcentage / 100) : b.prix;
-      return priceA - priceB;
-    });
+    // Create a flat array of all items with their quantities
+    const allItems = cart.flatMap(item => 
+      Array(item.quantity).fill({
+        prixFinal: item.solde 
+          ? item.prix - item.prix * (item.soldePourcentage / 100)
+          : item.prix
+      })
+    );
+
+    // Sort items by price in descending order (highest first)
+    allItems.sort((a, b) => b.prixFinal - a.prixFinal);
 
     let totalWithPromo = 0;
-    let itemsCount = 0;
 
-    // Calculate total with promotion
-    sortedItems.forEach(item => {
-      const prixFinal = item.solde
-        ? item.prix - item.prix * (item.soldePourcentage / 100)
-        : item.prix;
+    // First item (most expensive) at full price
+    totalWithPromo += allItems[0].prixFinal;
+    
+    // Second item (cheaper) gets 60% off
+    totalWithPromo += allItems[1].prixFinal * 0.4;
 
-      for (let i = 0; i < item.quantity; i++) {
-        itemsCount++;
-        if (itemsCount % 2 === 0) {
-          // Apply 60% discount on every second item
-          totalWithPromo += prixFinal * 0.4;
-        } else {
-          totalWithPromo += prixFinal;
-        }
-      }
-    });
+    // All other items at full price
+    for (let i = 2; i < allItems.length; i++) {
+      totalWithPromo += allItems[i].prixFinal;
+    }
 
     return totalWithPromo;
   };
@@ -45,14 +43,14 @@ export const CheckoutOrders = ({total}) => {
   const totalWithDiscount = promo
     ? totalWithPromotion - (totalWithPromotion * promo) / 100
     : totalWithPromotion;
-               
+  
   const getLoadingDate = () => {
     const today = new Date();
     const futureDate = new Date(today);
     futureDate.setDate(today.getDate() + 2); // Add 2 days
     return futureDate.toLocaleDateString(); // Format as dd/mm/yyyy or mm/dd/yyyy depending on locale
   };
-
+ 
   const loadingDate = getLoadingDate(); // Get the dynamic loading date
   return (
     <>
@@ -65,7 +63,7 @@ export const CheckoutOrders = ({total}) => {
       <div className='cart-bottom__total'>
         <div className='cart-bottom__total-goods'>
           Produits pour
-          <span>{total} TND</span>
+          <span>{total.toFixed(2)} TND</span>
         </div>
         {cart.length >= 2 && (
           <div className='cart-bottom__total-promo'>
