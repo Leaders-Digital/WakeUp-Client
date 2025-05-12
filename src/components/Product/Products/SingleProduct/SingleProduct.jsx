@@ -116,7 +116,7 @@ export const SingleProduct = ({
             </Link>
             <span className="products-item__cost">
               <span>{solde && `TND${prix}`}</span>
-              {prix - prix * (soldePourcentage / 100)} TND
+              {(prix - prix * (soldePourcentage / 100)).toFixed(2)} TND
             </span>
           </div>
         </div>

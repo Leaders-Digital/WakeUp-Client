@@ -47,8 +47,7 @@ export const Card = ({ cart, onChangeQuantity, handleDelete }) => {
           {solde ? (
             <span className="cart-table__price">
               <span>{prix}TND</span>
-              {prix -
-                    prix * (soldePourcentage / 100)}TND
+              {(prix - prix * (soldePourcentage / 100)).toFixed(2)}TND
             </span>
           ) : (
             <span className="cart-table__price">{prix}TND</span>
@@ -85,14 +84,11 @@ export const Card = ({ cart, onChangeQuantity, handleDelete }) => {
         <div className="cart-table__col">
           <span className="cart-table__total">
             {solde
-              ? ((prix - prix * (soldePourcentage / 100)) * quantity).toFixed(
-                  2
-                ) + " TND"
+              ? (((prix - prix * (soldePourcentage / 100)) * quantity).toFixed(2) + " TND")
               : (prix * quantity).toFixed(2) + " TND"}
           </span>
         </div>
         <div className="cart-table__col">
-       
           <span
             onClick={() => handleDelete(variantId)}
             className="cart-table__delete "

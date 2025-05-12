@@ -17,7 +17,7 @@ export const Cart = () => {
 
   const total = cart.reduce((total, item) => {
     const prixFinal = item.solde
-      ? item.prix - item.prix * (item.soldePourcentage / 100)
+      ? (item.prix - item.prix * (item.soldePourcentage / 100)).toFixed(2)
       : item.prix;
 
     return total + Number(prixFinal) * Number(item.quantity);

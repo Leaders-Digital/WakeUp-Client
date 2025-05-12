@@ -15,8 +15,8 @@ export const Card = ({ order }) => {
     soldePourcentage,
   } = order;
 const prixFinal = solde
-? prix - prix * (soldePourcentage / 100)
-: prix;
+? (prix - prix * (soldePourcentage / 100)).toFixed(2)
+: prix.toFixed(2);
   return (
     <>
       {/* <!-- BEING ORDER ITEM CARD --> */}
