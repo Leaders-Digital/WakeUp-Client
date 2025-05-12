@@ -140,7 +140,6 @@ export const Checkout = () => {
           ...data,
           listeDesProduits,
           listeDesPack,
-          withOffer: true,
           prixTotal: totalWithDiscount,
         }, // Data being sent in the body of the request
         {

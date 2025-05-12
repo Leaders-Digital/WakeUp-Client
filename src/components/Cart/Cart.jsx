@@ -22,43 +22,9 @@ export const Cart = () => {
 
     return total + Number(prixFinal) * Number(item.quantity);
   }, 0);
-
-  // Calculate total with "buy 2 get 60% off on second item" promotion
-  const calculateTotalWithPromotion = () => {
-    if (cart.length < 2) return total;
-
-    // Create a flat array of all items with their quantities
-    const allItems = cart.flatMap(item => 
-      Array(item.quantity).fill({
-        prixFinal: item.solde 
-          ? item.prix - item.prix * (item.soldePourcentage / 100)
-          : item.prix
-      })
-    );
-
-    // Sort items by price in descending order (highest first)
-    allItems.sort((a, b) => b.prixFinal - a.prixFinal);
-
-    let totalWithPromo = 0;
-
-    // First item (most expensive) at full price
-    totalWithPromo += allItems[0].prixFinal;
-    
-    // Second item (cheaper) gets 60% off
-    totalWithPromo += allItems[1].prixFinal * 0.4;
-
-    // All other items at full price
-    for (let i = 2; i < allItems.length; i++) {
-      totalWithPromo += allItems[i].prixFinal;
-    }
-
-    return totalWithPromo;
-  };
-
-  const totalWithPromotion = calculateTotalWithPromotion();
   const totalWithDiscount = promo
-    ? totalWithPromotion - (totalWithPromotion * promo) / 100
-    : totalWithPromotion;
+    ? total - (total * promo) / 100 // Assuming promo is a percentage
+    : total;
 
   const handleProductQuantity = (change, quantity, id, stock) => {
     if (change === "increment" && quantity < stock) {
@@ -77,26 +43,28 @@ export const Cart = () => {
     setCount(count + 1); // Trigger re-render
   };
 
-  const handlePromo = async () => {
-    setLoadingCode(true);
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/promo/applyPromoCode`,
-        { code: promoCode }, // Data being sent in the body of the request
-        {
-          headers: {
-            "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
-          },
-        }
-      );
-      setLoadingCode(false);
-      setPromo(res.data.discountValue);
-      toast.success("Code promo appliqué avec succès");
-    } catch (error) {
-      setLoadingCode(false);
-      toast.error(error.response.data.message);
-    }
-  };
+
+const handlePromo = async () => {
+  setLoadingCode(true);
+  try {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_KEY}api/promo/applyPromoCode`,
+      { code: promoCode },  // Data being sent in the body of the request
+      {
+        headers: {
+          'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+        },
+      }
+    );
+    setLoadingCode(false);
+    setPromo(res.data.discountValue);
+    toast.success("Code promo appliqué avec succès");
+  } catch (error) {
+    setLoadingCode(false);
+    toast.error(error.response.data.message);
+  }
+};
+
 
   useEffect(() => {
     setCart(cart);
@@ -202,20 +170,15 @@ export const Cart = () => {
                   Produits pour
                   <span>{total.toFixed(2)} TND</span>
                 </div>
-                {cart.length >= 2 && (
-                  <div className="cart-bottom__total-promo">
-                    Remise "Acheter 2 articles, le 2ème à -60%"
-                    <span>-{(total - totalWithPromotion).toFixed(2)} TND</span>
-                  </div>
-                )}
-                {promo && (
-                  <div className="cart-bottom__total-promo">
-                    Remise sur le code promo
-                    <span> {promo}%</span>
-                  </div>
-                )}
+                <div className="cart-bottom__total-promo">
+                  Remise sur le code promo
+                  <span> {promo ? promo + "%" : "Non"}</span>
+                </div>
                 <div className="cart-bottom__total-num">
-                  total :<span>{totalWithDiscount.toFixed(2)} TND</span>
+                  total :
+                  <span>
+                    {promo ? totalWithDiscount : total.toFixed(2)} TND
+                  </span>
                 </div>
                 <Link href="/checkout">
                   <a className="btn">Passer à la caisse</a>
