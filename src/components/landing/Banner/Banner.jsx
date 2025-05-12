@@ -68,13 +68,12 @@ export const Banner = () => {
     <>
       {/* <!-- BEGIN MAIN BLOCK --> */}
       <div className="main-block load-bg" style={{ backgroundImage }}>
-        <div className="wrapper">
+        {/* <div className="wrapper">
           <div className="main-block__content">
             <h1 className="saint-text" style={{ color: "#D47E00" }}>
               DES COULEURS ,
             </h1>
             <h1 className="main-text" style={{ color: "#cf7902" }}>
-              {" "}
               QUI VOUS FONT BRILLER.
             </h1>
             <p>
@@ -82,7 +81,7 @@ export const Banner = () => {
               innovantes. Maquillage longue tenue, pigments intenses, formules
               ultra-confortables – pour un look qui vous ressemble !
             </p>
-            {/* <p>à partir de 60 DT !</p> */}
+      
 
             <Link href="/shop">
               <a className="btn" style={{ background: "#D47E00" }}>
@@ -90,7 +89,7 @@ export const Banner = () => {
               </a>
             </Link>
           </div>
-        </div>
+        </div> */}
         {/* <img
           className="main-block__decor"
           src="/assets/img/main-block-decor.png"

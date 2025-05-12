@@ -42,7 +42,7 @@ export const SingleProduct = ({
           <div className="products-item__type">
             {solde && <span className="products-item__sale">Promo</span>}
             {enRupture && (
-              <span className="products-item__new">Bientôt Disponible</span>
+              <span className="products-item__new">Rupture de stock</span>
             )}
           </div>
           <div className="products-item__img">
