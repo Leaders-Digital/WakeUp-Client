@@ -22,7 +22,6 @@ const ProductDetails = () => {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
   const [addedInCart, setAddedInCart] = useState(false);
-  
 
   const getProduct = async (id) => {
     try {
@@ -96,8 +95,10 @@ const ProductDetails = () => {
   const handleWhatsAppClick = () => {
     if (typeof window !== "undefined") {
       const produitLien = window.location.href;
-      const numero = "+21626644400"; 
-      const texte = encodeURIComponent(`Bonjour, je suis intéressé par ce produit: ${produitLien}`);
+      const numero = "+21626644400";
+      const texte = encodeURIComponent(
+        `Bonjour, je suis intéressé par ce produit: ${produitLien}`
+      );
       const lienWhatsApp = `https://api.whatsapp.com/send?phone=${numero}&text=${texte}`;
       window.open(lienWhatsApp, "_blank");
     }
@@ -194,8 +195,10 @@ const ProductDetails = () => {
               {product.solde ? (
                 <span className="product-price">
                   <span>{product.prix} TND</span>
-                  {product.prix -
-                    product.prix * (product.soldePourcentage / 100)}
+                  {(
+                    product.prix -
+                    product.prix * (product.soldePourcentage / 100)
+                  ).toFixed(2)}
                   TND
                 </span>
               ) : (
