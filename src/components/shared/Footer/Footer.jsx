@@ -65,9 +65,6 @@ export const Footer = () => {
                     <a href="tel:+21626644400" style={{ fontSize: "16px" }}>
                       +216 27 246 380
                     </a>
-                    <a href="tel:+21627360067" style={{ fontSize: "16px" }}>
-                      +216 27 360 073
-                    </a>
                   </span>
                 </li>
                 <li>
