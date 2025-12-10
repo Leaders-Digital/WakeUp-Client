@@ -80,7 +80,7 @@ export const Banner = () => {
 
             <Link href="/shop">
               <a className="btn" style={{ background: "#D47E00" }}>
-                Explorer notre gamme !
+                Commandez maintenant !
               </a>
             </Link>
           </div>

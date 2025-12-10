@@ -138,7 +138,7 @@ const Cards = ({ logo }) => {
                 <Col xs={24} sm={16} md={16}>
                   <h5 style={{ fontSize: '1.25rem', margin: 0, }}>Anna Cosmétique</h5>
                   <p style={{ margin: '8px 0', }}>Centre Urbain Nord, 1082, Ariana</p>
-                  <p style={{ margin: '8px 0', }}>26 644 400</p>
+                  <p style={{ margin: '8px 0', }}>27 246 380</p>
                 </Col>
               </Row>
             </Card>
