@@ -1,5 +1,6 @@
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { Layout } from "layout/Layout";
 import { Banner } from "components/landing/Banner/Banner";
 import { Trending } from "components/landing/Trending/Trending";
@@ -9,6 +10,7 @@ import BrandLogo from "components/shared/BrandLogo/BrandLogo";
 import { Advantage } from "components/shared/Advantage/Advantage";
 import { AboutPromo } from "components/About/AboutPromo/AboutPromo";
 import { Subscribe } from "components/shared/Subscribe/Subscribe";
+import { LoadingScreen } from "components/shared/LoadingScreen/LoadingScreen";
 
 const advantages1 = [
   {
@@ -47,6 +49,10 @@ const advantages2 = [
 ];
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [bannerLoaded, setBannerLoaded] = useState(false);
+  const [trendingLoaded, setTrendingLoaded] = useState(false);
+
   const { ref: trendingRef, inView: trendingInView } = useInView({
     threshold: 0.5, // Trigger when 50% of the element is visible
     triggerOnce: true, // Only trigger once
@@ -64,11 +70,24 @@ export default function Home() {
     triggerOnce: true,
     rootMargin: "-50px",
   });
-  return (
-    <Layout>
-      <Banner />
 
-      <Trending />
+  // Check if all critical data is loaded
+  useEffect(() => {
+    if (bannerLoaded && trendingLoaded) {
+      // Add a small delay to ensure images are rendered
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    }
+  }, [bannerLoaded, trendingLoaded]);
+
+  return (
+    <>
+      <LoadingScreen isLoading={isLoading} />
+      <Layout>
+        <Banner onLoad={() => setBannerLoaded(true)} />
+
+        <Trending onLoad={() => setTrendingLoaded(true)} />
 
  
       <TopCategories />
@@ -90,5 +109,6 @@ export default function Home() {
 
       <Subscribe />
     </Layout>
+    </>
   );
 }

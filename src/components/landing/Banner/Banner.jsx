@@ -3,9 +3,10 @@ import Link from "next/link";
 import axios from "axios";
 import { getImageUrl } from "utils/imageUrl";
 
-export const Banner = () => {
+export const Banner = ({ onLoad }) => {
   const [backgroundImage, setBackgroundImage] = useState(""); // State to store the background image
   const [banners, setBanners] = useState({});
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   // Function to fetch the banner data
   const getBanner = async () => {
@@ -19,8 +20,10 @@ export const Banner = () => {
         }
       );
       setBanners(response.data); // Set banners with the response data
+      // onLoad will be called when image is loaded in the useEffect
     } catch (error) {
       console.log(error);
+      if (onLoad) onLoad(); // Call onLoad even on error to prevent infinite loading
     }
   };
 
@@ -49,6 +52,32 @@ export const Banner = () => {
 
     // Set initial image based on window size
     handleResize();
+
+    // Preload the image and call onLoad when it's loaded
+    if ((banners.mainBanner || banners.miniMainBanner) && !imageLoaded) {
+      const imageUrl = window.innerWidth < 480 && banners.miniMainBanner
+        ? getImageUrl(banners.miniMainBanner.replace(/\\/g, "/"))
+        : banners.mainBanner
+        ? getImageUrl(banners.mainBanner.replace(/\\/g, "/"))
+        : null;
+      
+      if (imageUrl) {
+        const img = new Image();
+        img.onload = () => {
+          setImageLoaded(true);
+          if (onLoad) onLoad();
+        };
+        img.onerror = () => {
+          // Call onLoad even on error to prevent infinite loading
+          setImageLoaded(true);
+          if (onLoad) onLoad();
+        };
+        img.src = imageUrl;
+      } else {
+        setImageLoaded(true);
+        if (onLoad) onLoad();
+      }
+    }
 
     // Listen for resize events
     window.addEventListener("resize", handleResize);

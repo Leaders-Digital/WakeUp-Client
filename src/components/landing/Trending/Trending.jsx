@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import productData from "data/product/product";
 import axios from "axios";
 
-export const Trending = () => {
+export const Trending = ({ onLoad }) => {
   const [productData, setProductData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("FACE");
+  const [initialLoad, setInitialLoad] = useState(false);
 
   const getProducts = async () => {
     try {
@@ -26,9 +27,20 @@ export const Trending = () => {
   
       setProductData(res.data.products);
       setLoading(false);
+      
+      // Call onLoad only on initial load
+      if (!initialLoad && onLoad) {
+        setInitialLoad(true);
+        onLoad();
+      }
     } catch (error) {
       console.error(error);
       setLoading(false); // Ensure loading is set to false even on error
+      // Call onLoad even on error to prevent infinite loading
+      if (!initialLoad && onLoad) {
+        setInitialLoad(true);
+        onLoad();
+      }
     }
   };
   
@@ -36,10 +48,6 @@ export const Trending = () => {
   useEffect(() => {
     getProducts();
   }, [selectedCategory]);
-
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   const filterList = [
     {
