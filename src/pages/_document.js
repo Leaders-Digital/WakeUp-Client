@@ -15,12 +15,43 @@ class MyDocument extends Document {
             content="YOUR_VERIFICATION_CODE"
           />
 
+          {/* Fonts - Loaded in Head for better production support */}
+          {/* Preconnect to font CDNs for better performance */}
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <link rel="preconnect" href="https://fonts.cdnfonts.com" />
+          
+          <link
+            rel="stylesheet"
+            href="https://fonts.cdnfonts.com/css/buttershine-serif"
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.cdnfonts.com/css/calibri-light"
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.cdnfonts.com/css/better-grade"
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+          />
+
           <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
+            crossOrigin="anonymous"
+            referrerPolicy="no-referrer"
           />
           <script
             async
