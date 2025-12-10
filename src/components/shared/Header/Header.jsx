@@ -92,7 +92,6 @@ export const Header = () => {
     setSearchQuery("");
   };
 
-
   return (
     <>
       {/* <!-- BEGIN HEADER --> */}
@@ -105,6 +104,7 @@ export const Header = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              paddingTop: "18px",
               paddingLeft: "20px",
               paddingRight: "40px",
             }}
@@ -120,7 +120,7 @@ export const Header = () => {
               <span href="tel:+21626644400">+216 27 246 380</span>
             </div>
             <span style={{ flex: "1", textAlign: "center" }}>
-              Réveillez votre beauté naturelle
+              Commandez en un clic, 100 % en ligne !
             </span>
             <ul
               style={{
@@ -193,12 +193,18 @@ export const Header = () => {
                   </div>
                 </div>
                 <a onClick={() => setShowSearch(!showSearch)}>
-                  <i className="icon-search" style={{ cursor: "pointer" , fontSize:"23px"}} ></i> 
+                  <i
+                    className="icon-search"
+                    style={{ cursor: "pointer", fontSize: "23px" }}
+                  ></i>
                 </a>
               </li>
             </ul>
           </div>
-          <div className="search-block-mobile" style={{ gap: "5px", alignItems: "center",marginRight:"50px" }}>
+          <div
+            className="search-block-mobile"
+            style={{ gap: "5px", alignItems: "center", marginRight: "50px" }}
+          >
             <div className={`search-container ${showSearch ? "active" : ""}`}>
               <input
                 type="text"
@@ -213,7 +219,6 @@ export const Header = () => {
                   transition: "all 0.3s ease",
                   opacity: showSearch ? 1 : 0,
                   width: showSearch ? "100%" : "0px",
-              
                 }}
                 placeholder="Trouvez votre produit ..."
               />
@@ -229,7 +234,10 @@ export const Header = () => {
               </div>
             </div>
             <a onClick={() => setShowSearch(!showSearch)}>
-              <i className="icon-search" style={{ cursor: "pointer" ,  color:" #D47E00" }}></i>
+              <i
+                className="icon-search"
+                style={{ cursor: "pointer", color: " #D47E00" }}
+              ></i>
             </a>
           </div>
 

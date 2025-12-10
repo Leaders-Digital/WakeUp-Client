@@ -5698,7 +5698,7 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 
   .main-block .btn {
-    margin-top: 21px;
+    display: none;
   }
 
   .trending-tabs li {
@@ -7037,6 +7037,10 @@ input[type="search"]::-webkit-search-results-decoration {
   .main-block {
     &.load-bg {
       background-image: none;
+    }
+
+    .btn {
+      display: none;
     }
   }
 
