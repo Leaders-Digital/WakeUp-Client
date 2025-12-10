@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
+import { getImageUrl } from "utils/imageUrl";
+import { getProductUrl } from "utils/productUrl";
 
 export const SingleProduct = ({
   product,
@@ -49,15 +51,15 @@ export const SingleProduct = ({
             <img
               src={
                 isHovered && variantDetails.length > 0
-                  ? `${process.env.NEXT_PUBLIC_API_KEY}${variantDetails[0].icon}`
-                  : `${process.env.NEXT_PUBLIC_API_KEY}${mainPicture}`
+                  ? getImageUrl(variantDetails[0].icon)
+                  : getImageUrl(mainPicture)
               }
               className="js-img"
               style={{ objectFit: "contain" }}
               alt=""
             />
             <div className="products-item__hover">
-              <Link href={`/product/${_id}`}>
+              <Link href={getProductUrl(product)}>
                 <a>
                   <i className="icon-search"></i>
                 </a>
@@ -109,7 +111,7 @@ export const SingleProduct = ({
             </div>
           </div>
           <div className="products-item__info">
-            <Link href={`/product/${product._id}`}>
+            <Link href={getProductUrl(product)}>
               <a>
                 <span className="products-item__name">{nom}</span>
               </a>

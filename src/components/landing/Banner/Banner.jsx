@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+import { getImageUrl } from "utils/imageUrl";
 
 export const Banner = () => {
   const [backgroundImage, setBackgroundImage] = useState(""); // State to store the background image
@@ -28,21 +29,15 @@ export const Banner = () => {
   }, []);
 
   useEffect(() => {
-    const handleResize = () => {
-      // Ensure that the path is properly formatted with forward slashes
-      const mainBannerUrl = banners.mainBanner
-        ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.mainBanner.replace(
-            /\\/g,
-            "/"
-          )}`
-        : ``;
+      const handleResize = () => {
+        // Ensure that the path is properly formatted with forward slashes
+        const mainBannerUrl = banners.mainBanner
+          ? getImageUrl(banners.mainBanner.replace(/\\/g, "/"))
+          : ``;
 
-      const miniMainBannerUrl = banners.miniMainBanner
-        ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.miniMainBanner.replace(
-            /\\/g,
-            "/"
-          )}`
-        : ``;
+        const miniMainBannerUrl = banners.miniMainBanner
+          ? getImageUrl(banners.miniMainBanner.replace(/\\/g, "/"))
+          : ``;
 
       // Use miniMainBanner if screen width is less than 480px, otherwise use mainBanner
       if (window.innerWidth < 480) {
@@ -68,7 +63,7 @@ export const Banner = () => {
     <>
       {/* <!-- BEGIN MAIN BLOCK --> */}
       <div className="main-block load-bg" style={{ backgroundImage }}>
-        {/* <div className="wrapper">
+        <div className="wrapper">
           <div className="main-block__content">
             <h1 className="saint-text" style={{ color: "#D47E00" }}>
               DES COULEURS ,
@@ -89,12 +84,12 @@ export const Banner = () => {
               </a>
             </Link>
           </div>
-        </div> */}
-        {/* <img
+        </div> 
+         <img
           className="main-block__decor"
           src="/assets/img/main-block-decor.png"
           alt=""
-        /> */}
+        /> 
       </div>
       {/* <!-- MAIN BLOCK EOF --> */}
     </>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { SectionTitle } from "../SectionTitle/SectionTitle";
+import { getImageUrl } from "utils/imageUrl";
 const BrandLogo = () => {
   const [partenaire, setPartenaire] = useState([]);
 
@@ -39,7 +40,7 @@ const BrandLogo = () => {
           {partenaire.map((logo, index) => (
             <a key={index}>
               <img
-                src={`${process.env.NEXT_PUBLIC_API_KEY}` + logo.logo}
+                src={getImageUrl(logo.logo)}
                 className="js-img"
                 width={200}
                 height={200}

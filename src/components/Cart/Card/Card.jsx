@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { getImageUrl } from "utils/imageUrl";
+import { getProductUrl } from "utils/productUrl";
 
 export const Card = ({ cart, onChangeQuantity, handleDelete }) => {
   const {
@@ -19,10 +21,10 @@ export const Card = ({ cart, onChangeQuantity, handleDelete }) => {
     <>
       <div className="cart-table__row">
         <div className="cart-table__col">
-          <Link href={`/product/${_id}`}>
+          <Link href={getProductUrl(cart)}>
             <a className="cart-table__img">
               <img
-                src={`${process.env.NEXT_PUBLIC_API_KEY}` + mainPicture}
+                src={getImageUrl(mainPicture)}
                 className="js-img"
                 alt=""
                 style={{
@@ -34,7 +36,7 @@ export const Card = ({ cart, onChangeQuantity, handleDelete }) => {
             </a>
           </Link>
           <div className="cart-table__info">
-            <Link href={`/product/${_id}`}>
+            <Link href={getProductUrl(cart)}>
               <a className="title5">{nom}</a>
             </Link>
             {quantity && (

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getImageUrl } from "utils/imageUrl";
 
 export const PostContent = ({ blog }) => {
   // Convert createdAt to a Date object and format it
@@ -14,7 +15,7 @@ export const PostContent = ({ blog }) => {
         <h2>{blog.title}</h2>
         <p>{blog.description}</p>
         <img
-          src={`${process.env.NEXT_PUBLIC_API_KEY}${blog.blogImage}`}
+          src={getImageUrl(blog.blogImage)}
           className="js-img"
           alt={blog.title}
         />

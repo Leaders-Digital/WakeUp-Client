@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import React, { useEffect, useState } from "react";
+import { getImageUrl } from "utils/imageUrl";
 
 export const Breadcrumb = ({ breadcrumb, title, description }) => {
   const router = useRouter();
@@ -31,10 +32,7 @@ export const Breadcrumb = ({ breadcrumb, title, description }) => {
 
   // Ensure that the path is properly formatted with forward slashes
   const breadcrumbBannerUrl = banners.Breadcrumb
-    ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.Breadcrumb.replace(
-        /\\/g,
-        "/"
-      )}`
+    ? getImageUrl(banners.Breadcrumb.replace(/\\/g, "/"))
     : `/assets/img/default-banner.png`; // Fallback image
 
   return (

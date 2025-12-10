@@ -1,9 +1,11 @@
 import Link from "next/link";
 import React from "react";
+import { getImageUrl } from "utils/imageUrl";
+import { getProductUrl } from "utils/productUrl";
 
 const OneResult = ({ result , onConfirme }) => {
   return (
-    <Link href={`/product/${result._id}`}>
+    <Link href={getProductUrl(result)}>
     <div
       style={{
         display: "flex",
@@ -16,7 +18,7 @@ const OneResult = ({ result , onConfirme }) => {
       onClick={onConfirme}
     >
       <img
-        src={`${process.env.NEXT_PUBLIC_API_KEY}` + result.mainPicture}
+        src={getImageUrl(result.mainPicture)}
         alt=""
         style={{ width: "100px", height: "100px", objectFit: "contain" }}
       />

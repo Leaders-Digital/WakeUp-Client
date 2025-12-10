@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { getImageUrl } from 'utils/imageUrl';
+import { getProductUrl } from 'utils/productUrl';
 
 export const Card = ({ order }) => {
   const {
@@ -21,13 +23,13 @@ const prixFinal = solde
     <>
       {/* <!-- BEING ORDER ITEM CARD --> */}
       <div className='checkout-order__item'>
-        <Link href={`/product/${_id}`}>
+        <Link href={getProductUrl(order)}>
           <a className='checkout-order__item-img'>
-            <img src={`${process.env.NEXT_PUBLIC_API_KEY}`+mainPicture} className='js-img' alt='' />
+            <img src={getImageUrl(mainPicture)} className='js-img' alt='' />
           </a>
         </Link>
         <div className='checkout-order__item-info'>
-          <Link href={`/product/${_id}`}>
+          <Link href={getProductUrl(order)}>
             <a className='title6'>
               {nom} <span>x{quantity}</span>
             </a>

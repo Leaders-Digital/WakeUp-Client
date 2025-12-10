@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { getImageUrl } from "utils/imageUrl";
 
 export const Discount = () => {
   const [banners, setBanners] = useState({});
@@ -28,7 +29,7 @@ export const Discount = () => {
 
   // Ensure that the path is properly formatted with forward slashes
   const contactBannerUrl = banners.promo
-    ? `${process.env.NEXT_PUBLIC_API_KEY}${banners.promo.replace(/\\/g, "/")}`
+    ? getImageUrl(banners.promo.replace(/\\/g, "/"))
     : `/assets/img/bannersale2.png`; // Fallback image
 
   return (

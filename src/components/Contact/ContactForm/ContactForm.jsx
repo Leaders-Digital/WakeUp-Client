@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState ,useEffect} from "react";
 import { toast, Toaster } from "react-hot-toast";
+import { getImageUrl } from "utils/imageUrl";
 
 
 export const ContactFrom = () => {
@@ -58,7 +59,7 @@ export const ContactFrom = () => {
     getBanner();
   }, []);
   const contactBannerUrl = banner.contactBanner
-  ? `${process.env.NEXT_PUBLIC_API_KEY}${banner.contactBanner.replace(/\\/g, '/')}`
+  ? getImageUrl(banner.contactBanner.replace(/\\/g, '/'))
   : `/assets/img/bannerContact.png`; // Fallback image
 
   return (

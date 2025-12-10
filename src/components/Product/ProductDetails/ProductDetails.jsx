@@ -7,6 +7,7 @@ import axios from "axios";
 // import { ReviewFrom } from "../ReviewForm/ReviewFrom";
 // import { Reviews } from "../Reviews/Reviews";
 import toast, { Toaster } from "react-hot-toast";
+import { getImageUrl } from "utils/imageUrl";
 
 const ProductDetails = () => {
   const router = useRouter();
@@ -35,6 +36,11 @@ const ProductDetails = () => {
       );
       setProduct(res.data);
       setSelectedVariant({ ...res.data.variants[0] });
+      
+      // Redirect to handle URL if accessed with ID and handle exists
+      if (res.data.handle && router.query.id === res.data._id) {
+        router.replace(`/product/${res.data.handle}`, undefined, { shallow: true });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -140,10 +146,8 @@ const ProductDetails = () => {
                       style={{ objectFit: "contain" }}
                       src={
                         selectedVariant && selectedVariant.picture
-                          ? `${process.env.NEXT_PUBLIC_API_KEY}` +
-                            selectedVariant.picture
-                          : `${process.env.NEXT_PUBLIC_API_KEY}` +
-                            product.mainPicture
+                          ? selectedVariant.picture
+                          : product.mainPicture
                       }
                       alt="product"
                     />
@@ -168,10 +172,7 @@ const ProductDetails = () => {
                         onClick={() => setSelectedVariant(oneVarient)}
                       >
                         <img
-                          src={
-                            `${process.env.NEXT_PUBLIC_API_KEY}` +
-                            oneVarient.picture
-                          }
+                          src={getImageUrl(oneVarient.picture)}
                           alt="product"
                           style={{ objectFit: "contain" }}
                         />

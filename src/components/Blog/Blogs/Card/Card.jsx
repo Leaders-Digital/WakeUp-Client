@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getImageUrl } from 'utils/imageUrl';
 
 export const Card = ({ blog }) => {
   const { title, _id, blogImage, content, description, createdAt } = blog;
@@ -12,7 +13,7 @@ export const Card = ({ blog }) => {
     <div className='blog-item'>
       <Link href={`/blog/${_id}`}>
         <a className='blog-item__img'>
-          <img src={`${process.env.NEXT_PUBLIC_API_KEY}${blogImage}`} className='js-img' alt={title} />
+          <img src={getImageUrl(blogImage)} className='js-img' alt={title} />
           <span className='blog-item__date'>
             <span>{day}</span> {month}
           </span>
