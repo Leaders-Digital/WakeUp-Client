@@ -68,6 +68,10 @@ export const Checkout = () => {
   }, []);
 
   const totalWithDiscount = promo ? total - (total * promo) / 100 : total;
+  const deliveryFee = 8;
+  const subtotal = totalWithDiscount + deliveryFee;
+  const tva = subtotal * 0.19; // 19% TVA
+  const finalTotal = subtotal + tva;
   const listeDesProduits = [];
   const listeDesPack = [];
 
@@ -140,7 +144,7 @@ export const Checkout = () => {
           ...data,
           listeDesProduits,
           listeDesPack,
-          prixTotal: totalWithDiscount,
+          prixTotal: finalTotal,
         }, // Data being sent in the body of the request
         {
           headers: {
@@ -155,7 +159,7 @@ export const Checkout = () => {
         setActiveStep(activeStep + 1);
       }
       setPromo(0);
-      return res.data.data._id;
+      return res.data.data._id; 
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -165,7 +169,7 @@ export const Checkout = () => {
   const onlinePayment = async () => {
     try {
       let orderid = await handleCreateOrder("pay");
-      let totalwithDilevery = (totalWithDiscount + 8) * 1000;
+      let totalwithDilevery = finalTotal * 1000;
 
       const paymentData = {
         receiverWalletId: "6721f70f82402c76c27e7fd7",
