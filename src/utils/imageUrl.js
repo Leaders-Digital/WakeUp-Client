@@ -8,7 +8,6 @@ export const getImageUrl = (imageUrl) => {
     return '';
   }
 
-  
-  return `${process.env.NEXT_PUBLIC_API_KEY}${imageUrl}`;
+  return `${process.env.NEXT_PUBLIC_LOCAL}${imageUrl}`;
 };
 
