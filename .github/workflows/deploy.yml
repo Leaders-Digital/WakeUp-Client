@@ -26,6 +26,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
+          context: .
           push: true
           tags: |
             leadersdigital/wakeup-client:latest
@@ -37,11 +38,43 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            # Create wakeup-client folder on Ubuntu server if it doesn't exist
+            # Create wakeup-client directory if it doesn't exist
             mkdir -p /home/ubuntu/wakeup-client
+            
+            # Create docker-compose.yml for wakeup-client
+            cat > /home/ubuntu/wakeup-client/docker-compose.yml << 'EOF'
+            version: '3.8'
+            
+            services:
+              wakeup-frontend:
+                image: leadersdigital/wakeup-client:latest
+                container_name: wakeup-client
+                ports:
+                  - "3208:3000"
+                restart: unless-stopped
+                networks:
+                  - wakeup-network
+            
+            networks:
+              wakeup-network:
+                driver: bridge
+            EOF
+            
+            # Stop any existing wakeup-client containers that might conflict
+            sudo docker stop wakeup-client 2>/dev/null || true
+            sudo docker rm wakeup-client 2>/dev/null || true
+            
+            # Navigate to wakeup-client directory
             cd /home/ubuntu/wakeup-client
             
-            # Pull the latest image and restart the service
-            sudo docker-compose down
-            sudo docker-compose pull
-            sudo docker-compose up -d
+            # Stop and remove only wakeup-client containers
+            sudo docker compose down --remove-orphans
+            
+            # Pull the latest wakeup-client image
+            sudo docker compose pull
+            
+            # Start wakeup-client service
+            sudo docker compose up -d
+            
+            # Show running containers for verification
+            sudo docker ps | grep wakeup
