@@ -146,8 +146,8 @@ const ProductDetails = () => {
                       style={{ objectFit: "contain" }}
                       src={
                         selectedVariant && selectedVariant.picture
-                          ? selectedVariant.picture
-                          : product.mainPicture
+                          ? getImageUrl(selectedVariant.picture)
+                          : getImageUrl(product.mainPicture)
                       }
                       alt="product"
                     />

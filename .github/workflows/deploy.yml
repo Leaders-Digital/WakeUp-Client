@@ -28,6 +28,11 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            NEXT_PUBLIC_API_KEY=${{ secrets.NEXT_PUBLIC_API_KEY }}
+            NEXT_PUBLIC_LOCAL=${{ secrets.NEXT_PUBLIC_LOCAL }}
+            NEXT_PUBLIC_HOST=${{ secrets.NEXT_PUBLIC_HOST }}
+            NEXT_PUBLIC_KEY=${{ secrets.NEXT_PUBLIC_KEY }}
           tags: |
             bangov2/wakeup-client:latest
       
