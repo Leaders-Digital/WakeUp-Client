@@ -17,6 +17,7 @@ ARG NEXT_PUBLIC_LOCAL="https://api.wakeup-cosmetics.tn/"
 ARG NEXT_PUBLIC_HOST="https://wakeup-server.onrender.com/"
 ARG NEXT_PUBLIC_KEY="AIzaSyD-1X6JQJ3Q"
 
+
 # Set environment variables
 ENV NEXT_PUBLIC_API_KEY=$NEXT_PUBLIC_API_KEY
 ENV NEXT_PUBLIC_LOCAL=$NEXT_PUBLIC_LOCAL
