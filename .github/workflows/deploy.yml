@@ -37,8 +37,9 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            # Copy docker-compose file from repo to server
-            cd /home/ubuntu/workspace
+            # Create wakeup-client folder on Ubuntu server if it doesn't exist
+            mkdir -p /home/ubuntu/wakeup-client
+            cd /home/ubuntu/wakeup-client
             
             # Pull the latest image and restart the service
             sudo docker-compose down
