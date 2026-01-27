@@ -9,13 +9,13 @@ const breadcrumbsData = [
     path: '/',
   },
   {
-    label: 'Nos Pack',
+    label: 'Nos Packs',
     path: '/Packs',
   },
 ];
 const LoginPage = () => {
   return (
-    <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle='Nos Pack'>
+    <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle='Nos Packs'>
       <Packs />
       <Subscribe />
     </PublicLayout>

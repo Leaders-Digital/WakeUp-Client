@@ -12,7 +12,7 @@ export const navItem = [
     path: "/shop",
   },
   {
-    name: "Nos Pack",
+    name: "Nos Packs",
     path: "/packs",
   },
   // {
