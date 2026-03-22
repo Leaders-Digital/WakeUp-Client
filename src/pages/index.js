@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Layout } from "layout/Layout";
 import { Banner } from "components/landing/Banner/Banner";
+import { EventHighlights } from "components/landing/EventHighlights/EventHighlights";
 import { Trending } from "components/landing/Trending/Trending";
 import { Discount } from "components/landing/Discount/Discount";
 import { TopCategories } from "components/landing/TopCategories/TopCategories";
@@ -86,6 +87,8 @@ export default function Home() {
       <LoadingScreen isLoading={isLoading} />
       <Layout>
         <Banner onLoad={() => setBannerLoaded(true)} />
+
+        <EventHighlights />
 
         <Trending onLoad={() => setTrendingLoaded(true)} />
 

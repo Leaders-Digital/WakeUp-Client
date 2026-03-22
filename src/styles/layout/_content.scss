@@ -370,13 +370,15 @@ h6,
 
     &__img {
       position: relative;
-      height: 570px;
+      height: 680px;
       width: 100%;
+      overflow: hidden;
 
       img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
+        transform: scale(1.25);
       }
     }
 
@@ -2612,7 +2614,7 @@ blockquote,
         }
 
         &__img {
-          height: 370px;
+          height: 450px;
         }
 
         &__name {
@@ -2855,7 +2857,7 @@ blockquote,
   }
 
   &-slider {
-    width: 570px;
+    width: 680px;
 
     &__main {
       width: 100%;
@@ -2863,7 +2865,7 @@ blockquote,
 
       img {
         width: 100%;
-        height: 570px;
+        height: 680px;
         object-fit: cover;
       }
     }
@@ -2873,7 +2875,7 @@ blockquote,
       margin-right: -5px;
 
       &-item {
-        height: 135px;
+        height: 160px;
         // margin-left: 5px;
         margin-right: 5px;
         cursor: pointer;
@@ -4789,7 +4791,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 @media screen and (max-width: 1400px) {
   .products-item__img {
-    height: 435px;
+    height: 520px;
   }
 
   .top-categories__item {
@@ -4957,11 +4959,11 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 
   .product-slider {
-    width: 480px;
+    width: 560px;
   }
 
   .product-info {
-    width: calc(100% - 520px);
+    width: calc(100% - 600px);
   }
 
   .product-detail__form {
@@ -5055,7 +5057,7 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 
   .shop-main__items .products-item__img {
-    height: 315px;
+    height: 380px;
   }
 }
 
@@ -6470,7 +6472,7 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 
   .shop-main__items .products-item__img {
-    height: 440px;
+    height: 540px;
   }
 
   .shop-decor {
@@ -6980,11 +6982,11 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 
   .product-slider__main img {
-    height: 630px;
+    height: 750px;
   }
 
   .product-slider__nav-item {
-    height: 152px;
+    height: 180px;
   }
 
   h5,
@@ -7090,11 +7092,11 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 
   .product-slider__main img {
-    height: 350px;
+    height: 420px;
   }
 
   .product-slider__nav-item {
-    height: 80px;
+    height: 100px;
   }
 }
 

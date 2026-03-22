@@ -55,7 +55,6 @@ export const SingleProduct = ({
                   : getImageUrl(mainPicture)
               }
               className="js-img"
-              style={{ objectFit: "contain" }}
               alt=""
             />
             <div className="products-item__hover">
