@@ -8,10 +8,10 @@ import { toast, Toaster } from "react-hot-toast";
 
 export const Cart = () => {
   const { cart, setCart } = useContext(CartContext);
-  const { promo, setPromo } = useContext(PromoContext);
+  const { promo, setPromo, setCnrpsCode } = useContext(PromoContext);
 
   const [count, setCount] = useState(0);
-  const [promoCode, setPromoCode] = useState("");
+  const [cnrpsInput, setCnrpsInput] = useState("");
   const [loadingCode, setLoadingCode] = useState(false);
   const socialLinks = [...socialData];
 
@@ -44,26 +44,32 @@ export const Cart = () => {
   };
 
 
-const handlePromo = async () => {
-  setLoadingCode(true);
-  try {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_KEY}api/promo/applyPromoCode`,
-      { code: promoCode },  // Data being sent in the body of the request
-      {
-        headers: {
-          'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
-        },
-      }
-    );
-    setLoadingCode(false);
-    setPromo(res.data.discountValue);
-    toast.success("Code promo appliqué avec succès");
-  } catch (error) {
-    setLoadingCode(false);
-    toast.error(error.response.data.message);
-  }
-};
+  const handleCnrps = async () => {
+    setLoadingCode(true);
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_KEY}api/cnrps/validate`,
+        { cnrps: cnrpsInput },
+        {
+          headers: {
+            "x-api-key": process.env.NEXT_PUBLIC_KEY,
+          },
+        }
+      );
+      setLoadingCode(false);
+      setPromo(res.data.discountPercent);
+      setCnrpsCode(res.data.cnrpsCode);
+      toast.success(res.data.message || "Numéro CNRPS accepté — remise 20%");
+    } catch (error) {
+      setLoadingCode(false);
+      setPromo(null);
+      setCnrpsCode(null);
+      toast.error(
+        error.response?.data?.message ||
+          "Vérification impossible. Réessayez plus tard."
+      );
+    }
+  };
 
 
   useEffect(() => {
@@ -125,11 +131,12 @@ const handlePromo = async () => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Entrez le code promo"
-                      onChange={(e) => setPromoCode(e.target.value)}
+                      placeholder="Numéro CNRPS"
+                      value={cnrpsInput}
+                      onChange={(e) => setCnrpsInput(e.target.value)}
                     />
                   </div>
-                  <button className="btn btn-grey" onClick={handlePromo}>
+                  <button className="btn btn-grey" onClick={handleCnrps}>
                     {loadingCode ? (
                       <div
                         style={{ display: "flex", justifyContent: "center" }}
@@ -145,12 +152,12 @@ const handlePromo = async () => {
                   </button>
                 </div>
 
-                <h6>Comment obtenir un code promo ?</h6>
+                <h6>Remise CNRPS</h6>
                 <p>
-                  Suivez nos actualités sur le site, ainsi que abonnez-vous à
-                  nos réseaux sociaux. Vous pourrez ainsi recevoir des codes à
-                  jour et être informé des nouveaux produits et articles
-                  promotionnels.
+                  Saisissez votre numéro CNRPS pour vérifier votre éligibilité.
+                  En cas d&apos;acceptation, une remise de 20% s&apos;applique
+                  une seule fois par numéro. Le montant définitif est calculé
+                  et confirmé sur le serveur au moment de la commande.
                 </p>
                 <div className="contacts-info__social">
                   <span>Trouvez-nous ici :</span>
@@ -171,7 +178,7 @@ const handlePromo = async () => {
                   <span>{total.toFixed(2)} TND</span>
                 </div>
                 <div className="cart-bottom__total-promo">
-                  Remise sur le code promo
+                  Remise CNRPS (indicatif)
                   <span> {promo ? promo + "%" : "Non"}</span>
                 </div>
                 <div className="cart-bottom__total-num">
