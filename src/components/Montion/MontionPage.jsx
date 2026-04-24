@@ -38,7 +38,7 @@ const MontionPage = () => {
         <strong>Email :</strong> contact@leaders-makeup.com
       </p>
       <p>
-        <strong>Telephone :</strong> +216 27 246 380
+        <strong>Telephone :</strong> +216 27 246 374
       </p>
       <h3 style={{ color: "#333", marginTop: "20px" }}>Hébergement du Site</h3>
       <p>

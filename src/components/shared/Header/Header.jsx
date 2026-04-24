@@ -117,7 +117,7 @@ export const Header = () => {
                 flex: "1",
               }}
             >
-              <span href="tel:+21626644400">+216 27 246 380</span>
+              <span href="tel:+21626644400">+216 27 246 374</span>
             </div>
             <span style={{ flex: "1", textAlign: "center" }}>
               Commandez en un clic, 100 % en ligne !
