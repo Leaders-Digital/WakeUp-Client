@@ -7,13 +7,17 @@ export const CartContext = createContext();
 export const PromoContext = createContext();
 const MyApp = ({ Component, pageProps }) => {
   const [promo, setPromo] = useState(null);
+  /** Normalized CNRPS number when the cart passed server validation (sent again at checkout). */
+  const [cnrpsCode, setCnrpsCode] = useState(null);
   const [cart, setCart] = useState([]);
 
   // console.log = () => {};
   // console.error = () => {};
 
   return (
-    <PromoContext.Provider value={{ promo, setPromo }}>
+    <PromoContext.Provider
+      value={{ promo, setPromo, cnrpsCode, setCnrpsCode }}
+    >
       <CartContext.Provider value={{ cart, setCart }}>
         <title>Wakeup Cosmetics</title>
         <FacebookPixel />

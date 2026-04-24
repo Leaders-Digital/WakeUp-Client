@@ -9,6 +9,7 @@ export default function Animate({ children }){
       // exit={{ y: 100, opacity: 0 }}
       transition={{ ease: 'easeInOut', duration: 1 }}
     >
+      
       {children}
     </motion.div>
   )

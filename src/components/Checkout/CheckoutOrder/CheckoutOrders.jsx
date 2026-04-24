@@ -3,7 +3,7 @@ import { CartContext, PromoContext } from 'pages/_app';
 import { useContext } from 'react';
 import { Card } from './Card/Card';
 
-export const CheckoutOrders = ({total}) => {
+export const CheckoutOrders = ({ total }) => {
   const { cart } = useContext(CartContext);
   const { promo } = useContext(PromoContext);
 
@@ -34,8 +34,8 @@ export const CheckoutOrders = ({total}) => {
           <span>{total} TND</span>
         </div>
         <div className='cart-bottom__total-promo'>
-          Réduction sur code promo
-          <span> {promo ? promo + "%" : "Non"}</span>
+          Réduction CNRPS (indicatif)
+          <span>{promo ? `${promo}%` : "Non"}</span>
         </div>
         <div className='cart-bottom__total-delivery'>
           Livraison{' '}

@@ -29,7 +29,7 @@ const detailBlocks = [
 ];
 
 export const Checkout = () => {
-  const { promo, setPromo } = useContext(PromoContext);
+  const { promo, setPromo, cnrpsCode, setCnrpsCode } = useContext(PromoContext);
   const { cart, setCart } = useContext(CartContext);
   const [activeStep, setActiveStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -134,38 +134,59 @@ export const Checkout = () => {
   const handleCreateOrder = async (method) => {
     setLoading(true);
     try {
+      const payload = {
+        ...data,
+        listeDesProduits,
+        listeDesPack,
+      };
+      if (cnrpsCode) {
+        payload.cnrpsCode = cnrpsCode;
+      }
+
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_KEY}api/order/create`,
-        {
-          ...data,
-          listeDesProduits,
-          listeDesPack,
-          prixTotal: totalWithDiscount,
-        }, // Data being sent in the body of the request
+        payload,
         {
           headers: {
-            "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+            "x-api-key": process.env.NEXT_PUBLIC_KEY,
           },
         }
       );
 
+      const pricing = res.data.pricing;
+
       if (method === "cash") {
-        setLoading(false);
         setOrderCode(res.data.orderCode);
         setActiveStep(activeStep + 1);
+        setLoading(false);
       }
-      setPromo(0);
-      return res.data.data._id; 
+
+      setPromo(null);
+      setCnrpsCode(null);
+
+      return { orderId: res.data.data._id, pricing };
     } catch (error) {
       console.log(error);
       setLoading(false);
+      toast.error(
+        error.response?.data?.message || "Impossible de créer la commande."
+      );
+      if (method === "pay") {
+        throw error;
+      }
+      return null;
     }
   };
 
   const onlinePayment = async () => {
     try {
-      let orderid = await handleCreateOrder("pay");
-      let totalwithDilevery = (totalWithDiscount + 8) * 1000;
+      const created = await handleCreateOrder("pay");
+      if (!created) return;
+      const { orderId: orderid, pricing } = created;
+      const merchandiseTotal = Number(
+        pricing?.prixTotal ?? totalWithDiscount
+      );
+      let totalwithDilevery = (merchandiseTotal + 8) * 1000;
 
       const paymentData = {
         receiverWalletId: "6721f70f82402c76c27e7fd7",
@@ -214,9 +235,10 @@ export const Checkout = () => {
       } else {
         console.error("Payment URL not found in response");
       }
-      setPromo(0);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
