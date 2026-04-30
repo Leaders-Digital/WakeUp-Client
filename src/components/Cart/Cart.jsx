@@ -8,7 +8,16 @@ import { toast, Toaster } from "react-hot-toast";
 
 export const Cart = () => {
   const { cart, setCart } = useContext(CartContext);
-  const { promo, setPromo, setCnrpsCode } = useContext(PromoContext);
+  const {
+    promo,
+    setPromo,
+    cnrpsCode,
+    setCnrpsCode,
+    cnrpsOptions,
+    setCnrpsOptions,
+    cnrpsPurchaseType,
+    setCnrpsPurchaseType,
+  } = useContext(PromoContext);
 
   const [count, setCount] = useState(0);
   const [cnrpsInput, setCnrpsInput] = useState("");
@@ -44,6 +53,13 @@ export const Cart = () => {
   };
 
 
+  const resetCnrpsState = () => {
+    setPromo(null);
+    setCnrpsCode(null);
+    setCnrpsOptions([]);
+    setCnrpsPurchaseType(null);
+  };
+
   const handleCnrps = async () => {
     setLoadingCode(true);
     try {
@@ -57,18 +73,37 @@ export const Cart = () => {
         }
       );
       setLoadingCode(false);
-      setPromo(res.data.discountPercent);
       setCnrpsCode(res.data.cnrpsCode);
-      toast.success(res.data.message || "Numéro CNRPS accepté — remise 20%");
+      setCnrpsOptions(res.data.options || []);
+      setCnrpsPurchaseType(null);
+      setPromo(null);
+      toast.success(
+        res.data.message ||
+          "Numéro CNRPS éligible — choisissez votre type d'achat."
+      );
     } catch (error) {
       setLoadingCode(false);
-      setPromo(null);
-      setCnrpsCode(null);
+      resetCnrpsState();
       toast.error(
         error.response?.data?.message ||
           "Vérification impossible. Réessayez plus tard."
       );
     }
+  };
+
+  const handleSelectPurchaseType = (option) => {
+    if (!option) return;
+    if (option.minSubtotal && total <= option.minSubtotal) {
+      toast.error(
+        `Cette remise est disponible uniquement pour un total supérieur à ${option.minSubtotal} TND.`
+      );
+      return;
+    }
+    setCnrpsPurchaseType(option.type);
+    setPromo(option.discountPercent);
+    toast.success(
+      `Remise de ${option.discountPercent}% appliquée — ${option.label}.`
+    );
   };
 
 
@@ -152,12 +187,68 @@ export const Cart = () => {
                   </button>
                 </div>
 
+                {cnrpsCode && cnrpsOptions && cnrpsOptions.length > 0 && (
+                  <div style={{ marginBottom: 24 }}>
+                    <h6 style={{ marginBottom: 12 }}>
+                      Type d&apos;achat (CNRPS validé)
+                    </h6>
+                    <p style={{ marginBottom: 12 }}>
+                      Choisissez le type d&apos;achat pour appliquer la remise
+                      correspondante :
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 10,
+                      }}
+                    >
+                      {cnrpsOptions.map((option) => {
+                        const disabled =
+                          option.minSubtotal && total <= option.minSubtotal;
+                        const selected = cnrpsPurchaseType === option.type;
+                        return (
+                          <button
+                            key={option.type}
+                            type="button"
+                            onClick={() => handleSelectPurchaseType(option)}
+                            disabled={disabled}
+                            className={`btn ${selected ? "" : "btn-grey"}`}
+                            style={{
+                              opacity: disabled ? 0.5 : 1,
+                              cursor: disabled ? "not-allowed" : "pointer",
+                              textAlign: "left",
+                              padding: "12px 16px",
+                            }}
+                          >
+                            <strong>{option.label}</strong> — Remise{" "}
+                            {option.discountPercent}%
+                            {option.minSubtotal ? (
+                              <div style={{ fontSize: 12, opacity: 0.8 }}>
+                                Total articles &gt; {option.minSubtotal} TND
+                                requis.
+                              </div>
+                            ) : null}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
                 <h6>Remise CNRPS</h6>
                 <p>
                   Saisissez votre numéro CNRPS pour vérifier votre éligibilité.
-                  En cas d&apos;acceptation, une remise de 20% s&apos;applique
-                  une seule fois par numéro. Le montant définitif est calculé
-                  et confirmé sur le serveur au moment de la commande.
+                  En cas d&apos;acceptation, vous choisissez :
+                  <br />
+                  &bull; <strong>20%</strong> pour un achat direct au comptant,
+                  <br />
+                  &bull; <strong>5%</strong> pour un achat sur le compte de
+                  l&apos;Amicale.
+                  <br />
+                  La remise n&apos;est utilisable qu&apos;une seule fois par
+                  numéro CNRPS. Le montant définitif est calculé et confirmé
+                  sur le serveur au moment de la commande.
                 </p>
                 <div className="contacts-info__social">
                   <span>Trouvez-nous ici :</span>

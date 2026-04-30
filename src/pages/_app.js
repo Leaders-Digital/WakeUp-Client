@@ -9,6 +9,10 @@ const MyApp = ({ Component, pageProps }) => {
   const [promo, setPromo] = useState(null);
   /** Normalized CNRPS number when the cart passed server validation (sent again at checkout). */
   const [cnrpsCode, setCnrpsCode] = useState(null);
+  /** Available CNRPS purchase types returned by the server (direct_comptant / compte_amicale). */
+  const [cnrpsOptions, setCnrpsOptions] = useState([]);
+  /** Purchase type chosen by the buyer after eligibility was confirmed. */
+  const [cnrpsPurchaseType, setCnrpsPurchaseType] = useState(null);
   const [cart, setCart] = useState([]);
 
   // console.log = () => {};
@@ -16,7 +20,16 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
     <PromoContext.Provider
-      value={{ promo, setPromo, cnrpsCode, setCnrpsCode }}
+      value={{
+        promo,
+        setPromo,
+        cnrpsCode,
+        setCnrpsCode,
+        cnrpsOptions,
+        setCnrpsOptions,
+        cnrpsPurchaseType,
+        setCnrpsPurchaseType,
+      }}
     >
       <CartContext.Provider value={{ cart, setCart }}>
         <title>Wakeup Cosmetics</title>

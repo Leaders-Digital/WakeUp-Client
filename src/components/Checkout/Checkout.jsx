@@ -29,7 +29,15 @@ const detailBlocks = [
 ];
 
 export const Checkout = () => {
-  const { promo, setPromo, cnrpsCode, setCnrpsCode } = useContext(PromoContext);
+  const {
+    promo,
+    setPromo,
+    cnrpsCode,
+    setCnrpsCode,
+    setCnrpsOptions,
+    cnrpsPurchaseType,
+    setCnrpsPurchaseType,
+  } = useContext(PromoContext);
   const { cart, setCart } = useContext(CartContext);
   const [activeStep, setActiveStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -139,8 +147,9 @@ export const Checkout = () => {
         listeDesProduits,
         listeDesPack,
       };
-      if (cnrpsCode) {
+      if (cnrpsCode && cnrpsPurchaseType) {
         payload.cnrpsCode = cnrpsCode;
+        payload.cnrpsPurchaseType = cnrpsPurchaseType;
       }
 
       const res = await axios.post(
@@ -163,6 +172,8 @@ export const Checkout = () => {
 
       setPromo(null);
       setCnrpsCode(null);
+      setCnrpsOptions([]);
+      setCnrpsPurchaseType(null);
 
       return { orderId: res.data.data._id, pricing };
     } catch (error) {
