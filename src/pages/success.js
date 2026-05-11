@@ -1,4 +1,3 @@
-import { Login } from 'components/Login/Login';
 import { Subscribe } from 'components/shared/Subscribe/Subscribe';
 import Payment from 'components/success/Payment';
 import { PublicLayout } from 'layout/PublicLayout';
@@ -10,7 +9,7 @@ const breadcrumbsData = [
   },
   {
     label: 'Paiement',
-    path: '/login',
+    path: '/success',
   },
 ];
 const Success = () => {

@@ -10,8 +10,6 @@ const Payment = () => {
   const [loading, setLoading] = useState(false);
   const [isPayed, setIsPayed] = useState(null);
 
-  console.log("orderId", orderId);
-
   const handleCheckout = async () => {
     if (!orderId) return; // Early return if orderId is undefined
     setLoading(true);
@@ -28,7 +26,6 @@ const Payment = () => {
       setOrderCode(res.data.data.orderCode);
       setIsPayed(true);
     } catch (error) {
-      console.error("Error checking payment:", error);
       setIsPayed(false);
     } finally {
       setLoading(false);

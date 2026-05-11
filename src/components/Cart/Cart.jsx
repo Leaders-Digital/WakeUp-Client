@@ -6,6 +6,12 @@ import Link from "next/link";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
 
+// Flat shipping fee. Kept in sync with server (SHIPPING_FEE_TND env var).
+const SHIPPING_FEE_TND = 8;
+
+// Returns a stable identifier for a cart line: variantId for variants, _id for packs.
+const lineKey = (item) => item.variantId || item._id;
+
 export const Cart = () => {
   const { cart, setCart } = useContext(CartContext);
   const {
@@ -19,7 +25,6 @@ export const Cart = () => {
     setCnrpsPurchaseType,
   } = useContext(PromoContext);
 
-  const [count, setCount] = useState(0);
   const [cnrpsInput, setCnrpsInput] = useState("");
   const [loadingCode, setLoadingCode] = useState(false);
   const socialLinks = [...socialData];
@@ -31,27 +36,27 @@ export const Cart = () => {
 
     return total + Number(prixFinal) * Number(item.quantity);
   }, 0);
-  const totalWithDiscount = promo
-    ? total - (total * promo) / 100 // Assuming promo is a percentage
-    : total;
+  const totalWithDiscount = promo ? total - (total * promo) / 100 : total;
+  const grandTotal = (totalWithDiscount + SHIPPING_FEE_TND).toFixed(2);
 
   const handleProductQuantity = (change, quantity, id, stock) => {
-    if (change === "increment" && quantity < stock) {
-      cart.find((item) => item.variantId === id).quantity = quantity + 1;
-      setCount(count + 1);
-    }
-    if (change === "decrement" && quantity > 1) {
-      cart.find((item) => item.variantId === id).quantity = quantity - 1;
-      setCount(count + 1);
-    }
+    setCart((prevCart) =>
+      prevCart.map((item) => {
+        if (lineKey(item) !== id) return item;
+        if (change === "increment" && quantity < stock) {
+          return { ...item, quantity: quantity + 1 };
+        }
+        if (change === "decrement" && quantity > 1) {
+          return { ...item, quantity: quantity - 1 };
+        }
+        return item;
+      })
+    );
   };
 
   const handleDelete = (id) => {
-    const updatedCart = cart.filter((item) => item.variantId !== id);
-    setCart(updatedCart); // Update cart in context
-    setCount(count + 1); // Trigger re-render
+    setCart((prevCart) => prevCart.filter((item) => lineKey(item) !== id));
   };
-
 
   const resetCnrpsState = () => {
     setPromo(null);
@@ -106,11 +111,6 @@ export const Cart = () => {
     );
   };
 
-
-  useEffect(() => {
-    setCart(cart);
-  }, [cart, count]);
-
   return (
     <>
       <Toaster />
@@ -139,19 +139,20 @@ export const Cart = () => {
                   <div className="cart-table__col"></div>
                 </div>
 
-                {cart.map((cart) => (
+                {cart.map((item) => (
                   <Card
                     onChangeQuantity={(change, quantity) =>
                       handleProductQuantity(
                         change,
                         quantity,
-                        cart.variantId,
-                        cart.stock
+                        lineKey(item),
+                        item.stock
                       )
                     }
-                    key={cart.id}
+                    key={lineKey(item)}
                     handleDelete={handleDelete}
-                    cart={cart}
+                    cart={item}
+                    lineId={lineKey(item)}
                   />
                 ))}
               </div>
@@ -167,6 +168,7 @@ export const Cart = () => {
                       type="text"
                       className="form-control"
                       placeholder="Numéro CNRPS"
+                      aria-label="Numéro CNRPS"
                       value={cnrpsInput}
                       onChange={(e) => setCnrpsInput(e.target.value)}
                     />
@@ -177,7 +179,7 @@ export const Cart = () => {
                         style={{ display: "flex", justifyContent: "center" }}
                       >
                         <div
-                          class="spinner"
+                          className="spinner"
                           style={{ width: "20px", height: "20px" }}
                         ></div>
                       </div>
@@ -255,7 +257,12 @@ export const Cart = () => {
                   <ul>
                     {socialLinks.map((social, index) => (
                       <li key={index}>
-                        <a href={social.path} target="_blank">
+                        <a
+                          href={social.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={social.name || "Lien social"}
+                        >
                           <i className={social.icon}></i>
                         </a>
                       </li>
@@ -272,11 +279,13 @@ export const Cart = () => {
                   Remise CNRPS (indicatif)
                   <span> {promo ? promo + "%" : "Non"}</span>
                 </div>
+                <div className="cart-bottom__total-goods">
+                  Livraison
+                  <span>{SHIPPING_FEE_TND.toFixed(2)} TND</span>
+                </div>
                 <div className="cart-bottom__total-num">
-                  total :
-                  <span>
-                    {promo ? totalWithDiscount : total.toFixed(2)} TND
-                  </span>
+                  Total :
+                  <span>{grandTotal} TND</span>
                 </div>
                 <Link href="/checkout">
                   <a className="btn">Passer à la caisse</a>
@@ -286,7 +295,7 @@ export const Cart = () => {
           </div>
           <img
             className="promo-video__decor js-img"
-            src="assets/img/promo-video__decor.jpg"
+            src="/assets/img/promo-video__decor.jpg"
             alt=""
           />
         </div>

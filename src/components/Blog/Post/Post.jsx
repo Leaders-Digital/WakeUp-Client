@@ -17,11 +17,9 @@ export const Post = () => {
         },
       });
       setBlog(res.data.data);
-      
     } catch (error) {
-      console.log(error);
+      // Silently fail — blog post will render as empty.
     }
-
   }
   useEffect(() => {
     getblogById();

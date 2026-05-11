@@ -10,10 +10,10 @@ const breadcrumbsData = [
   },
   {
     label: 'Nos Packs',
-    path: '/Packs',
+    path: '/packs',
   },
 ];
-const LoginPage = () => {
+const PacksPage = () => {
   return (
     <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle='Nos Packs'>
       <Packs />
@@ -22,4 +22,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default PacksPage;

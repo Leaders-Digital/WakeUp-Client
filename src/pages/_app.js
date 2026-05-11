@@ -1,10 +1,13 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import Head from "next/head";
 import "../styles/styles.scss";
-import Link from "next/link";
 import FacebookPixel from "lib/FacebookPixel";
 
 export const CartContext = createContext();
 export const PromoContext = createContext();
+
+const CART_STORAGE_KEY = "wakeup_cart_v1";
+
 const MyApp = ({ Component, pageProps }) => {
   const [promo, setPromo] = useState(null);
   /** Normalized CNRPS number when the cart passed server validation (sent again at checkout). */
@@ -14,9 +17,36 @@ const MyApp = ({ Component, pageProps }) => {
   /** Purchase type chosen by the buyer after eligibility was confirmed. */
   const [cnrpsPurchaseType, setCnrpsPurchaseType] = useState(null);
   const [cart, setCart] = useState([]);
+  const [cartHydrated, setCartHydrated] = useState(false);
 
-  // console.log = () => {};
-  // console.error = () => {};
+  // Hydrate cart from localStorage on mount so it survives page refreshes.
+  useEffect(() => {
+    try {
+      if (typeof window === "undefined") return;
+      const raw = window.localStorage.getItem(CART_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          setCart(parsed);
+        }
+      }
+    } catch (err) {
+      // Ignore corrupted storage; start with empty cart.
+    } finally {
+      setCartHydrated(true);
+    }
+  }, []);
+
+  // Persist cart to localStorage on every change (after initial hydration).
+  useEffect(() => {
+    if (!cartHydrated) return;
+    try {
+      if (typeof window === "undefined") return;
+      window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    } catch (err) {
+      // Quota exceeded or storage disabled — ignore.
+    }
+  }, [cart, cartHydrated]);
 
   return (
     <PromoContext.Provider
@@ -32,69 +62,16 @@ const MyApp = ({ Component, pageProps }) => {
       }}
     >
       <CartContext.Provider value={{ cart, setCart }}>
-        <title>Wakeup Cosmetics</title>
+        <Head>
+          <title>Wakeup Cosmetics</title>
+          <meta
+            name="description"
+            content="Maquillage tunisien testé dermatologiquement — livraison en 24h. Découvrez les produits Wakeup Cosmetics."
+          />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </Head>
         <FacebookPixel />
         <Component {...pageProps} />
-        {/* Cart fixed to top-right corner */}
-        <div
-          className="cardIcon"
-          style={
-            cart.length > 0
-              ? {
-                  display: "block",
-                  padding: "10px",
-                  position: "fixed", // Change to 'fixed' for consistent positioning
-                  zIndex: "1000",
-                  bottom: "0",
-                  right: "0",
-                  margin: "30px",
-                  borderRadius: "50%",
-                  height: "50px",
-                  width: "50px",
-                  boxShadow:
-                    "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px",
-                }
-              : {
-                  display: "none",
-                  padding: "10px",
-                  position: "fixed", // Change to 'fixed' for consistent positioning
-                  zIndex: "1000",
-                  bottom: "0",
-                  right: "0",
-                  margin: "30px",
-                  borderRadius: "50%",
-                  height: "50px",
-                  width: "50px",
-                  boxShadow:
-                    "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px",
-                }
-          }
-        >
-          <li style={{ position: "relative" }}>
-            <Link href="/cart">
-              <a>
-                <i className="icon-cart" style={{ fontSize: "30px" }}></i>
-                <span
-                  style={{
-                    // camelCase property names
-                    fontWeight: "700",
-                    fontSize: "16px",
-                    color: "#de86a0",
-                    position: "absolute",
-                    backgroundColor: "white",
-                    border: "2px solid #eee",
-                    padding: "5px",
-                    borderRadius: "50%",
-                    top: "-10px",
-                    transitionDuration: "0.5s",
-                  }}
-                >
-                  {cart.length ?? "0"}
-                </span>
-              </a>
-            </Link>
-          </li>
-        </div>
       </CartContext.Provider>
     </PromoContext.Provider>
   );

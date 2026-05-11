@@ -3,27 +3,21 @@ import Link from "next/link";
 import axios from "axios";
 import { getImageUrl } from "utils/imageUrl";
 
-export const Banner = ({ onLoad }) => {
-  const [backgroundImage, setBackgroundImage] = useState(""); // State to store the background image
+export const Banner = () => {
+  const [backgroundImage, setBackgroundImage] = useState("");
   const [banners, setBanners] = useState({});
-  const [imageLoaded, setImageLoaded] = useState(false);
 
-  // Function to fetch the banner data
   const getBanner = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`, // Data being sent in the body of the request
+        `${process.env.NEXT_PUBLIC_API_KEY}api/banner/object`,
         {
-          headers: {
-            "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
-          },
+          headers: { "x-api-key": process.env.NEXT_PUBLIC_KEY },
         }
       );
-      setBanners(response.data); // Set banners with the response data
-      // onLoad will be called when image is loaded in the useEffect
+      setBanners(response.data);
     } catch (error) {
-      console.log(error);
-      if (onLoad) onLoad(); // Call onLoad even on error to prevent infinite loading
+      // Silently fail — fallback colors will show.
     }
   };
 
@@ -32,61 +26,26 @@ export const Banner = ({ onLoad }) => {
   }, []);
 
   useEffect(() => {
-      const handleResize = () => {
-        // Ensure that the path is properly formatted with forward slashes
-        const mainBannerUrl = banners.mainBanner
-          ? getImageUrl(banners.mainBanner.replace(/\\/g, "/"))
-          : ``;
+    const pickBanner = () => {
+      const mainBannerUrl = banners.mainBanner
+        ? getImageUrl(banners.mainBanner.replace(/\\/g, "/"))
+        : "";
+      const miniMainBannerUrl = banners.miniMainBanner
+        ? getImageUrl(banners.miniMainBanner.replace(/\\/g, "/"))
+        : "";
 
-        const miniMainBannerUrl = banners.miniMainBanner
-          ? getImageUrl(banners.miniMainBanner.replace(/\\/g, "/"))
-          : ``;
-
-      // Use miniMainBanner if screen width is less than 480px, otherwise use mainBanner
-      if (window.innerWidth < 480) {
+      if (typeof window === "undefined") return;
+      if (window.innerWidth < 480 && miniMainBannerUrl) {
         setBackgroundImage(`url(${miniMainBannerUrl})`);
-      } else {
+      } else if (mainBannerUrl) {
         setBackgroundImage(`url(${mainBannerUrl})`);
       }
     };
 
-    // Set initial image based on window size
-    handleResize();
-
-    // Preload the image and call onLoad when it's loaded
-    if ((banners.mainBanner || banners.miniMainBanner) && !imageLoaded) {
-      const imageUrl = window.innerWidth < 480 && banners.miniMainBanner
-        ? getImageUrl(banners.miniMainBanner.replace(/\\/g, "/"))
-        : banners.mainBanner
-        ? getImageUrl(banners.mainBanner.replace(/\\/g, "/"))
-        : null;
-      
-      if (imageUrl) {
-        const img = new Image();
-        img.onload = () => {
-          setImageLoaded(true);
-          if (onLoad) onLoad();
-        };
-        img.onerror = () => {
-          // Call onLoad even on error to prevent infinite loading
-          setImageLoaded(true);
-          if (onLoad) onLoad();
-        };
-        img.src = imageUrl;
-      } else {
-        setImageLoaded(true);
-        if (onLoad) onLoad();
-      }
-    }
-
-    // Listen for resize events
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup the event listener on component unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [banners]); // Re-run this effect whenever banners change
+    pickBanner();
+    window.addEventListener("resize", pickBanner);
+    return () => window.removeEventListener("resize", pickBanner);
+  }, [banners]);
 
   return (
     <>
@@ -100,12 +59,21 @@ export const Banner = ({ onLoad }) => {
             <h1 className="main-text" style={{ color: "#cf7902" }}>
               QUI VOUS FONT BRILLER.
             </h1>
+            <p
+              style={{
+                fontWeight: 600,
+                fontSize: 16,
+                marginBottom: 8,
+              }}
+            >
+              Maquillage tunisien testé dermatologiquement — livraison en 24h,
+              paiement à la livraison.
+            </p>
             <p>
               Sublimez votre beauté avec des couleurs vibrantes et des textures
               innovantes. Maquillage longue tenue, pigments intenses, formules
               ultra-confortables – pour un look qui vous ressemble !
             </p>
-      
 
             <Link href="/shop">
               <a className="btn" style={{ background: "#D47E00" }}>
@@ -118,6 +86,7 @@ export const Banner = ({ onLoad }) => {
           className="main-block__decor"
           src="/assets/img/main-block-decor.png"
           alt=""
+          role="presentation"
         /> 
       </div>
       {/* <!-- MAIN BLOCK EOF --> */}

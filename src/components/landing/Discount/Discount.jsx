@@ -19,7 +19,7 @@ export const Discount = () => {
       );
       setBanners(response.data);
     } catch (error) {
-      console.log(error);
+      // Silently fail — fallback banner will be used.
     }
   };
 

@@ -8,7 +8,6 @@ import toast, { Toaster } from "react-hot-toast";
 
 import { CartContext, PromoContext } from "pages/_app";
 import axios from "axios";
-import { redirect } from "next/dist/server/api-utils";
 
 const detailBlocks = [
   {
@@ -97,41 +96,8 @@ export const Checkout = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  // CheckoutStep1 validates internally and only calls onNext when the form is valid.
   const handleNext = () => {
-    const {
-      nom,
-      prenom,
-      email,
-      numTelephone,
-      ville,
-      adresse,
-      gouvernorat,
-      codePostal,
-      note,
-    } = data;
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (
-      !nom ||
-      !prenom ||
-      !numTelephone ||
-      !ville ||
-      !adresse ||
-      !gouvernorat ||
-      !codePostal
-    ) {
-      // Trigger a toast notification if any field is empty
-      toast.error("Veuillez remplir tous les champs.");
-      return;
-    }
-
-    if (!email || !emailRegex.test(email)) {
-      // Trigger a toast notification if the email is missing or invalid
-      toast.error("Veuillez entrer une adresse e-mail valide.");
-      return;
-    }
-
     setActiveStep(activeStep + 1);
   };
 
@@ -177,7 +143,6 @@ export const Checkout = () => {
 
       return { orderId: res.data.data._id, pricing };
     } catch (error) {
-      console.log(error);
       setLoading(false);
       toast.error(
         error.response?.data?.message || "Impossible de créer la commande."
@@ -193,63 +158,30 @@ export const Checkout = () => {
     try {
       const created = await handleCreateOrder("pay");
       if (!created) return;
-      const { orderId: orderid, pricing } = created;
-      const merchandiseTotal = Number(
-        pricing?.prixTotal ?? totalWithDiscount
-      );
-      let totalwithDilevery = (merchandiseTotal + 8) * 1000;
-
-      const paymentData = {
-        receiverWalletId: "6721f70f82402c76c27e7fd7",
-        token: "TND",
-        amount: totalwithDilevery,
-        type: "immediate",
-        description: "payment description",
-        acceptedPaymentMethods: ["wallet", "bank_card", "e-DINAR"],
-        lifespan: 10,
-        checkoutForm: true,
-        addPaymentFeesToAmount: true,
-        firstName: data.prenom,
-        lastName: data.nom,
-        phoneNumber: data.numTelephone,
-        email: data.email,
-        orderId: orderid,
-        webhook: `https://merchant.tech/api/notification_payment`,
-        silentWebhook: true,
-        successUrl: `${baseURL}/success?orderId=${orderid}`,
-        failUrl: "https://gateway.sandbox.konnect.network/payment-failure",
-        theme: "light",
-      };
+      const { orderId: orderid } = created;
 
       const res = await axios.post(
-        `https://api.konnect.network/api/v2/payments/init-payment`,
-        paymentData,
+        `${process.env.NEXT_PUBLIC_API_KEY}api/payment/init`,
+        { orderId: orderid, baseUrl: baseURL },
         {
           headers: {
-            "x-api-key": "6721f70f82402c76c27e7fcf:FwiPR9xkOsuQnHrWWc0Db0uvB",
+            "x-api-key": process.env.NEXT_PUBLIC_KEY,
           },
         }
       );
 
-      if (res.data.payUrl) {
-        await axios.put(
-          `${process.env.NEXT_PUBLIC_API_KEY}api/order/add-payref/${orderid}`,
-          { paymentRef: res.data.paymentRef },
-          {
-            headers: {
-              "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
-            },
-          }
-        );
+      if (res.data?.payUrl) {
         router.push(res.data.payUrl);
-        // setLoading(false);
       } else {
-        console.error("Payment URL not found in response");
+        toast.error("Lien de paiement indisponible. Veuillez réessayer.");
       }
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
+      toast.error(
+        error?.response?.data?.message ||
+          "Échec de l'initialisation du paiement."
+      );
     }
   };
 

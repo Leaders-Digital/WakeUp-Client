@@ -12,7 +12,7 @@ const breadcrumbsData = [
     path: '/faq',
   },
 ];
-const CartPage = () => {
+const FaqPage = () => {
   return (
     <PublicLayout breadcrumb={breadcrumbsData} breadcrumbTitle='FAQ'>
       <Faq />
@@ -21,4 +21,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default FaqPage;

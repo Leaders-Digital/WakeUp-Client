@@ -1,49 +1,32 @@
 import { ProductsCarousel } from "components/Product/Products/ProductsCarousel";
 import { SectionTitle } from "components/shared/SectionTitle/SectionTitle";
 import { useEffect, useState } from "react";
-import productData from "data/product/product";
 import axios from "axios";
 
-export const Trending = ({ onLoad }) => {
+const SKELETON_PLACEHOLDERS = [0, 1, 2, 3];
+
+export const Trending = () => {
   const [productData, setProductData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("FACE");
-  const [initialLoad, setInitialLoad] = useState(false);
 
   const getProducts = async () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/product/all/home`, // Correctly formatted URL
+        `${process.env.NEXT_PUBLIC_API_KEY}api/product/all/home`,
         {
-          params: {
-            categorie: selectedCategory, // Query parameters
-          },
-          headers: {
-            'x-api-key': process.env.NEXT_PUBLIC_KEY, // API key in headers
-          },
+          params: { categorie: selectedCategory },
+          headers: { "x-api-key": process.env.NEXT_PUBLIC_KEY },
         }
       );
-  
-      setProductData(res.data.products);
-      setLoading(false);
-      
-      // Call onLoad only on initial load
-      if (!initialLoad && onLoad) {
-        setInitialLoad(true);
-        onLoad();
-      }
+      setProductData(res.data.products || []);
     } catch (error) {
-      console.error(error);
-      setLoading(false); // Ensure loading is set to false even on error
-      // Call onLoad even on error to prevent infinite loading
-      if (!initialLoad && onLoad) {
-        setInitialLoad(true);
-        onLoad();
-      }
+      setProductData([]);
+    } finally {
+      setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     getProducts();
@@ -95,7 +78,32 @@ export const Trending = ({ onLoad }) => {
               ))}
             </ul>
             <div className="products-items">
-              <ProductsCarousel products={productData} />
+              {loading ? (
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns:
+                      "repeat(auto-fit, minmax(220px, 1fr))",
+                    gap: 16,
+                    padding: "0 20px",
+                  }}
+                >
+                  {SKELETON_PLACEHOLDERS.map((i) => (
+                    <div
+                      key={i}
+                      style={{
+                        background: "#f4f4f4",
+                        borderRadius: 8,
+                        height: 280,
+                        animation: "wakeupSkeletonPulse 1.4s ease-in-out infinite",
+                      }}
+                    />
+                  ))}
+                  <style>{`@keyframes wakeupSkeletonPulse { 0%, 100% { opacity: 0.6 } 50% { opacity: 1 } }`}</style>
+                </div>
+              ) : (
+                <ProductsCarousel products={productData} />
+              )}
             </div>
           </div>
         </div>

@@ -14,29 +14,29 @@ export const Header = () => {
   const [promo, setPromo] = useState(true);
   const [fixedNav, setFixedNav] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
-  const [showSearch, setShowSearch] = useState(false); // State to control search visibility
-  const [searchQuery, setSearchQuery] = useState(""); // State to control input text
-  const [searchResults, setSearchResults] = useState([]); // State to store search results
-  const [height, width] = useWindowSize();
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchTouched, setSearchTouched] = useState(false);
+  const [height] = useWindowSize();
   const footerSocial = [...socialData];
-  const searchRef = useRef(null); // Ref for the search container
+  const searchRef = useRef(null);
+  const requestIdRef = useRef(0);
 
-  // For Fixed nav
+  const cartItemCount = cart.reduce(
+    (sum, item) => sum + (Number(item.quantity) || 0),
+    0
+  );
+
   useEffect(() => {
-    window.addEventListener("scroll", isSticky);
-    return () => {
-      window.removeEventListener("scroll", isSticky);
+    const isSticky = () => {
+      const scrollTop = window.scrollY;
+      setFixedNav(scrollTop > 10);
     };
-  });
-
-  const isSticky = () => {
-    const scrollTop = window.scrollY;
-    if (scrollTop > 10) {
-      setFixedNav(true);
-    } else {
-      setFixedNav(false);
-    }
-  };
+    window.addEventListener("scroll", isSticky);
+    return () => window.removeEventListener("scroll", isSticky);
+  }, []);
 
   useEffect(() => {
     if (openMenu) {
@@ -50,47 +50,65 @@ export const Header = () => {
     }
   }, [openMenu, height]);
 
-  // Effect to handle click outside the search input
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (searchRef.current && !searchRef.current.contains(event.target)) {
-  //       setShowSearch(false);
-  //       setSearchQuery(""); // Clear the search query when hiding
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-  const getProducts = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_KEY}api/product/all`,
-        {
-          params: {
-            search: searchQuery,
-          },
-          headers: {
-            "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
-          },
-        }
-      );
-      setSearchResults(res.data.products);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // Close search dropdown when clicking outside the container.
   useEffect(() => {
-    getProducts();
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSearch(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Debounced search: only fire the API call 300ms after the user stops typing,
+  // and ignore stale responses if a new request started in the meantime.
+  useEffect(() => {
+    if (!searchQuery || !searchQuery.trim()) {
+      setSearchResults([]);
+      setSearchLoading(false);
+      return undefined;
+    }
+
+    setSearchLoading(true);
+    const currentRequestId = ++requestIdRef.current;
+
+    const timer = setTimeout(async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_KEY}api/product/all`,
+          {
+            params: { search: searchQuery, limit: 8 },
+            headers: { "x-api-key": process.env.NEXT_PUBLIC_KEY },
+          }
+        );
+        if (currentRequestId === requestIdRef.current) {
+          setSearchResults(res.data.products || []);
+          setSearchLoading(false);
+        }
+      } catch (error) {
+        if (currentRequestId === requestIdRef.current) {
+          setSearchResults([]);
+          setSearchLoading(false);
+        }
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
   }, [searchQuery]);
+
   const handleSearchChange = (event) => {
+    setSearchTouched(true);
     setSearchQuery(event.target.value);
   };
 
   const onConfirme = () => {
     setSearchQuery("");
+    setShowSearch(false);
   };
+
+  const hasQuery = Boolean(searchQuery && searchQuery.trim());
+  const showResultsDropdown = showSearch && hasQuery && searchTouched;
 
   return (
     <>
@@ -117,7 +135,12 @@ export const Header = () => {
                 flex: "1",
               }}
             >
-              <span href="tel:+21626644400">+216 27 246 374</span>
+              <a
+                href="tel:+21627246374"
+                style={{ color: "black", textDecoration: "none" }}
+              >
+                +216 27 246 374
+              </a>
             </div>
             <span style={{ flex: "1", textAlign: "center" }}>
               Commandez en un clic, 100 % en ligne !
@@ -133,25 +156,39 @@ export const Header = () => {
             >
               {footerSocial.map((social, index) => (
                 <li key={index}>
-                  <a href={social.path}>
+                  <a
+                    href={social.path}
+                    aria-label={social.name || "Lien social"}
+                  >
                     <i className={social.icon}></i>
                   </a>
                 </li>
               ))}
             </ul>
-            <i
+            <button
+              type="button"
               onClick={() => setPromo(false)}
+              aria-label="Fermer la barre promo"
               className="header-top-close js-header-top-close icon-close"
-              style={{ marginLeft: "10px" }}
-            ></i>
+              style={{
+                marginLeft: "10px",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+              }}
+            />
           </div>
         )}
 
         <div className={`header-content ${fixedNav ? "fixed" : ""}`}>
           <div className="heder-logo">
             <Link href="/">
-              <a>
-                <img src={header.logo} alt="" style={{ width: "120px" }} />
+              <a aria-label="Accueil Wakeup Cosmetics">
+                <img
+                  src={header.logo}
+                  alt="Wakeup Cosmetics"
+                  style={{ width: "120px" }}
+                />
               </a>
             </Link>
           </div>
@@ -170,6 +207,7 @@ export const Header = () => {
                     value={searchQuery}
                     onChange={handleSearchChange}
                     onFocus={() => setShowSearch(true)}
+                    aria-label="Rechercher un produit"
                     style={{
                       padding: "5px",
                       border: "3px solid #FCEDEA",
@@ -182,22 +220,92 @@ export const Header = () => {
                     placeholder="Entrez votre clé de recherche ..."
                   />
 
-                  <div className="search-results">
-                    {searchResults.map((result, index) => (
-                      <OneResult
-                        key={index}
-                        result={result}
-                        onConfirme={onConfirme}
-                      />
-                    ))}
-                  </div>
+                  {showResultsDropdown && (
+                    <div className="search-results">
+                      {searchLoading ? (
+                        <p style={{ textAlign: "center", color: "#999" }}>
+                          Recherche en cours...
+                        </p>
+                      ) : searchResults.length === 0 ? (
+                        <p style={{ textAlign: "center", color: "#999" }}>
+                          Aucun produit trouvé
+                        </p>
+                      ) : (
+                        searchResults.map((result, index) => (
+                          <OneResult
+                            key={result._id || index}
+                            result={result}
+                            onConfirme={onConfirme}
+                          />
+                        ))
+                      )}
+                    </div>
+                  )}
                 </div>
-                <a onClick={() => setShowSearch(!showSearch)}>
+                <button
+                  type="button"
+                  onClick={() => setShowSearch(!showSearch)}
+                  aria-label={
+                    showSearch ? "Fermer la recherche" : "Ouvrir la recherche"
+                  }
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    padding: 0,
+                    cursor: "pointer",
+                  }}
+                >
                   <i
                     className="icon-search"
-                    style={{ cursor: "pointer", fontSize: "23px" }}
+                    style={{ fontSize: "23px" }}
+                    aria-hidden="true"
                   ></i>
-                </a>
+                </button>
+              </li>
+              <li
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: "15px",
+                }}
+              >
+                <Link href="/cart">
+                  <a
+                    aria-label={`Panier (${cartItemCount} article${
+                      cartItemCount === 1 ? "" : "s"
+                    })`}
+                    style={{ position: "relative", display: "inline-block" }}
+                  >
+                    <i
+                      className="icon-cart"
+                      style={{ fontSize: "23px" }}
+                      aria-hidden="true"
+                    ></i>
+                    {cartItemCount > 0 && (
+                      <span
+                        style={{
+                          position: "absolute",
+                          top: "-8px",
+                          right: "-10px",
+                          backgroundColor: "#D47E00",
+                          color: "white",
+                          borderRadius: "50%",
+                          minWidth: "18px",
+                          height: "18px",
+                          fontSize: "11px",
+                          fontWeight: 700,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          padding: "0 4px",
+                          lineHeight: 1,
+                        }}
+                      >
+                        {cartItemCount}
+                      </span>
+                    )}
+                  </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -211,6 +319,7 @@ export const Header = () => {
                 value={searchQuery}
                 onChange={handleSearchChange}
                 onFocus={() => setShowSearch(true)}
+                aria-label="Rechercher un produit"
                 style={{
                   padding: "5px",
                   border: "3px solid #FCEDEA",
@@ -222,35 +331,109 @@ export const Header = () => {
                 }}
                 placeholder="Trouvez votre produit ..."
               />
-
-              <div className="search-results">
-                {searchResults.map((result, index) => (
-                  <OneResult
-                    key={index}
-                    result={result}
-                    onConfirme={onConfirme}
-                  />
-                ))}
-              </div>
+              {showResultsDropdown && (
+                <div className="search-results">
+                  {searchLoading ? (
+                    <p style={{ textAlign: "center", color: "#999" }}>
+                      Recherche en cours...
+                    </p>
+                  ) : searchResults.length === 0 ? (
+                    <p style={{ textAlign: "center", color: "#999" }}>
+                      Aucun produit trouvé
+                    </p>
+                  ) : (
+                    searchResults.map((result, index) => (
+                      <OneResult
+                        key={result._id || index}
+                        result={result}
+                        onConfirme={onConfirme}
+                      />
+                    ))
+                  )}
+                </div>
+              )}
             </div>
-            <a onClick={() => setShowSearch(!showSearch)}>
+            <button
+              type="button"
+              onClick={() => setShowSearch(!showSearch)}
+              aria-label={
+                showSearch ? "Fermer la recherche" : "Ouvrir la recherche"
+              }
+              style={{
+                background: "transparent",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+              }}
+            >
               <i
                 className="icon-search"
-                style={{ cursor: "pointer", color: " #D47E00" }}
+                style={{ color: " #D47E00" }}
+                aria-hidden="true"
               ></i>
-            </a>
+            </button>
+            <Link href="/cart">
+              <a
+                aria-label={`Panier (${cartItemCount} article${
+                  cartItemCount === 1 ? "" : "s"
+                })`}
+                style={{
+                  position: "relative",
+                  display: "inline-block",
+                  marginLeft: "10px",
+                }}
+              >
+                <i
+                  className="icon-cart"
+                  style={{ color: "#D47E00", fontSize: "22px" }}
+                  aria-hidden="true"
+                ></i>
+                {cartItemCount > 0 && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: "-8px",
+                      right: "-10px",
+                      backgroundColor: "#D47E00",
+                      color: "white",
+                      borderRadius: "50%",
+                      minWidth: "18px",
+                      height: "18px",
+                      fontSize: "11px",
+                      fontWeight: 700,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "0 4px",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {cartItemCount}
+                  </span>
+                )}
+              </a>
+            </Link>
           </div>
 
-          <div
+          <button
+            type="button"
             onClick={() => setOpenMenu(!openMenu)}
+            aria-label={openMenu ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={openMenu}
             className={
               openMenu ? "btn-menu js-btn-menu active" : "btn-menu js-btn-menu"
             }
+            style={{
+              background: "transparent",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+            }}
           >
             {[1, 2, 3].map((i) => (
               <span key={i}>&nbsp;</span>
             ))}
-          </div>
+          </button>
         </div>
       </header>
 
@@ -260,7 +443,6 @@ export const Header = () => {
           display: flex;
           align-items: center;
           flex-direction: column;
-
           overflow: hidden;
           transition: width 0.3s ease-in-out;
         }
@@ -277,7 +459,7 @@ export const Header = () => {
         }
 
         .search-results {
-          display: ${showSearch && searchQuery ? "block" : "none"};
+          display: block;
           position: absolute;
           top: 40px;
           left: 0;

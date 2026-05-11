@@ -5,12 +5,12 @@ import { PublicLayout } from "layout/PublicLayout";
 
 const breadcrumbsData = [
   {
-    label: "Acceuil",
+    label: "Accueil",
     path: "/",
   },
   {
     label: "Détails de livraison",
-    path: "/policy",
+    path: "/livraison",
   },
 ];
 const Livraison = () => {

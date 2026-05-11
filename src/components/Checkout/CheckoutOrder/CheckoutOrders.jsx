@@ -1,37 +1,38 @@
-import productData from 'data/product/product';
 import { CartContext, PromoContext } from 'pages/_app';
 import { useContext } from 'react';
 import { Card } from './Card/Card';
+
+const SHIPPING_FEE_TND = 8;
 
 export const CheckoutOrders = ({ total }) => {
   const { cart } = useContext(CartContext);
   const { promo } = useContext(PromoContext);
 
-
   const totalWithDiscount = promo
-  ? total - (total * promo) / 100 // Assuming promo is a percentage
-  : total;
-  
+    ? total - (total * promo) / 100
+    : total;
+  const grandTotal = (totalWithDiscount + SHIPPING_FEE_TND).toFixed(2);
+
   const getLoadingDate = () => {
     const today = new Date();
     const futureDate = new Date(today);
-    futureDate.setDate(today.getDate() + 2); // Add 2 days
-    return futureDate.toLocaleDateString(); // Format as dd/mm/yyyy or mm/dd/yyyy depending on locale
+    futureDate.setDate(today.getDate() + 2);
+    return futureDate.toLocaleDateString();
   };
- 
-  const loadingDate = getLoadingDate(); // Get the dynamic loading date
+
+  const loadingDate = getLoadingDate();
   return (
     <>
       <div className='checkout-order'>
         <h5>Votre commande</h5>
-        {cart.map((order) => (
-          <Card key={order.id} order={order} />
+        {cart.map((order, idx) => (
+          <Card key={order.variantId || order._id || idx} order={order} />
         ))}
       </div>
       <div className='cart-bottom__total'>
         <div className='cart-bottom__total-goods'>
           Produits pour
-          <span>{total} TND</span>
+          <span>{Number(total).toFixed(2)} TND</span>
         </div>
         <div className='cart-bottom__total-promo'>
           Réduction CNRPS (indicatif)
@@ -42,11 +43,11 @@ export const CheckoutOrders = ({ total }) => {
           <span className='cart-bottom__total-delivery-date'>
             {loadingDate}
           </span>
-          <span>8 TND</span>
+          <span>{SHIPPING_FEE_TND.toFixed(2)} TND</span>
         </div>
         <div className='cart-bottom__total-num'>
-          total:
-          <span> {promo ? (totalWithDiscount + 8 ).toFixed(2) : 8 + Number(total.toFixed(2))  } TND </span>
+          Total :
+          <span> {grandTotal} TND</span>
         </div>
       </div>
     </>

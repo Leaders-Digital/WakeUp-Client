@@ -12,8 +12,8 @@ import { useRouter } from "next/router";
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
 const options = [
-  { value: "asc", label: "Du plus cher au moins cher" },
-  { value: "desc", label: "Du moins cher au plus cher" },
+  { value: "asc", label: "Du moins cher au plus cher" },
+  { value: "desc", label: "Du plus cher au moins cher" },
 ];
 export const Shop = ({ setTitle }) => {
   const router = useRouter();
@@ -85,12 +85,11 @@ export const Shop = ({ setTitle }) => {
           },
         }
       );
-      console.log(res.data);
-
       setCategories(res.data);
-    } catch (error) {}
+    } catch (error) {
+      // Silently fail — categories will remain empty.
+    }
   };
-  console.log("categoriesToGoDown", categoriesToGoDown);
 
   const getProducts = async () => {
     try {
@@ -100,16 +99,17 @@ export const Shop = ({ setTitle }) => {
         `${process.env.NEXT_PUBLIC_API_KEY}api/product/all`,
         {
           params: {
-            page: page, // Send current page as a query parameter
-            limit: 12, // Send limit as a query parameter
+            page,
+            limit: 12,
             subCategory: selectedCategory,
             solde: filter.isSale,
-            search: search,
-            sortByPrice: sortByPrice,
+            isNew: filter.isNew,
+            search,
+            sortByPrice,
             searchArray: objecttofind[mainCategory],
           },
           headers: {
-            "x-api-key": process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+            "x-api-key": process.env.NEXT_PUBLIC_KEY,
           },
         }
       );
@@ -141,12 +141,6 @@ export const Shop = ({ setTitle }) => {
 
   useEffect(() => {
     getProducts();
-  }, []);
-
-  useEffect(() => {
-    getProducts();
-
-    // Cleanup on uount or when search changes
   }, [page, selectedCategory, filter, sortByPrice, search]);
 
   useEffect(() => {
@@ -296,7 +290,7 @@ export const Shop = ({ setTitle }) => {
               </div>
               {loading ? (
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <div class="spinner"></div>
+                  <div className="spinner"></div>
                 </div>
               ) : productData.length ? (
                 <>

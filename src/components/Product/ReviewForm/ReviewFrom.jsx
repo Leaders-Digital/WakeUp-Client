@@ -16,28 +16,33 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
     setRating(rate);
   };
 
-  const handleSendReview = async (e) => {
+  const handleSendReview = async () => {
+    if (!data.name?.trim() || !data.email?.trim() || !data.comment?.trim()) {
+      toast.error("Veuillez remplir tous les champs.");
+      return;
+    }
+    if (rating <= 0) {
+      toast.error("Veuillez attribuer une note.");
+      return;
+    }
     try {
-      setData({
-        name: "",
-        email: "",
-        comment: "",
-      });
-      setRating(0);
-      await axios.post(`${process.env.NEXT_PUBLIC_API_KEY}api/review/add-review`, {
-        ...data,
-        rating: rating / 20,
-        productId,
-      },  // Data being sent in the body of the request
-      {
-        headers: {
-          'x-api-key': process.env.NEXT_PUBLIC_KEY, // Send the API key in the request header
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_KEY}api/review/add-review`,
+        {
+          ...data,
+          rating: rating / 20,
+          productId,
         },
-      });
-      getProduct(productId);
+        {
+          headers: { "x-api-key": process.env.NEXT_PUBLIC_KEY },
+        }
+      );
+      setData({ name: "", email: "", comment: "" });
+      setRating(0);
+      if (getProduct) getProduct(productId);
       toast.success("Votre avis a été envoyé avec succès");
     } catch (error) {
-      console.log(error);
+      toast.error("Impossible d'envoyer l'avis. Réessayez plus tard.");
     }
   };
 
@@ -70,6 +75,7 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
             type="text"
             className="form-control"
             placeholder="Entrez votre nom"
+            aria-label="Votre nom"
             name="name"
             value={data.name}
             onChange={handleChange}
@@ -80,6 +86,7 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
             type="email"
             className="form-control"
             placeholder="Entrez votre adresse email"
+            aria-label="Votre adresse email"
             name="email"
             value={data.email}
             onChange={handleChange}
@@ -89,17 +96,13 @@ export const ReviewFrom = ({ productId, getProduct, productimage }) => {
           <textarea
             className="form-control"
             placeholder="Entrez votre avis"
+            aria-label="Votre avis"
             name="comment"
             value={data.comment}
             onChange={handleChange}
           ></textarea>
         </div>
-        <button
-          className="btn"
-          onClick={() => {
-            handleSendReview();
-          }}
-        >
+        <button type="button" className="btn" onClick={handleSendReview}>
           Envoyer
         </button>
       </div>

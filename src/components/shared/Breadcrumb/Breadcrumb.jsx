@@ -22,7 +22,7 @@ export const Breadcrumb = ({ breadcrumb, title, description }) => {
       );
       setBanners(response.data);
     } catch (error) {
-      console.log(error);
+      // Silently fail — fallback banner will be used.
     }
   };
 

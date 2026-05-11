@@ -137,7 +137,7 @@ export const Packs = () => {
               </div>
               {loading ? (
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <div class="spinner"></div>
+                  <div className="spinner"></div>
                 </div>
               ) : productData.length ? (
                 <>

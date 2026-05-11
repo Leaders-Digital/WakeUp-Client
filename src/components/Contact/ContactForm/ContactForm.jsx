@@ -35,8 +35,6 @@ export const ContactFrom = () => {
       toast.success("Votre message a été envoyé avec succès");
     } catch (error) {
       toast.error("Problème lors de l'envoi du message");
-
-      console.log(error);
     }
   };
   const getBanner = async () => {
@@ -51,7 +49,7 @@ export const ContactFrom = () => {
       );
       setBanner(response.data);
     } catch (error) {
-      console.log(error);
+      // Silently fail — fallback banner will be used.
     }
   };
 

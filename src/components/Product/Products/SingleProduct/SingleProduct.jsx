@@ -55,20 +55,20 @@ export const SingleProduct = ({
                   : getImageUrl(mainPicture)
               }
               className="js-img"
-              alt=""
+              alt={nom || "Produit Wakeup Cosmetics"}
+              loading="lazy"
             />
             <div className="products-item__hover">
               <Link href={getProductUrl(product)}>
-                <a>
-                  <i className="icon-search"></i>
+                <a aria-label={`Voir ${nom}`}>
+                  <i className="icon-search" aria-hidden="true"></i>
                 </a>
               </Link>
               {!enRupture ? (
                 <div className="products-item__hover-options">
-                  {/* <button className="addList" onClick={() => onAddToWish(id)}>
-                <i className="icon-heart"></i>
-              </button> */}
                   <button
+                    type="button"
+                    aria-label={`Ajouter ${nom} au panier`}
                     disabled={addedInCart}
                     className={`addList ${addedInCart ? "added" : ""}`}
                     onClick={() => {
@@ -103,7 +103,7 @@ export const SingleProduct = ({
                       }
                     }}
                   >
-                    <i className="icon-cart"></i>
+                    <i className="icon-cart" aria-hidden="true"></i>
                   </button>
                 </div>
               ) : null}

@@ -8,7 +8,6 @@ export const CheckoutStep2 = ({
   loading,
 }) => {
   const [payment, setPayment] = useState("cash");
-  console.log(payment);
 
   const handleOrder = () => {
     if (payment === "cash") {
