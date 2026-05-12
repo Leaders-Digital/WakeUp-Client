@@ -1,7 +1,7 @@
 import { Card } from "./Card/Card";
 import socialData from "data/social";
 import { CartContext, PromoContext } from "pages/_app";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
@@ -129,40 +129,54 @@ export const Cart = () => {
       ) : (
         <div className="cart">
           <div className="wrapper">
-            <div className="cart-table">
-              <div className="cart-table__box">
-                <div className="cart-table__row cart-table__row-head">
-                  <div className="cart-table__col">Produit</div>
-                  <div className="cart-table__col">Prix</div>
-                  <div className="cart-table__col">Quantité</div>
-                  <div className="cart-table__col">Total</div>
-                  <div className="cart-table__col"></div>
-                </div>
+            <div
+              className="cart-table-scroll"
+              role="region"
+              aria-label="Détail des articles du panier"
+            >
+              <div className="cart-table">
+                <div className="cart-table__box">
+                  <div className="cart-table__row cart-table__row-head cart-line-head">
+                    <div className="cart-line__section cart-line__section--product">
+                      Produit
+                    </div>
+                    <div className="cart-line__section cart-line__section--price">
+                      Prix
+                    </div>
+                    <div className="cart-line__section cart-line__section--qty">
+                      Quantité
+                    </div>
+                    <div className="cart-line__section cart-line__section--total">
+                      Total
+                    </div>
+                    <div
+                      className="cart-line__section cart-line__section--remove cart-line__section--head-spacer"
+                      aria-hidden="true"
+                    />
+                  </div>
 
-                {cart.map((item) => (
-                  <Card
-                    onChangeQuantity={(change, quantity) =>
-                      handleProductQuantity(
-                        change,
-                        quantity,
-                        lineKey(item),
-                        item.stock
-                      )
-                    }
-                    key={lineKey(item)}
-                    handleDelete={handleDelete}
-                    cart={item}
-                    lineId={lineKey(item)}
-                  />
-                ))}
+                  {cart.map((item) => (
+                    <Card
+                      onChangeQuantity={(change, quantity) =>
+                        handleProductQuantity(
+                          change,
+                          quantity,
+                          lineKey(item),
+                          item.stock
+                        )
+                      }
+                      key={lineKey(item)}
+                      handleDelete={handleDelete}
+                      cart={item}
+                      lineId={lineKey(item)}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
             <div className="cart-bottom">
               <div className="cart-bottom__promo">
-                <div
-                  className="box-field__row"
-                  style={{ marginBottom: "30px" }}
-                >
+                <div className="box-field__row cart-cnrps-row">
                   <div className="box-field">
                     <input
                       type="text"
