@@ -19,8 +19,16 @@ export const SingleProduct = ({
     _id,
     categorie,
     enRupture,
+    quantite,
     variantDetails = [],
   } = product;
+
+  const packStock = Math.max(
+    0,
+    Math.floor(Number(quantite ?? 0)) || 0
+  );
+  const showOutOfStock =
+    categorie === "PACK" ? packStock <= 0 : Boolean(enRupture);
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -43,7 +51,7 @@ export const SingleProduct = ({
         >
           <div className="products-item__type">
             {solde && <span className="products-item__sale">Promo</span>}
-            {enRupture && (
+            {showOutOfStock && (
               <span className="products-item__new">Rupture de stock</span>
             )}
           </div>
@@ -64,7 +72,7 @@ export const SingleProduct = ({
                   <i className="icon-search" aria-hidden="true"></i>
                 </a>
               </Link>
-              {!enRupture ? (
+              {!showOutOfStock ? (
                 <div className="products-item__hover-options">
                   <button
                     type="button"
@@ -80,7 +88,7 @@ export const SingleProduct = ({
                           soldePourcentage,
                           mainPicture,
                           quantity: 1,
-                          stock: 3,
+                          stock: packStock,
                           reference: "package",
                           categorie,
                           _id,

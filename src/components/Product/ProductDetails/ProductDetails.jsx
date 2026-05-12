@@ -30,6 +30,7 @@ const ProductDetails = () => {
         }
       );
       setProduct(res.data);
+      setQuantity(1);
       if (res.data.variants && res.data.variants.length > 0) {
         setSelectedVariant({ ...res.data.variants[0] });
       }
@@ -53,7 +54,22 @@ const ProductDetails = () => {
   }, [router.query.id]);
 
   const handleAddToCart = () => {
-    if (selectedVariant) {
+    const linePackStock = Math.max(
+      0,
+      Math.floor(Number(product.quantite ?? 0)) || 0
+    );
+
+    if (product.categorie === "PACK") {
+      const packInCart = cart.some(
+        (item) => item.categorie === "PACK" && item._id === product._id
+      );
+      if (packInCart) {
+        return toast.error("Le produit existe déjà dans votre panier");
+      }
+      if (quantity > linePackStock) {
+        return toast.error("Quantité non disponible en stock");
+      }
+    } else if (selectedVariant) {
       const variantExistsInCart = cart.some(
         (item) => item.variantId === selectedVariant._id
       );
@@ -69,7 +85,7 @@ const ProductDetails = () => {
         prix: product.prix,
         mainPicture: product.mainPicture,
         quantity,
-        stock: 3,
+        stock: linePackStock,
         reference: "package",
         categorie: product.categorie,
         _id: product._id,
@@ -120,6 +136,11 @@ const ProductDetails = () => {
   const displayedPrice = product.solde
     ? (product.prix - product.prix * (product.soldePourcentage / 100)).toFixed(2)
     : Number(product.prix).toFixed(2);
+
+  const packStock = Math.max(
+    0,
+    Math.floor(Number(product.quantite ?? 0)) || 0
+  );
 
   const productImageAlt = product.nom
     ? `${product.nom}${
@@ -198,9 +219,18 @@ const ProductDetails = () => {
             </div>
             <div className="product-info">
               <h3>{product.nom}</h3>
-              {selectedVariant && selectedVariant.quantity > 0 ? (
-                <span className="product-stock">En stock</span>
-              ) : product.quantite > 0 ? (
+              {product.categorie === "PACK" ? (
+                packStock > 0 ? (
+                  <span className="product-stock">En stock</span>
+                ) : (
+                  <span
+                    className="product-stock"
+                    style={{ color: "#d93025" }}
+                  >
+                    Rupture de stock
+                  </span>
+                )
+              ) : selectedVariant && selectedVariant.quantity > 0 ? (
                 <span className="product-stock">En stock</span>
               ) : (
                 <span
@@ -211,7 +241,9 @@ const ProductDetails = () => {
                 </span>
               )}
               <span className="product-num">
-                {selectedVariant?.reference
+                {product.categorie === "PACK"
+                  ? "Référence pack"
+                  : selectedVariant?.reference
                   ? "Référence " + selectedVariant.reference
                   : ""}
               </span>
@@ -234,6 +266,53 @@ const ProductDetails = () => {
                 </span>
               )}
               <p>{product.description}</p>
+
+              {product.categorie === "PACK" && (
+                <div className="product-info__quantity" style={{ marginTop: 16 }}>
+                  <span className="product-info__quantity-title">
+                    Quantité :
+                  </span>
+                  <div className="counter-box">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (quantity > 1) setQuantity(quantity - 1);
+                      }}
+                      aria-label="Diminuer la quantité"
+                      className="counter-link counter-link__prev"
+                      style={{
+                        background: "transparent",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <i className="icon-arrow" aria-hidden="true"></i>
+                    </button>
+                    <input
+                      type="text"
+                      className="counter-input"
+                      disabled
+                      aria-label="Quantité"
+                      value={quantity}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (quantity < packStock) setQuantity(quantity + 1);
+                      }}
+                      aria-label="Augmenter la quantité"
+                      className="counter-link counter-link__next"
+                      style={{
+                        background: "transparent",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <i className="icon-arrow" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {/* Shipping & return reassurance directly on PDP */}
               <ul
