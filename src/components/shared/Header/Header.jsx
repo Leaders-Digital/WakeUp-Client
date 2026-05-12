@@ -133,11 +133,12 @@ export const Header = () => {
                 display: "flex",
                 alignItems: "center",
                 flex: "1",
+                fontWeight: "700",
               }}
             >
               <a
                 href="tel:+21627246374"
-                style={{ color: "black", textDecoration: "none" }}
+                style={{ color: "black", textDecoration: "none", fontSize: "12px" }}
               >
                 +216 27 246 374
               </a>
