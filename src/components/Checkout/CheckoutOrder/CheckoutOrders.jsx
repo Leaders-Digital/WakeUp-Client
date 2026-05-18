@@ -35,7 +35,7 @@ export const CheckoutOrders = ({ total }) => {
           <span>{Number(total).toFixed(2)} TND</span>
         </div>
         <div className='cart-bottom__total-promo'>
-          Réduction CNRPS (indicatif)
+          Remise Amicale (indicatif)
           <span>
             {promo > 0
               ? `${promo}%`

@@ -259,7 +259,7 @@ export const Cart = () => {
                   </div>
                 )}
 
-                <h6>Remise CNRPS</h6>
+                <h6>Remise Amicale</h6>
                 <p>
                   Saisissez votre numéro CNRPS pour vérifier votre éligibilité.
                   En cas d&apos;acceptation, vous choisissez :
@@ -268,10 +268,6 @@ export const Cart = () => {
                   <br />
                   &bull; <strong>aucune remise</strong> pour un achat sur le
                   compte de l&apos;Amicale.
-                  <br />
-                  La remise n&apos;est utilisable qu&apos;une seule fois par
-                  numéro CNRPS. Le montant définitif est calculé et confirmé
-                  sur le serveur au moment de la commande.
                 </p>
                 <div className="contacts-info__social">
                   <span>Trouvez-nous ici :</span>
@@ -297,7 +293,7 @@ export const Cart = () => {
                   <span>{total.toFixed(2)} TND</span>
                 </div>
                 <div className="cart-bottom__total-promo">
-                  Remise CNRPS (indicatif)
+                  Remise Amicale (indicatif)
                   <span>
                     {promo > 0
                       ? `${promo}%`
