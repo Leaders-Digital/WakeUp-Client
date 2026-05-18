@@ -74,7 +74,8 @@ export const Checkout = () => {
     setBaseURL(`${window.location.protocol}//${window.location.host}`);
   }, []);
 
-  const totalWithDiscount = promo ? total - (total * promo) / 100 : total;
+  const totalWithDiscount =
+    promo > 0 ? total - (total * promo) / 100 : total;
   const listeDesProduits = [];
   const listeDesPack = [];
 

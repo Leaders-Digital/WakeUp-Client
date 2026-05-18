@@ -36,7 +36,8 @@ export const Cart = () => {
 
     return total + Number(prixFinal) * Number(item.quantity);
   }, 0);
-  const totalWithDiscount = promo ? total - (total * promo) / 100 : total;
+  const totalWithDiscount =
+    promo > 0 ? total - (total * promo) / 100 : total;
   const grandTotal = (totalWithDiscount + SHIPPING_FEE_TND).toFixed(2);
 
   const handleProductQuantity = (change, quantity, id, stock) => {
@@ -106,9 +107,13 @@ export const Cart = () => {
     }
     setCnrpsPurchaseType(option.type);
     setPromo(option.discountPercent);
-    toast.success(
-      `Remise de ${option.discountPercent}% appliquée — ${option.label}.`
-    );
+    if (option.discountPercent > 0) {
+      toast.success(
+        `Remise de ${option.discountPercent}% appliquée — ${option.label}.`
+      );
+    } else {
+      toast.success(`${option.label} — aucune remise appliquée.`);
+    }
   };
 
   return (
@@ -237,8 +242,10 @@ export const Cart = () => {
                               padding: "12px 16px",
                             }}
                           >
-                            <strong>{option.label}</strong> — Remise{" "}
-                            {option.discountPercent}%
+                            <strong>{option.label}</strong>
+                            {option.discountPercent > 0
+                              ? ` — Remise ${option.discountPercent}%`
+                              : " — Aucune remise"}
                             {option.minSubtotal ? (
                               <div style={{ fontSize: 12, opacity: 0.8 }}>
                                 Total articles &gt; {option.minSubtotal} TND
@@ -257,10 +264,10 @@ export const Cart = () => {
                   Saisissez votre numéro CNRPS pour vérifier votre éligibilité.
                   En cas d&apos;acceptation, vous choisissez :
                   <br />
-                  &bull; <strong>20%</strong> pour un achat direct au comptant,
+                  &bull; <strong>25%</strong> pour un achat direct au comptant,
                   <br />
-                  &bull; <strong>5%</strong> pour un achat sur le compte de
-                  l&apos;Amicale.
+                  &bull; <strong>aucune remise</strong> pour un achat sur le
+                  compte de l&apos;Amicale.
                   <br />
                   La remise n&apos;est utilisable qu&apos;une seule fois par
                   numéro CNRPS. Le montant définitif est calculé et confirmé
@@ -291,7 +298,13 @@ export const Cart = () => {
                 </div>
                 <div className="cart-bottom__total-promo">
                   Remise CNRPS (indicatif)
-                  <span> {promo ? promo + "%" : "Non"}</span>
+                  <span>
+                    {promo > 0
+                      ? `${promo}%`
+                      : cnrpsPurchaseType === "compte_amicale"
+                        ? "Aucune"
+                        : "Non"}
+                  </span>
                 </div>
                 <div className="cart-bottom__total-goods">
                   Livraison
