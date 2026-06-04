@@ -266,8 +266,8 @@ export const Cart = () => {
                   <br />
                   &bull; <strong>25%</strong> pour un achat direct au comptant,
                   <br />
-                  &bull; <strong>aucune remise</strong> pour un achat sur le
-                  compte de l&apos;Amicale.
+                  &bull; <strong>10%</strong> pour un achat sur le compte de
+                  l&apos;Amicale.
                 </p>
                 <div className="contacts-info__social">
                   <span>Trouvez-nous ici :</span>
@@ -294,13 +294,7 @@ export const Cart = () => {
                 </div>
                 <div className="cart-bottom__total-promo">
                   Remise Amicale (indicatif)
-                  <span>
-                    {promo > 0
-                      ? `${promo}%`
-                      : cnrpsPurchaseType === "compte_amicale"
-                        ? "Aucune"
-                        : "Non"}
-                  </span>
+                  <span>{promo > 0 ? `${promo}%` : "Non"}</span>
                 </div>
                 <div className="cart-bottom__total-goods">
                   Livraison

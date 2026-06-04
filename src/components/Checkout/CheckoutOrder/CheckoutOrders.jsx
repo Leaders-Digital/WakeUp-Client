@@ -6,7 +6,7 @@ const SHIPPING_FEE_TND = 8;
 
 export const CheckoutOrders = ({ total }) => {
   const { cart } = useContext(CartContext);
-  const { promo, cnrpsPurchaseType } = useContext(PromoContext);
+  const { promo } = useContext(PromoContext);
 
   const totalWithDiscount = promo > 0
     ? total - (total * promo) / 100
@@ -36,13 +36,7 @@ export const CheckoutOrders = ({ total }) => {
         </div>
         <div className='cart-bottom__total-promo'>
           Remise Amicale (indicatif)
-          <span>
-            {promo > 0
-              ? `${promo}%`
-              : cnrpsPurchaseType === "compte_amicale"
-                ? "Aucune"
-                : "Non"}
-          </span>
+          <span>{promo > 0 ? `${promo}%` : "Non"}</span>
         </div>
         <div className='cart-bottom__total-delivery'>
           Livraison{' '}
